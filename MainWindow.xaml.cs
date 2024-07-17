@@ -20,9 +20,9 @@ namespace AddWaterMark {
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window {
-        // 图片加水印定时器
-        private readonly System.Windows.Threading.DispatcherTimer ImgWaterMarkTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromSeconds(10) };
-        // 自动GC定时器
+        // 图片加水印定时器 10分钟执行一次
+        private readonly System.Windows.Threading.DispatcherTimer ImgWaterMarkTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromMinutes(10) };
+        // 自动GC定时器 5分钟执行一次
         private readonly System.Windows.Threading.DispatcherTimer AutoGcTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromMinutes(5) };
         // 操作信息定时器
         private readonly System.Windows.Threading.DispatcherTimer OperateMessageTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromSeconds(5) };
@@ -197,7 +197,7 @@ namespace AddWaterMark {
                     SetOperateMsg(System.Windows.Media.Colors.Green, "保存水印文件成功");
                 }
             } else {
-                System.Windows.MessageBox.Show("不存在水印图片！", Constants.MSG_ERROR);
+                MessageBox.Show("不存在水印图片！", Constants.MSG_ERROR);
             }
         }
 
@@ -467,16 +467,18 @@ namespace AddWaterMark {
             } else {
                 // 水印定时任务切换状态
                 if (mainViewModel.ImgWaterMarkTimerCanRun) {
+                    AddWaterMarkLog("图片加水印定时器已开启...");
+                    mainViewModel.SetTaskStatus(System.Windows.Media.Colors.Green, "任务运行中");
                     // 立即执行一次
                     ImgWaterMark_Tick(sender, e);
                     ImgWaterMarkTimer.Start();
                     stop = false;
-                    AddWaterMarkLog("图片加水印定时器已开启...");
                     SetOperateMsg(System.Windows.Media.Colors.Green, "水印定时器已开启");
                 } else {
+                    AddWaterMarkLog("图片加水印定时器已关闭...");
+                    mainViewModel.SetTaskStatus(System.Windows.Media.Colors.Red, "任务未运行");
                     ImgWaterMarkTimer.Stop();
                     stop = true;
-                    AddWaterMarkLog("图片加水印定时器已关闭...");
                     SetOperateMsg(System.Windows.Media.Colors.Pink, "水印定时器已关闭");
                 }
                 mainViewModel.ImgWaterMarkTimerCanRun = !mainViewModel.ImgWaterMarkTimerCanRun;
@@ -489,8 +491,8 @@ namespace AddWaterMark {
             } else {
                 if (mainViewModel.ImgWaterMarkTimerCanRun) {
                     mainViewModel.ImgWaterMarkTimerCanRun = false;
-                    AddWaterMarkLog("图片加水印执行开始...");
                     // 解发一次水印定时任务
+                    handExecute = true;
                     ImgWaterMark_Tick(sender, e);
                 }
             }
@@ -516,6 +518,7 @@ namespace AddWaterMark {
         private static readonly Hashtable filelst = new Hashtable();
         private static bool isRun = false;
         private static bool stop = false;
+        private static bool handExecute = false;
         private void ImgWaterMark_Tick(object sender, EventArgs e) {
             if (isRun) {
                 return;
@@ -523,6 +526,7 @@ namespace AddWaterMark {
             isRun = true;
             // 异步处理
             Task.Factory.StartNew(delegate {
+                AddWaterMarkLog("图片加水印开始执行...");
                 filelst.Clear();
                 if (mainViewModel.ImgFilePaths.Count > 0) {
                     foreach (ImgFilePath imgFilePath in mainViewModel.ImgFilePaths) {
@@ -555,8 +559,10 @@ namespace AddWaterMark {
                     }
                 }
                 AddWaterMarkLog("图片加水印执行结束...");
-                SetOperateMsg(System.Windows.Media.Colors.Green, "水印执行结束");
-                mainViewModel.ImgWaterMarkTimerCanRun = true;
+                if (handExecute) {
+                    handExecute = false;
+                    mainViewModel.ImgWaterMarkTimerCanRun = true;
+                }
                 isRun = false;
             });
         }

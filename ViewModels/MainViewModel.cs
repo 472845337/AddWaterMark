@@ -32,8 +32,15 @@ namespace AddWaterMark.ViewModels {
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
         public string WaterMarkLog { get; set; } = "";
+        public string TaskStatus { get;private set; } = "任务未运行";
+        public System.Windows.Media.Brush TaskStatusColor { get;private set; } = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
         public System.Windows.Media.Brush OperateMsgColor { get; private set; }// 操作信息颜色
         public string OperateMsg { get; private set; }// 操作信息
+        public void SetTaskStatus(System.Windows.Media.Color color, string msg) {
+            TaskStatusColor = new System.Windows.Media.SolidColorBrush(color);
+            TaskStatusColor.Freeze();
+            TaskStatus = msg;
+        }
         public void InitOperateMsg(System.Windows.Media.Color color, string msg) {
             OperateMsgColor = new System.Windows.Media.SolidColorBrush(color);
             OperateMsgColor.Freeze();
