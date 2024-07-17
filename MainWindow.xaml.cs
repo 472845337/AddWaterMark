@@ -392,14 +392,8 @@ namespace AddWaterMark {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddImgFilePath_Click(object sender, RoutedEventArgs e) {
-            ImgFilePathWindow imgFilePathWindow = new ImgFilePathWindow(null);
+            ImgFilePathWindow imgFilePathWindow = new ImgFilePathWindow(null, mainViewModel.ImgFilePaths);
             if (true == imgFilePathWindow.ShowDialog()) {
-                // 判断目录是否存在重复
-                foreach (ImgFilePath single in mainViewModel.ImgFilePaths) {
-                    if (single.FilePath.Equals(imgFilePathWindow.vm.FilePath)) {
-
-                    }
-                }
                 ImgFilePath imgFilePath = new ImgFilePath {
                     Id = Guid.NewGuid().ToString(),
                     FilePath = imgFilePathWindow.vm.FilePath,
@@ -418,7 +412,7 @@ namespace AddWaterMark {
         private void UpdateImgFilePath_Click(object sender, RoutedEventArgs e) {
             if (ImgFilePath_ListView.SelectedIndex > -1) {
                 ImgFilePath imgFilePath = (ImgFilePath)ImgFilePath_ListView.SelectedItem;
-                ImgFilePathWindow imgFilePathWindow = new ImgFilePathWindow((ImgFilePath)ImgFilePath_ListView.SelectedItem);
+                ImgFilePathWindow imgFilePathWindow = new ImgFilePathWindow((ImgFilePath)ImgFilePath_ListView.SelectedItem, mainViewModel.ImgFilePaths);
                 if (true == imgFilePathWindow.ShowDialog()) {
                     imgFilePath.FilePath = imgFilePathWindow.vm.FilePath;
                     imgFilePath.WaterMark = imgFilePathWindow.vm.WaterMark;
@@ -430,6 +424,7 @@ namespace AddWaterMark {
             }
         }
 
+        
         /// <summary>
         /// 
         /// </summary>
@@ -500,7 +495,7 @@ namespace AddWaterMark {
 
         private int lines = 0;// 日志总行数
         private void AddWaterMarkLog(string lineLog) {
-            mainViewModel.WaterMarkLog += $"{DateTime.Now:yy-M-d H:m:s}-{lineLog}\r\n";
+            mainViewModel.WaterMarkLog += $"{DateTime.Now:yy-M-d HH:mm:ss}-{lineLog}\r\n";
             lines++;
             if (lines > Constants.WATER_MARK_LOG_LIMIT) {
                 System.Text.RegularExpressions.Regex myRegex = new System.Text.RegularExpressions.Regex("\r\n");
