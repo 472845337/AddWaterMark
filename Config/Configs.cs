@@ -1,0 +1,27 @@
+﻿
+namespace AddWaterMark.Config {
+    class Configs {
+        public static string AppStartPath = System.AppDomain.CurrentDomain.BaseDirectory;// 当前程序的启动目录
+        public static bool inited = false;
+        public static System.IntPtr Handler = System.IntPtr.Zero;// 当前窗口句柄
+
+        public static double mainHeight;// 主窗口高
+        public static double mainWidth;// 主窗口宽
+        public static double mainTop;// 主窗口顶部位置
+        public static double mainLeft;// 主窗口左边位置
+
+        public static string waterMarkText;
+        public static int waterMarkOpacity;
+        public static int waterMarkRotate;
+        public static string waterMarkFontFamily;
+        public static int waterMarkFontSize;
+        public static string waterMarkFontColor;
+        public static int waterMarkHorizontalDis;
+        public static int waterMarkVerticalDis;
+
+        public static int lastOpenTab;
+        public static string pathsViewColumn1;
+        public static string pathsViewColumn2;
+        public static double tab2SplitDistance;
+    }
+}
