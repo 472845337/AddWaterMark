@@ -43,8 +43,12 @@ namespace AddWaterMark.Windows {
                 MessageBox.Show("图片目录不能为空！", Constants.MSG_ERROR);
                 return;
             }
+            if (string.IsNullOrEmpty(vm.WaterMark)) {
+                MessageBox.Show("水印不能为空！", Constants.MSG_ERROR);
+                return;
+            }
             if (!Directory.Exists(vm.FilePath)) {
-                if (MessageBoxResult.Cancel == MessageBox.Show("当前配置目录不存在，确认添加吗？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+                if (MessageBoxResult.Cancel == MessageBox.Show("当前配置目录不存在，确认继续添加吗？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
                     return;
                 }
             }

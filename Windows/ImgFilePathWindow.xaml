@@ -17,13 +17,18 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Style="{StaticResource Key_Style}" Grid.Row="0" Grid.Column="0" Content="目录"/>
+        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <Run Text="目录"/>
+            <Run Text="*" Foreground="Red"/>
+        </TextBlock>
         <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}"/>
         <Button Style="{StaticResource Button_Style}" Content="..." Grid.Row="0" Grid.Column="2" Click="SelectImgFilePath_Click"/>
-        <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" Content="水印"/>
+        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+            <Run Text="水印"/>
+            <Run Text="*" Foreground="Red"/>
+        </TextBlock>
         <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WaterMark}"/>
         <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="False" Margin="0 0 0 5">
-            <Label Style="{StaticResource Key_Style}" Foreground="Orange" Content="自定义水印可不填，即为使用配置中水印" DockPanel.Dock="Left"/>
             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="保存" Click="SaveImgFilePath_Click"/>
             <Button Style="{StaticResource Button_Style}" DockPanel.Dock="Right" Content="取消" Click="Cancel_Click"/>
         </DockPanel>

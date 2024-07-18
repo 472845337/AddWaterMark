@@ -36,19 +36,19 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="水印"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Value_Style}" VerticalContentAlignment="Center" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed">
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="水印文字"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Value_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed">
                     </TextBox>
-                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="透明度"/>
+                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="不透明度"/>
                     <Grid Grid.Row="0" Grid.Column="3" Style="{StaticResource Value_Style}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="35"/>
                         </Grid.ColumnDefinitions>
-                        <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="100" Minimum="0" TickFrequency="1" Value="{Binding WaterMarkOpacity}" Thumb.DragCompleted="Configs_Changed"/>
+                        <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="100" Minimum="0" TickFrequency="5" Value="{Binding WaterMarkOpacity}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkOpacity}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Content="角度"/>
+                    <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Content="旋转"/>
                     <Grid Grid.Row="0" Grid.Column="5" Style="{StaticResource Value_Style}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -71,28 +71,28 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="35"/>
                         </Grid.ColumnDefinitions>
-                        <Slider Grid.Column="0" Style="{StaticResource Slider_Style}" Maximum="80" Minimum="4" TickFrequency="1" Value="{Binding WaterMarkFontSize}" Thumb.DragCompleted="Configs_Changed"/>
+                        <Slider Grid.Column="0" Style="{StaticResource Slider_Style}" Maximum="80" Minimum="4" TickFrequency="2" Value="{Binding WaterMarkFontSize}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkFontSize}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Content="颜色"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Content="文字颜色"/>
                     <TextBlock Style="{StaticResource Value_Style}" Grid.Row="1" Grid.Column="5" Background="{Binding WaterMarkFontColor}" MouseLeftButtonUp="FontColor_MouseLeftButtonUp"/>
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="0" Content="水平间隔"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="1" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="垂直间隔"/>
-                        <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
+                    <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <StackPanel Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonPurple_Style}" Content="默认" Click="DefaultConfig_Click"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" Click="CancelSaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
-                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" Click="SaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                        <Button Style="{StaticResource ButtonPurple_Style}" Content="默认" ToolTip="恢复到初始值" Click="DefaultConfig_Click"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" ToolTip="取消当前修改" Click="CancelSaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" ToolTip="保存当前修改，水印任务同步变更" Click="SaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
                         <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}">
                             <Image.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="清空水印" Click="ClearWaterMark_Click"/>
-                                    <MenuItem Header="重新生成" Click="RefreshWaterMark_Click"/>
-                                    <MenuItem Header="选择图片" Click="CreateImgWaterMark_Click"/>
-                                    <MenuItem Header="保存到本地" Click="SaveWaterMark_Click"/>
+                                    <MenuItem Header="清空水印" ToolTip="清空当前生成的测试水印" Click="ClearWaterMark_Click"/>
+                                    <MenuItem Header="重新生成" ToolTip="重新生成测试水印，以便查看新配置的水印效果" Click="RefreshWaterMark_Click"/>
+                                    <MenuItem Header="选择图片" ToolTip="指定图片生成测试水印" Click="CreateImgWaterMark_Click"/>
+                                    <MenuItem Header="保存到本地" ToolTip="将水印图片保存到本地目录" Click="SaveWaterMark_Click"/>
                                 </ContextMenu>
                             </Image.ContextMenu>
                         </Image>
@@ -136,8 +136,8 @@
                             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="修改" Click="UpdateImgFilePath_Click"/>
                             <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="删除" Click="DeleteImgFilePath_Click"/>
                             <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="清空" Click="ImgFilePathClear_Click"/>
-                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" Click="Img_WaterMark_Execute_Click" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
-                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Click="Img_WaterMark_Execute_Click" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
+                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
                             <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
                         </DockPanel>
                     </Grid>
@@ -146,7 +146,7 @@
                         <RichTextBox Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="清空" Click="WaterMarkLogClear_Click"/>
+                                    <MenuItem Header="清空" ToolTip="清空当前所有的运行日志" Click="WaterMarkLogClear_Click"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
@@ -158,13 +158,60 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="帮助">
+                <TextBlock>
+                    <Run Text="    使用说明" FontWeight="Bold" FontSize="20" Foreground="DeepSkyBlue"/>
+                    <LineBreak/>
+                    <Run Text="   1.功能：" Style="{StaticResource DocTitle1_Style}"/>
+                    <LineBreak/>
+                    <Run Text="        测试水印显示效果，单文件水印处理保存到本地"/>
+                    <LineBreak/>
+                    <Run Text="        配置目录中的图片文件加水印任务"/>
+                    <LineBreak/>
+                    <Run Text="   2.使用方法：" Style="{StaticResource DocTitle1_Style}"/>
+                    <LineBreak/>
+                    <Run Text="        (1).配置面板中设置水印参数" Style="{StaticResource DocTitle2_Style}"/>
+                    <LineBreak/>
+                    <Run Text="            a.不透明度：100为完全不透明，"/><Run Text="注意：0为完全透明，将看不到水印" Foreground="Red"/>
+                    <LineBreak/>
+                     <Run Text="            b.旋转角度：-180度到180度"/><Run Text="旋转角度是基于面板中心点坐标进行旋转"/>
+                     <LineBreak/>
+                     <Run Text="            c.水印字体：可选择当前系统中所有的字体，"/><Run Text="注意中文水印，大部分英文字体会乱码" Foreground="Red"/>
+                    <LineBreak/>
+                    <Run Text="            d.字体大小：水印字体的尺寸，数字对应关系可"/>
+                    <Hyperlink NavigateUri="https://www.cnblogs.com/guohu/p/8579513.html" Click="Lnk_Click">参照链接</Hyperlink>
+                    <LineBreak/>
+                    <Run Text="            e.字体颜色：选择文字水印的颜色，纯色，不支持渐变色，后续可以考虑支持"/>
+                    <LineBreak/>
+                    <Run Text="            f.水平间距：水印之间水平位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
+                    <LineBreak/>
+                    <Run Text="            g.垂直间距：水印之间垂直位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
+                    <LineBreak/>
+                    <Run Text="        (2).任务面板中配置目录" Style="{StaticResource DocTitle2_Style}"/>
+                    <LineBreak/>
+                    <Run Text="            a.配置要添加水印的图片目录"/>
+                    <LineBreak/>
+                    <Run Text="            b.手工或任务对配置的图片目录里未生成水印的图片添加水印,判断是否加水印条件为同目录下，是否存在&quot;_原文件.jpg&quot;的文件"/>
+                    <LineBreak/>
+                    <Run Text="            c.日志面板中会显示水印任务执行情况"/>
+                    <LineBreak/>
+                    <Run Text="   3.源代码" Style="{StaticResource DocTitle1_Style}"/>
+                    <LineBreak/>
+                    <Run Text="        开发语言：C# WPF .Net Framework4.5"/>
+                    <LineBreak/>
+                    <Run Text="        开发工具：VS2019"/>
+                    <LineBreak/>
+                    <Run Text="        Gitee地址："/>
+                    <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click">源代码</Hyperlink>
+                </TextBlock>
+            </TabItem>
         </TabControl>
         <StatusBar Grid.Row="1" >
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
-                <TextBlock Text="{Binding TaskStatus}" Foreground="{Binding TaskStatusColor}"/>
+                <TextBlock Text="{Binding OperateMsg}" Foreground="{Binding OperateMsgColor}"/>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right" Margin="0 0 10 0">
-                <TextBlock Text="{Binding OperateMsg}" Foreground="{Binding OperateMsgColor}"/>
+                <TextBlock Text="{Binding TaskStatus}" Foreground="{Binding TaskStatusColor}"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

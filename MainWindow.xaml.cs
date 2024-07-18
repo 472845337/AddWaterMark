@@ -120,12 +120,16 @@ namespace AddWaterMark {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            if (!Configs.inited) {
-                return;
+            if(MessageBoxResult.OK == MessageBox.Show("确认退出该程序吗？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+                if (!Configs.inited) {
+                    return;
+                }
+                // 页面GridSplitter位置获取
+                mainViewModel.Tab2SplitDistance = ImgFilePaths_Row.Height.Value;
+                SaveConfigs();
+            } else {
+                e.Cancel = true;
             }
-            // 页面GridSplitter位置获取
-            mainViewModel.Tab2SplitDistance = ImgFilePaths_Row.Height.Value;
-            SaveConfigs();
         }
 
         /// <summary>
@@ -208,9 +212,26 @@ namespace AddWaterMark {
         /// <param name="filePath">文件路径</param>
         /// <param name="waterMark">水印文本</param>
         private void CreateWaterMarkImage(bool isTest, string filePath, string waterMark) {
-            if (isTest && null != mainViewModel.WaterMarkBitmap) {
-                mainViewModel.WaterMarkBitmap = null;
+            int waterMarkOpacity = Configs.waterMarkOpacity;
+            int waterMarkRotate = Configs.waterMarkRotate;
+            string waterMarkFontFamily = Configs.waterMarkFontFamily;
+            int waterMarkFontSize = Configs.waterMarkFontSize;
+            string waterMarkFontColor = Configs.waterMarkFontColor;
+            int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
+            int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
+            if (isTest) {
+                waterMarkOpacity = mainViewModel.WaterMarkOpacity;
+                waterMarkRotate = mainViewModel.WaterMarkRotate;
+                waterMarkFontFamily = mainViewModel.WaterMarkFontFamily;
+                waterMarkFontSize = mainViewModel.WaterMarkFontSize;
+                waterMarkFontColor = mainViewModel.WaterMarkFontColor;
+                waterMarkHorizontalDis = mainViewModel.WaterMarkHorizontalDis;
+                waterMarkVerticalDis = mainViewModel.WaterMarkVerticalDis;
+                if (null != mainViewModel.WaterMarkBitmap) {
+                    mainViewModel.WaterMarkBitmap = null;
+                }
             }
+            
             Image backPhoto;
             int photoWidth, photoHeight;
             if (string.IsNullOrEmpty(filePath)) {
@@ -251,25 +272,25 @@ namespace AddWaterMark {
             bmPhotoGraphics.DrawImage(backPhoto, new Rectangle(0, 0, photoWidth, photoHeight), 0, 0, photoWidth, photoHeight, GraphicsUnit.Pixel);
             float x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
             // 设置颜色和透明度
-            Color waterMarkColor = Color.FromArgb(Configs.waterMarkOpacity, ColorTranslator.FromHtml(Configs.waterMarkFontColor));
+            Color waterMarkColor = Color.FromArgb(waterMarkOpacity, ColorTranslator.FromHtml(waterMarkFontColor));
             SolidBrush semiTransBrush = new SolidBrush(waterMarkColor);
             // 设置旋转
             Matrix matrix = bmPhotoGraphics.Transform;
-            matrix.RotateAt(Configs.waterMarkRotate, new System.Drawing.Point(photoWidth / 2, photoHeight / 2));
+            matrix.RotateAt(waterMarkRotate, new System.Drawing.Point(photoWidth / 2, photoHeight / 2));
             bmPhotoGraphics.Transform = matrix;
 
-            int xcount = circleDiameter / Configs.waterMarkHorizontalDis + 1;
-            int ycount = circleDiameter / Configs.waterMarkVerticalDis + 1;
+            int xcount = circleDiameter / waterMarkHorizontalDis + 1;
+            int ycount = circleDiameter / waterMarkVerticalDis + 1;
             float ox = x;
             for (int k = 0; k < ycount; k++) {
                 for (int i = 0; i < xcount; i++) {
                     for (int j = 0; j < xcount; j++) {
-                        bmPhotoGraphics.DrawString(waterMark, new Font(Configs.waterMarkFontFamily, Configs.waterMarkFontSize), semiTransBrush, x, y);
+                        bmPhotoGraphics.DrawString(waterMark, new Font(waterMarkFontFamily, waterMarkFontSize), semiTransBrush, x, y);
                     }
-                    x += Configs.waterMarkHorizontalDis;
+                    x += waterMarkHorizontalDis;
                 }
                 x = ox;
-                y += Configs.waterMarkVerticalDis;
+                y += waterMarkVerticalDis;
             }
             if (isTest) {
                 // 水印测试的，输出到水印图
@@ -616,6 +637,10 @@ namespace AddWaterMark {
             mainViewModel.WaterMarkLog = string.Empty;
             lines = 0;
             SetOperateMsg(System.Windows.Media.Colors.Green, "日志清空成功");
+        }
+
+        private void Lnk_Click(object sender, RoutedEventArgs e) {
+            System.Diagnostics.Process.Start(((System.Windows.Documents.Hyperlink)sender).NavigateUri.ToString());
         }
     }
 }
