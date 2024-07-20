@@ -11,11 +11,17 @@ namespace AddWaterMark.Config {
         public static double mainLeft;// 主窗口左边位置
 
         public static string waterMarkText;
-        public static int waterMarkOpacity;
+        public static byte waterMarkOpacity;
         public static int waterMarkRotate;
         public static string waterMarkFontFamily;
         public static int waterMarkFontSize;
+        public static bool waterMarkFontIsGradient;
         public static string waterMarkFontColor;
+        public static string waterMarkFontGradientColor;
+        public static bool waterMarkFontBold;
+        public static bool waterMarkFontItalic;
+        public static bool waterMarkFontUnderline;
+        public static bool waterMarkFontStrikeout;
         public static int waterMarkHorizontalDis;
         public static int waterMarkVerticalDis;
 

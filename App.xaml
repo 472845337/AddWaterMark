@@ -11,6 +11,8 @@
             </ResourceDictionary.MergedDictionaries>
             <con:Boolean2VisibleConverter x:Key="Boolean2VisibleConverter" />
             <con:Boolean2CollapsedConverter x:Key="Boolean2CollapsedConverter" />
+            <con:GradientColorConverter x:Key="GradientColorConverter"/>
+            <con:PointConverter x:Key="PointConverter"/>
             <Style x:Key="Slider_Style" TargetType="Slider">
                 <Setter Property="IsSnapToTickEnabled" Value="True"/>
             </Style>
@@ -22,6 +24,9 @@
             <Style x:Key="Value_Style" BasedOn="{StaticResource Form_Style}" TargetType="FrameworkElement">
             </Style>
             <Style x:Key="TextBox_Style" TargetType="TextBox" BasedOn="{StaticResource Form_Style}">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="CheckBox_Style" TargetType="CheckBox" BasedOn="{StaticResource Form_Style}">
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             <Style x:Key="DocTitle1_Style" TargetType="Run">

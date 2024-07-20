@@ -16,7 +16,14 @@
         public const string INI_KEY_WATER_MARK_ROTATE = "Rotate";// 角度
         public const string INI_KEY_WATER_MARK_FONT_FAMILY = "FontFamily";// 字体
         public const string INI_KEY_WATER_MARK_FONT_SIZE = "FontSize";// 大小
+        public const string INI_KEY_WATER_MARK_FONT_IS_GRADIENT = "FontIsGradient";// 是否渐变色
         public const string INI_KEY_WATER_MARK_FONT_COLOR = "FontColor";// 颜色
+        public const string INI_KEY_WATER_MARK_FONT_GRADIENT_COLOR = "FontGradientColor";// 颜色
+        public const string INI_KEY_WATER_MARK_FONT_BOLD = "FontBold";// 粗体
+        public const string INI_KEY_WATER_MARK_FONT_ITALIC = "FontItalic";// 斜体
+        public const string INI_KEY_WATER_MARK_FONT_UNDERLINE = "FontUnderline";// 下划线
+        public const string INI_KEY_WATER_MARK_FONT_STRIKEOUT = "FontStrikeout";// 中划线
+
         public const string INI_KEY_WATER_MARK_HORIZONTAL_DIS = "HorizontalDis";// 水平间距
         public const string INI_KEY_WATER_MARK_VERTICAL_DIS = "VerticalDis";// 垂直间距
 
@@ -31,11 +38,12 @@
         public const double MAIN_TOP = 50;
 
         public const string WATER_MARK_TEXT = "水印";
-        public const int WATER_MARK_OPACITY = 25;
+        public const byte WATER_MARK_OPACITY = 25;
         public const int WATER_MARK_ROTATE = -25;
         public const string WATER_MARK_FONT_FAMILY = "微软雅黑";
         public const int WATER_MARK_FONT_SIZE = 14;
         public const string WATER_MARK_FONT_COLOR = "#000000";
+        public const string WATER_MARK_FONT_GRADIENT_COLOR = "0:#FF0000;0.5:#00FF00;1:#0000FF";
         public const int WATER_MARK_HORIZONTAL_DIS = 150;
         public const int WATER_MARK_VERTICAL_DIS = 80;
 
@@ -49,8 +57,11 @@
 
         public const string IMG_EXT_PNG = ".png";
         public const string IMG_EXT_BMP = ".bmp";
+        public const string IMG_EXT_GIF = ".gif";
         public const string IMG_EXT_JPG = ".jpg";
         public const string IMG_EXT_JPEG = ".jpeg";
+        public const string IMG_EXT_TIFF = ".tiff";
+        public const string IMG_EXT_WMP = ".wmp";
 
         public const string MSG_ERROR = "错误";
         public const string MSG_WARN = "警告";

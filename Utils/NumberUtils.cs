@@ -22,5 +22,16 @@
             }
             return bReturn;
         }
+
+        public static bool IsByte(string s, out byte result) {
+            bool bReturn = true;
+            try {
+                result = byte.Parse(s);
+            } catch {
+                result = 0;
+                bReturn = false;
+            }
+            return bReturn;
+        }
     }
 }

@@ -79,6 +79,14 @@ namespace AddWaterMark.Utils {
                 if (fromDouble != toDouble) {
                     isChange = true;
                 }
+            } else if (from is float fromFloat && to is float toFloat) {
+                if (fromFloat != toFloat) {
+                    isChange = true;
+                }
+            } else if (from is byte fromByte && to is byte toByte) { 
+                if(fromByte != toByte) {
+                    isChange = true;
+                }
             } else if (null == from && null != to) {
                 isChange = true;
             } else if (null != from && null == to) {

@@ -1,0 +1,47 @@
+﻿<Window x:Class="AddWaterMark.Windows.GradientColorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AddWaterMark.Windows"
+        mc:Ignorable="d"
+        Title="渐变色" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource Value_Style}" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}"/>
+        <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding GradientColorList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource Form_Style}" Grid.Column="0" Background="{Binding Color}" BorderThickness="1" BorderBrush="Gray" MouseLeftButtonUp="ChangeColor_MouseLeftButtonUp" Tag="{Binding}"/>
+                        <Slider Style="{StaticResource Form_Style}" Grid.Column="1" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Point, Converter={StaticResource PointConverter},Mode=TwoWay}" ValueChanged="PointSlider_ValueChanged"/>
+                        <TextBox Style="{StaticResource Form_Style}" Grid.Column="2" Text="{Binding Point, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Style="{StaticResource ButtonDanger_Style}" Grid.Column="3" Content="删除" 
+                                IsEnabled="{Binding DataContext.CanDelete, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                ToolTip="{Binding DataContext.DeleteTip, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                ToolTipService.ShowOnDisabled="True"
+                                Click="DeleteGradientColor_Click" Tag="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Style="{StaticResource ButtonPrimary_Style}" Content="添加渐变" Click="AddGradientColor_Click" IsEnabled="{Binding CanAdd}" ToolTip="{Binding AddTip}" ToolTipService.ShowOnDisabled="True"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" Click="Cancel_Click"/>
+            <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" Click="Save_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

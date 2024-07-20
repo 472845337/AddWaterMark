@@ -73,11 +73,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Beans\GradientColor.cs" />
     <Compile Include="Config\Configs.cs" />
     <Compile Include="Config\Constants.cs" />
     <Compile Include="Converters\BaseValueConverter.cs" />
     <Compile Include="Converters\Boolean2CollapsedConverter.cs" />
     <Compile Include="Converters\Boolean2VisibleConverter.cs" />
+    <Compile Include="Converters\GradientColorConverter.cs" />
+    <Compile Include="Converters\PointConverter.cs" />
     <Compile Include="DataBase\Beans\ImgFilePath.cs" />
     <Compile Include="DataBase\Services\ImgFilePathService.cs" />
     <Compile Include="DataBase\Table.cs" />
@@ -91,11 +94,16 @@
     <Compile Include="DataBase\TableService.cs" />
     <Compile Include="Utils\DllUtils.cs" />
     <Compile Include="Utils\FontsUtils.cs" />
+    <Compile Include="Utils\GradientColorUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\IniParserUtils.cs" />
     <Compile Include="Utils\NumberUtils.cs" />
+    <Compile Include="ViewModels\GradientColorViewModel.cs" />
     <Compile Include="ViewModels\ImgFilePathViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Windows\GradientColorWindow.xaml.cs">
+      <DependentUpon>GradientColorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ImgFilePathWindow.xaml.cs">
       <DependentUpon>ImgFilePathWindow.xaml</DependentUpon>
     </Compile>
@@ -112,6 +120,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Style\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\GradientColorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

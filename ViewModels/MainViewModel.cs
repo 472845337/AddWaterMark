@@ -1,4 +1,5 @@
-﻿using AddWaterMark.DataBase.Beans;
+﻿using AddWaterMark.Beans;
+using AddWaterMark.DataBase.Beans;
 using AddWaterMark.Utils;
 using PropertyChanged;
 using System.Collections.ObjectModel;
@@ -15,12 +16,18 @@ namespace AddWaterMark.ViewModels {
         public double MainTop { get; set; }// 主窗口顶部位置
         public bool ConfigIsChanged { get; set; }// 配置是否修改
         public string WaterMarkText { get; set; }// 水印文本
-        public int WaterMarkOpacity { get; set; }// 不透明度
+        public byte WaterMarkOpacity { get; set; }// 不透明度
         public int WaterMarkRotate { get; set; }// 旋转角度
         public ObservableCollection<string> SystemFonts { get; set; }// 系统字体
         public string WaterMarkFontFamily { get; set; }// 水印字体
         public int WaterMarkFontSize { get; set; }// 水印字体大小
+        public bool WaterMarkFontIsGradient { get; set; }// 是否渐变色
         public string WaterMarkFontColor { get; set; }// 水印颜色
+        public string WaterMarkFontGradientColor { get; set; }// 渐变色
+        public bool WaterMarkFontBold { get; set; }// 字体加粗
+        public bool WaterMarkFontItalic { get; set; }// 字体加粗
+        public bool WaterMarkFontUnderline { get; set; }// 下划线
+        public bool WaterMarkFontStrikeout { get; set; }// 中划线
         public int WaterMarkHorizontalDis { get; set; }// 水平距离
         public int WaterMarkVerticalDis { get; set; }// 垂直距离
         public bool CanTestWaterMark { get; set; } = true;// 是否可以测试水印
