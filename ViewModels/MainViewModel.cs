@@ -1,5 +1,4 @@
-﻿using AddWaterMark.Beans;
-using AddWaterMark.DataBase.Beans;
+﻿using AddWaterMark.DataBase.Beans;
 using AddWaterMark.Utils;
 using PropertyChanged;
 using System.Collections.ObjectModel;
@@ -34,8 +33,8 @@ namespace AddWaterMark.ViewModels {
         public System.Windows.Media.Imaging.BitmapImage WaterMarkBitmap { get; set; }// 水印位图
         public int LastOpenTab { get; set; }// 上次打开Tab页
         public double Tab2SplitDistance { get; set; }// Tab2页 GridSplitter距离
-        public string PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度,因为存在Auto这种，所以属性类型为字符串
-        public string PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度,因为存在Auto这种，所以属性类型为字符串
+        public double PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度
+        public double PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
         public string WaterMarkLog { get; set; } = "";

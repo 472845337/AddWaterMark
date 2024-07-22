@@ -26,8 +26,8 @@ namespace AddWaterMark.Config {
         public static int waterMarkVerticalDis;
 
         public static int lastOpenTab;
-        public static string pathsViewColumn1;// 因为存在Auto这种，所以属性类型为字符串
-        public static string pathsViewColumn2;// 因为存在Auto这种，所以属性类型为字符串
+        public static double pathsViewColumn1;
+        public static double pathsViewColumn2;
         public static double tab2SplitDistance;
 
         public static int taskInterval;

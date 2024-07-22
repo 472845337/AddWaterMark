@@ -40,7 +40,10 @@ namespace AddWaterMark {
             AutoGcTimer.Start();
             // 操作消息（在设置消息的时候启动，计时完成后停止）
             OperateMessageTimer.Tick += OperateMessageTimer_Tick;
+            // 模型赋值
+            DataContext = mainViewModel;
         }
+
 
         /// <summary>
         /// 窗口加载 获取ini配置项
@@ -121,11 +124,11 @@ namespace AddWaterMark {
             // 图片水印目录数据
             List<ImgFilePath> imgFilePathList = ServiceFactory.GetImgFilePathService().SelectList(null);
             mainViewModel.ImgFilePaths = new System.Collections.ObjectModel.ObservableCollection<ImgFilePath>(imgFilePathList);
-            // 配置目录列表的GridView栏目宽度,因为存在Auto这种，所以属性类型为字符串
-            string pathsViewColumn1 = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_1];
-            string pathsViewColumn2 = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_2];
-            Configs.pathsViewColumn1 = string.IsNullOrEmpty(pathsViewColumn1) || Constants.PATHS_VIEW_COLUMN1.Equals(pathsViewColumn1) || !NumberUtils.IsNumeric(pathsViewColumn1, out double _) ? Constants.PATHS_VIEW_COLUMN1 : pathsViewColumn1;
-            Configs.pathsViewColumn2 = string.IsNullOrEmpty(pathsViewColumn2) || Constants.PATHS_VIEW_COLUMN2.Equals(pathsViewColumn2) || !NumberUtils.IsNumeric(pathsViewColumn2, out double _) ? Constants.PATHS_VIEW_COLUMN2 : pathsViewColumn2;
+            // 配置目录列表的GridView栏目宽度
+            string pathsViewColumn1Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_1];
+            string pathsViewColumn2Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_2];
+            Configs.pathsViewColumn1 = NumberUtils.IsNumeric(pathsViewColumn1Str, out double pathsViewColumn1) ? pathsViewColumn1 : -1;
+            Configs.pathsViewColumn2 = NumberUtils.IsNumeric(pathsViewColumn2Str, out double pathsViewColumn2) ? pathsViewColumn2 : -1;
             mainViewModel.PathsViewColumn1 = Configs.pathsViewColumn1;
             mainViewModel.PathsViewColumn2 = Configs.pathsViewColumn2;
             // 任务频率
@@ -135,7 +138,6 @@ namespace AddWaterMark {
             ImgWaterMarkTimer.Interval = TimeSpan.FromMinutes(Configs.taskInterval);
             #endregion
             Configs.inited = true;
-            DataContext = mainViewModel;
         }
 
         /// <summary>
@@ -155,9 +157,10 @@ namespace AddWaterMark {
                     if (MessageBoxResult.Yes == result) {
                         // 保存配置退出
                         SaveConfigs();
-                    } else if(MessageBoxResult.Cancel == result){
+                    } else if (MessageBoxResult.Cancel == result) {
                         // 取消退出
                         e.Cancel = true;
+                        return;
                     }
                 }
                 // 窗口设置保存
@@ -202,17 +205,16 @@ namespace AddWaterMark {
         /// <param name="e"></param>
         private void CreateWaterMark_Click(object sender, RoutedEventArgs e) {
             mainViewModel.CanTestWaterMark = false;
-            Task.Factory.StartNew(delegate {
-                // media
-                // CreateWaterMarkImage(true, null, GetTestFormattedText());
-                // drawing
-                CreateWaterMarkImage(true, null, mainViewModel.WaterMarkText,
-                    GetDrawingFont(mainViewModel.WaterMarkFontFamily, mainViewModel.WaterMarkFontSize, mainViewModel.WaterMarkFontBold, mainViewModel.WaterMarkFontItalic, mainViewModel.WaterMarkFontUnderline, mainViewModel.WaterMarkFontStrikeout)
-                   );
-                SetOperateMsg("生成水印成功");
-                mainViewModel.CanTestWaterMark = true;
-                testImgPath = null;
-            });
+            // media
+            // CreateWaterMarkImage(true, null, GetTestFormattedText());
+            // drawing
+            CreateWaterMarkImage(true, null, mainViewModel.WaterMarkText,
+                GetDrawingFont(mainViewModel.WaterMarkFontFamily, mainViewModel.WaterMarkFontSize, mainViewModel.WaterMarkFontBold, mainViewModel.WaterMarkFontItalic, mainViewModel.WaterMarkFontUnderline, mainViewModel.WaterMarkFontStrikeout)
+               );
+            SetOperateMsg("生成水印成功");
+            mainViewModel.CanTestWaterMark = true;
+            testImgPath = null;
+
         }
 
         /// <summary>
@@ -380,6 +382,7 @@ namespace AddWaterMark {
 
         /// <summary>
         /// 创建水印图
+        /// System.Windows.Media中处理的位图只能是96Dpi,不知道如何处理成和原图一样的dpi
         /// </summary>
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
@@ -406,7 +409,7 @@ namespace AddWaterMark {
                 int stride = ((photoWidth * 32 + 31) & ~31) / 8;
                 byte[] pixels = new byte[photoHeight * stride];
                 BitmapPalette myPalette = new BitmapPalette(new List<Color> { Colors.White });
-                backPhoto = BitmapSource.Create(photoWidth, photoHeight, 96, 96, PixelFormats.Indexed1, myPalette, pixels, stride);
+                backPhoto = BitmapSource.Create(photoWidth, photoHeight, 72, 72, PixelFormats.Indexed1, myPalette, pixels, stride);
             } else {
                 FileStream fs = new FileStream(filePath, FileMode.Open);
                 BinaryReader br = new BinaryReader(fs);
