@@ -98,6 +98,7 @@
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\IniParserUtils.cs" />
     <Compile Include="Utils\NumberUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="ViewModels\GradientColorViewModel.cs" />
     <Compile Include="ViewModels\ImgFilePathViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -175,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo\img_file_path.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo\rainbow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.6.4\build\Fody.targets" Condition="Exists('packages\Fody.6.6.4\build\Fody.targets')" />

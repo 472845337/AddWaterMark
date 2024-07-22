@@ -5,6 +5,7 @@
         public const string INI_SECTION_WINDOW = "Window";
         public const string INI_SECTION_WATER_MARK = "WaterMark";
         public const string INI_SECTION_PAGE = "Page";
+        public const string INI_SECTION_TASK = "Task";
 
         public const string INI_KEY_LEFT = "Left";
         public const string INI_KEY_TOP = "Top";
@@ -32,6 +33,8 @@
         public const string INI_KEY_PATHS_VIEW_COLUMN_2 = "Column2";
         public const string INI_KEY_TAB2_SPLIT_DISTANCE = "SplitDistance";
 
+        public const string INI_KEY_INTERVAL = "Interval";
+
         public const double MAIN_HEIGHT = 500;
         public const double MAIN_WIDTH = 600;
         public const double MAIN_LEFT = 300;
@@ -51,6 +54,8 @@
         public const string PATHS_VIEW_COLUMN1 = "Auto";
         public const string PATHS_VIEW_COLUMN2 = "Auto";
         public const double TAB2_SPLIT_DISTANCE = 200;
+
+        public const int TASK_INTERVAL = 5;
 
         public const int WATER_MARK_LOG_LIMIT = 500;// 日志限制行数
         public const int WATER_MARK_LOG_CACHE = 50;// 日志缓冲行数

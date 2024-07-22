@@ -6,7 +6,6 @@ using AddWaterMark.Utils;
 using AddWaterMark.ViewModels;
 using AddWaterMark.Windows;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -23,7 +22,7 @@ namespace AddWaterMark {
     /// </summary>
     public partial class MainWindow : Window {
         // 图片加水印定时器 10分钟执行一次
-        private readonly System.Windows.Threading.DispatcherTimer ImgWaterMarkTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromMinutes(10) };
+        private readonly System.Windows.Threading.DispatcherTimer ImgWaterMarkTimer = new System.Windows.Threading.DispatcherTimer();
         // 自动GC定时器 5分钟执行一次
         private readonly System.Windows.Threading.DispatcherTimer AutoGcTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromMinutes(5) };
         // 操作信息定时器
@@ -56,10 +55,10 @@ namespace AddWaterMark {
             string mainTopStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_TOP];
             string mainHeightStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_HEIGHT];
             string mainWidthStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_WIDTH];
-            Configs.mainHeight = string.IsNullOrEmpty(mainHeightStr) || !NumberUtils.IsNumeric(mainHeightStr, out double mainHeight) ? Constants.MAIN_HEIGHT : mainHeight;
-            Configs.mainWidth = string.IsNullOrEmpty(mainWidthStr) || !NumberUtils.IsNumeric(mainWidthStr, out double mainWidth) ? Constants.MAIN_WIDTH : mainWidth;
-            Configs.mainLeft = string.IsNullOrEmpty(mainLeftStr) || !NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? Constants.MAIN_LEFT : mainLeft;
-            Configs.mainTop = string.IsNullOrEmpty(mainTopStr) || !NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? Constants.MAIN_TOP : mainTop;
+            Configs.mainHeight = NumberUtils.IsNumeric(mainHeightStr, out double mainHeight) ? mainHeight : Constants.MAIN_HEIGHT;
+            Configs.mainWidth = NumberUtils.IsNumeric(mainWidthStr, out double mainWidth) ? mainWidth : Constants.MAIN_WIDTH;
+            Configs.mainLeft = NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? mainLeft : Constants.MAIN_LEFT;
+            Configs.mainTop = NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? mainTop : Constants.MAIN_TOP;
             mainViewModel.MainHeight = Configs.mainHeight;
             mainViewModel.MainWidth = Configs.mainWidth;
             mainViewModel.MainLeft = Configs.mainLeft;
@@ -69,31 +68,31 @@ namespace AddWaterMark {
             string text = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_TEXT];
             string opacityStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_OPACITY];
             string rotateStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_ROTATE];
-            string fontFamily = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_FAMILY];
+            string fontFamilyStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_FAMILY];
             string fontSizeStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_SIZE];
-            string fontIsGradient = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_IS_GRADIENT];
-            string fontColor = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_COLOR];
-            string fontGradientColor = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_GRADIENT_COLOR];
-            string fontBold = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_BOLD];
-            string fontItalic = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_ITALIC];
-            string fontUnderline = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_UNDERLINE];
-            string fontStrikeout = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_STRIKEOUT];
+            string fontIsGradientStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_IS_GRADIENT];
+            string fontColorStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_COLOR];
+            string fontGradientColorStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_GRADIENT_COLOR];
+            string fontBoldStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_BOLD];
+            string fontItalicStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_ITALIC];
+            string fontUnderlineStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_UNDERLINE];
+            string fontStrikeoutStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_FONT_STRIKEOUT];
             string horizontalDisStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_HORIZONTAL_DIS];
             string verticalDisStr = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_VERTICAL_DIS];
-            Configs.waterMarkText = string.IsNullOrEmpty(text) || string.IsNullOrEmpty(text.Trim()) ? Constants.WATER_MARK_TEXT : text.Trim();
-            Configs.waterMarkOpacity = string.IsNullOrEmpty(opacityStr) || !NumberUtils.IsByte(opacityStr, out byte opacity) ? Constants.WATER_MARK_OPACITY : opacity;
-            Configs.waterMarkRotate = string.IsNullOrEmpty(rotateStr) || !NumberUtils.IsInt(rotateStr, out int rotate) ? Constants.WATER_MARK_ROTATE : rotate;
-            Configs.waterMarkFontFamily = string.IsNullOrEmpty(fontFamily) || !mainViewModel.SystemFonts.Contains(fontFamily) ? Constants.WATER_MARK_FONT_FAMILY : fontFamily;
-            Configs.waterMarkFontSize = string.IsNullOrEmpty(fontSizeStr) || !NumberUtils.IsInt(fontSizeStr, out int fontSize) ? Constants.WATER_MARK_FONT_SIZE : fontSize;
-            Configs.waterMarkFontIsGradient = string.IsNullOrEmpty(fontIsGradient) ? false : Convert.ToBoolean(fontIsGradient);
-            Configs.waterMarkFontColor = string.IsNullOrEmpty(fontColor) ? Constants.WATER_MARK_FONT_COLOR : fontColor;
-            Configs.waterMarkFontGradientColor = string.IsNullOrEmpty(fontGradientColor) ? Constants.WATER_MARK_FONT_GRADIENT_COLOR : fontGradientColor;
-            Configs.waterMarkFontBold = string.IsNullOrEmpty(fontBold) ? false : Convert.ToBoolean(fontBold);
-            Configs.waterMarkFontItalic = string.IsNullOrEmpty(fontItalic) ? false : Convert.ToBoolean(fontItalic);
-            Configs.waterMarkFontUnderline = string.IsNullOrEmpty(fontUnderline) ? false : Convert.ToBoolean(fontUnderline);
-            Configs.waterMarkFontStrikeout = string.IsNullOrEmpty(fontStrikeout) ? false : Convert.ToBoolean(fontStrikeout);
-            Configs.waterMarkHorizontalDis = string.IsNullOrEmpty(horizontalDisStr) || !NumberUtils.IsInt(horizontalDisStr, out int horizontalDis) ? Constants.WATER_MARK_HORIZONTAL_DIS : horizontalDis;
-            Configs.waterMarkVerticalDis = string.IsNullOrEmpty(verticalDisStr) || !NumberUtils.IsInt(verticalDisStr, out int verticalDis) ? Constants.WATER_MARK_VERTICAL_DIS : verticalDis;
+            Configs.waterMarkText = StringUtils.IsNotEmpty(text, out string waterMarkText) ? waterMarkText : Constants.WATER_MARK_TEXT;
+            Configs.waterMarkOpacity = NumberUtils.IsByte(opacityStr, out byte opacity) ? opacity : Constants.WATER_MARK_OPACITY;
+            Configs.waterMarkRotate = NumberUtils.IsInt(rotateStr, out int rotate) ? rotate : Constants.WATER_MARK_ROTATE;
+            Configs.waterMarkFontFamily = StringUtils.IsNotEmpty(fontFamilyStr, out string fontFamily) && mainViewModel.SystemFonts.Contains(fontFamily) ? fontFamily : Constants.WATER_MARK_FONT_FAMILY;
+            Configs.waterMarkFontSize = NumberUtils.IsInt(fontSizeStr, out int fontSize) ? fontSize : Constants.WATER_MARK_FONT_SIZE;
+            Configs.waterMarkFontIsGradient = StringUtils.IsBool(fontIsGradientStr, out bool fontIsGradient) ? fontIsGradient : false;
+            Configs.waterMarkFontColor = StringUtils.IsNotEmpty(fontColorStr, out string fontColor) ? fontColor : Constants.WATER_MARK_FONT_COLOR;
+            Configs.waterMarkFontGradientColor = StringUtils.IsNotEmpty(fontGradientColorStr, out string fontGradientColor) ? fontGradientColor : Constants.WATER_MARK_FONT_GRADIENT_COLOR;
+            Configs.waterMarkFontBold = StringUtils.IsBool(fontBoldStr, out bool fontBold) ? fontBold : false;
+            Configs.waterMarkFontItalic = StringUtils.IsBool(fontItalicStr, out bool fontItalic) ? fontItalic : false;
+            Configs.waterMarkFontUnderline = StringUtils.IsBool(fontUnderlineStr, out bool fontUnderline) ? fontUnderline : false;
+            Configs.waterMarkFontStrikeout = StringUtils.IsBool(fontStrikeoutStr, out bool fontStrikeout) ? fontStrikeout : false;
+            Configs.waterMarkHorizontalDis = NumberUtils.IsInt(horizontalDisStr, out int horizontalDis) ? horizontalDis : Constants.WATER_MARK_HORIZONTAL_DIS;
+            Configs.waterMarkVerticalDis = NumberUtils.IsInt(verticalDisStr, out int verticalDis) ? verticalDis : Constants.WATER_MARK_VERTICAL_DIS;
             mainViewModel.WaterMarkText = Configs.waterMarkText;
             mainViewModel.WaterMarkOpacity = Configs.waterMarkOpacity;
             mainViewModel.WaterMarkRotate = Configs.waterMarkRotate;
@@ -112,23 +111,28 @@ namespace AddWaterMark {
             #region 页面以及水印目录加载
             // 加载上次打开的TabPage
             string lastOpenTabStr = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_LAST_OPEN_TAB];
-            Configs.lastOpenTab = string.IsNullOrEmpty(lastOpenTabStr) || !NumberUtils.IsInt(lastOpenTabStr, out int lastOpenTab) ? Constants.LAST_OPEN_TAB : lastOpenTab;
+            Configs.lastOpenTab = NumberUtils.IsInt(lastOpenTabStr, out int lastOpenTab) ? lastOpenTab : Constants.LAST_OPEN_TAB;
             mainViewModel.LastOpenTab = Configs.lastOpenTab;
             // 加载上次页面的GridSplitter位置
             string tab2SplitDistanceStr = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_TAB2_SPLIT_DISTANCE];
-            Configs.tab2SplitDistance = string.IsNullOrEmpty(tab2SplitDistanceStr) || !NumberUtils.IsNumeric(tab2SplitDistanceStr, out double tab2SplitDistance) ? Constants.TAB2_SPLIT_DISTANCE : tab2SplitDistance;
+            Configs.tab2SplitDistance = NumberUtils.IsNumeric(tab2SplitDistanceStr, out double tab2SplitDistance) ? tab2SplitDistance : Constants.TAB2_SPLIT_DISTANCE;
             mainViewModel.Tab2SplitDistance = Configs.tab2SplitDistance;
             ImgFilePaths_Row.Height = new GridLength(Configs.tab2SplitDistance, GridUnitType.Pixel);
             // 图片水印目录数据
             List<ImgFilePath> imgFilePathList = ServiceFactory.GetImgFilePathService().SelectList(null);
             mainViewModel.ImgFilePaths = new System.Collections.ObjectModel.ObservableCollection<ImgFilePath>(imgFilePathList);
-            // 水印目录GridView栏目宽度
+            // 配置目录列表的GridView栏目宽度,因为存在Auto这种，所以属性类型为字符串
             string pathsViewColumn1 = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_1];
             string pathsViewColumn2 = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_2];
-            Configs.pathsViewColumn1 = string.IsNullOrEmpty(pathsViewColumn1) ? Constants.PATHS_VIEW_COLUMN1 : pathsViewColumn1;
-            Configs.pathsViewColumn2 = string.IsNullOrEmpty(pathsViewColumn2) ? Constants.PATHS_VIEW_COLUMN1 : pathsViewColumn2;
+            Configs.pathsViewColumn1 = string.IsNullOrEmpty(pathsViewColumn1) || Constants.PATHS_VIEW_COLUMN1.Equals(pathsViewColumn1) || !NumberUtils.IsNumeric(pathsViewColumn1, out double _) ? Constants.PATHS_VIEW_COLUMN1 : pathsViewColumn1;
+            Configs.pathsViewColumn2 = string.IsNullOrEmpty(pathsViewColumn2) || Constants.PATHS_VIEW_COLUMN2.Equals(pathsViewColumn2) || !NumberUtils.IsNumeric(pathsViewColumn2, out double _) ? Constants.PATHS_VIEW_COLUMN2 : pathsViewColumn2;
             mainViewModel.PathsViewColumn1 = Configs.pathsViewColumn1;
             mainViewModel.PathsViewColumn2 = Configs.pathsViewColumn2;
+            // 任务频率
+            string taskIntervalStr = iniData[Constants.INI_SECTION_TASK][Constants.INI_KEY_INTERVAL];
+            Configs.taskInterval = NumberUtils.IsInt(taskIntervalStr, out int taskInterval) ? taskInterval : Constants.TASK_INTERVAL;
+            mainViewModel.TaskInterval = Configs.taskInterval;
+            ImgWaterMarkTimer.Interval = TimeSpan.FromMinutes(Configs.taskInterval);
             #endregion
             Configs.inited = true;
             DataContext = mainViewModel;
@@ -151,16 +155,13 @@ namespace AddWaterMark {
                     if (MessageBoxResult.Yes == result) {
                         // 保存配置退出
                         SaveConfigs();
-                    } else if (MessageBoxResult.No == result) {
-                        // 不保存配置退出
-                        CancelSaveConfig_Click(sender, null);
-                        SaveConfigs();
-                    } else {
+                    } else if(MessageBoxResult.Cancel == result){
                         // 取消退出
                         e.Cancel = true;
                     }
                 }
-                
+                // 窗口设置保存
+                SavePageConfig();
             } else {
                 e.Cancel = true;
             }
@@ -187,7 +188,7 @@ namespace AddWaterMark {
         /// <param name="e"></param>
         private void FontGradientColor_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
             GradientColorWindow gradientColorWindow = new GradientColorWindow(mainViewModel.WaterMarkFontGradientColor);
-            if(true == gradientColorWindow.ShowDialog()) {
+            if (true == gradientColorWindow.ShowDialog()) {
                 mainViewModel.WaterMarkFontGradientColor = gradientColorWindow.GradientColorResult;
                 Configs_Changed(sender, e);
             }
@@ -348,7 +349,7 @@ namespace AddWaterMark {
                 if (!string.IsNullOrEmpty(fontGradientColor)) {
                     List<GradientColor> gradientColors = GradientColorUtils.GetList(fontGradientColor);
                     // 判断是否存在point0和1的，因为drawing的LinearGradientBrush必须要有0和1的颜色，但是media中不需要，需要补
-                    if(gradientColors[0].Point != 0) {
+                    if (gradientColors[0].Point != 0) {
                         gradientColors.Insert(0, new GradientColor(0, gradientColors[0].Color));
                     }
                     if (gradientColors[gradientColors.Count - 1].Point != 1) {
@@ -688,11 +689,6 @@ namespace AddWaterMark {
 
         private void SaveConfigs() {
             IniParser.Model.IniData iniData = new IniParser.Model.IniData();
-            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_LEFT, ref Configs.mainLeft, mainViewModel.MainLeft);
-            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_TOP, ref Configs.mainTop, mainViewModel.MainTop);
-            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_HEIGHT, ref Configs.mainHeight, mainViewModel.MainHeight);
-            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_WIDTH, ref Configs.mainWidth, mainViewModel.MainWidth);
-
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_TEXT, ref Configs.waterMarkText, mainViewModel.WaterMarkText);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_OPACITY, ref Configs.waterMarkOpacity, mainViewModel.WaterMarkOpacity);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_ROTATE, ref Configs.waterMarkRotate, mainViewModel.WaterMarkRotate);
@@ -707,11 +703,22 @@ namespace AddWaterMark {
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_FONT_STRIKEOUT, ref Configs.waterMarkFontStrikeout, mainViewModel.WaterMarkFontStrikeout);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_HORIZONTAL_DIS, ref Configs.waterMarkHorizontalDis, mainViewModel.WaterMarkHorizontalDis);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_VERTICAL_DIS, ref Configs.waterMarkVerticalDis, mainViewModel.WaterMarkVerticalDis);
+            IniParserUtils.SaveIniData(Constants.SET_FILE, iniData);
+        }
+
+        private void SavePageConfig() {
+            IniParser.Model.IniData iniData = new IniParser.Model.IniData();
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_LEFT, ref Configs.mainLeft, mainViewModel.MainLeft);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_TOP, ref Configs.mainTop, mainViewModel.MainTop);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_HEIGHT, ref Configs.mainHeight, mainViewModel.MainHeight);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_WIDTH, ref Configs.mainWidth, mainViewModel.MainWidth);
 
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_LAST_OPEN_TAB, ref Configs.lastOpenTab, mainViewModel.LastOpenTab);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_1, ref Configs.pathsViewColumn1, mainViewModel.PathsViewColumn1);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_2, ref Configs.pathsViewColumn2, mainViewModel.PathsViewColumn2);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_TAB2_SPLIT_DISTANCE, ref Configs.tab2SplitDistance, mainViewModel.Tab2SplitDistance);
+
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_TASK, Constants.INI_KEY_INTERVAL, ref Configs.taskInterval, mainViewModel.TaskInterval);
             IniParserUtils.SaveIniData(Constants.SET_FILE, iniData);
         }
 
@@ -900,7 +907,7 @@ namespace AddWaterMark {
                             System.Drawing.Font font = GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
                             Stopwatch watch = new Stopwatch();
                             foreach (string waterMarkText in processListDic.Keys) {
-                                FormattedText formattedText = GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
+                                // FormattedText formattedText = GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
                                 List<string> processList = processListDic[waterMarkText];
                                 foreach (string filePath in processList) {
                                     if (stop) {
@@ -1001,6 +1008,13 @@ namespace AddWaterMark {
 
         private void Lnk_Click(object sender, RoutedEventArgs e) {
             Process.Start(((System.Windows.Documents.Hyperlink)sender).NavigateUri.ToString());
+        }
+
+        private void TaskIntervalSlider_ValueChanged(object sender, RoutedEventArgs e) {
+            ImgWaterMarkTimer.Interval = TimeSpan.FromMinutes(mainViewModel.TaskInterval);
+            if (Configs.inited) {
+                AddWaterMarkLog($"当前频率为:{mainViewModel.TaskInterval}");
+            }
         }
     }
 }

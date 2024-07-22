@@ -13,7 +13,7 @@ namespace AddWaterMark.Windows {
     /// GradientColor.xaml 的交互逻辑
     /// </summary>
     public partial class GradientColorWindow : Window {
-        GradientColorViewModel vm = new GradientColorViewModel();
+        readonly GradientColorViewModel vm = new GradientColorViewModel();
         public string GradientColorResult { get; set; }
         public GradientColorWindow(string gradientColor) {
             InitializeComponent();

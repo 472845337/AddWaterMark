@@ -2,34 +2,43 @@
     class NumberUtils {
         // 是否数字
         public static bool IsNumeric(string s, out double result) {
-            bool bReturn = true;
+            bool bReturn = false;
+            result = 0;
             try {
-                result = double.Parse(s);
+                if (!string.IsNullOrEmpty(s)) { 
+                    result = double.Parse(s);
+                    bReturn = true;
+                }
             } catch {
-                result = 0;
-                bReturn = false;
+
             }
             return bReturn;
         }
         //判断是否为正整数
         public static bool IsInt(string s, out int result) {
-            bool bReturn = true;
+            bool bReturn = false;
+            result = 0;
             try {
-                result = int.Parse(s);
+                if (!string.IsNullOrEmpty(s)) {
+                    result = int.Parse(s);
+                    bReturn = true;
+                }
             } catch {
-                result = 0;
-                bReturn = false;
+
             }
             return bReturn;
         }
 
         public static bool IsByte(string s, out byte result) {
-            bool bReturn = true;
+            bool bReturn = false;
+            result = 0;
             try {
-                result = byte.Parse(s);
+                if (!string.IsNullOrEmpty(s)) {
+                    result = byte.Parse(s);
+                    bReturn = true;
+                }
             } catch {
-                result = 0;
-                bReturn = false;
+
             }
             return bReturn;
         }

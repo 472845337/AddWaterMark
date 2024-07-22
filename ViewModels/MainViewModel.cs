@@ -34,11 +34,12 @@ namespace AddWaterMark.ViewModels {
         public System.Windows.Media.Imaging.BitmapImage WaterMarkBitmap { get; set; }// 水印位图
         public int LastOpenTab { get; set; }// 上次打开Tab页
         public double Tab2SplitDistance { get; set; }// Tab2页 GridSplitter距离
-        public string PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度
-        public string PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度
+        public string PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度,因为存在Auto这种，所以属性类型为字符串
+        public string PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度,因为存在Auto这种，所以属性类型为字符串
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
         public string WaterMarkLog { get; set; } = "";
+        public int TaskInterval { get; set; }
         public string TaskStatus { get;private set; } = "任务未运行";
         public System.Windows.Media.Brush TaskStatusColor { get;private set; } = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
         public System.Windows.Media.Brush OperateMsgColor { get; private set; }// 操作信息颜色

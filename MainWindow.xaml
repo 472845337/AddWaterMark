@@ -87,10 +87,10 @@
                         <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="渐变色" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="粗体" IsChecked="{Binding WaterMarkFontBold}"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="斜体" IsChecked="{Binding WaterMarkFontItalic}"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="下划线" IsChecked="{Binding WaterMarkFontUnderline}"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="中划线" IsChecked="{Binding WaterMarkFontStrikeout}"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="粗体" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="斜体" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="下划线" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="中划线" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </StackPanel>
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="水平间隔"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
@@ -157,6 +157,9 @@
                             <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Click="Img_WaterMark_Execute_Click" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
                             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
                             <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
+                            <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="{Binding TaskInterval}"/>
+                            <Slider Style="{StaticResource Form_Style}" Width="100" DockPanel.Dock="Right" Maximum="10" Minimum="1" TickFrequency="1" Value="{Binding TaskInterval}" Thumb.DragCompleted="TaskIntervalSlider_ValueChanged"/>
+                            <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="频率(分)"/>
                         </DockPanel>
                     </Grid>
                     <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch" Margin="0,3" ResizeBehavior="PreviousAndNext" Grid.ColumnSpan="2"/>
@@ -199,7 +202,7 @@
                     <Run Text="            字体大小：水印字体的尺寸(像素)，对应关系可"/>
                     <Hyperlink NavigateUri="https://www.cnblogs.com/guohu/p/8579513.html" Click="Lnk_Click">参照链接</Hyperlink>
                     <LineBreak/>
-                    <Run Text="            字体颜色：选择文字水印的颜色，纯色，不支持渐变色，后续可以考虑支持"/>
+                    <Run Text="            字体颜色：选择文字水印的颜色，纯色或渐变色"/>
                     <LineBreak/>
                     <Run Text="            字体样式：粗体，斜体，下划线，中划线"/>
                     <LineBreak/>
