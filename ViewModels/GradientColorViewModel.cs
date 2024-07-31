@@ -2,7 +2,6 @@
 using AddWaterMark.Utils;
 using PropertyChanged;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace AddWaterMark.ViewModels {
     [AddINotifyPropertyChangedInterface]
@@ -18,7 +17,7 @@ namespace AddWaterMark.ViewModels {
         public string DeleteTip { get; set; }
 
         public void ChangeGradient() {
-            if(null != GradientColorList) {
+            if (null != GradientColorList) {
                 WaterMarkFontGradientColor = GradientColorUtils.GetString(GradientColorList);
                 if (GradientColorList.Count < 3) {
                     CanDelete = false;
@@ -27,7 +26,7 @@ namespace AddWaterMark.ViewModels {
                     CanDelete = true;
                     DeleteTip = "删除该渐变色块";
                 }
-                if (GradientColorList.Count>=10) {
+                if (GradientColorList.Count >= 10) {
                     CanAdd = false;
                     AddTip = "最多10个渐变色";
                 } else {
@@ -41,7 +40,7 @@ namespace AddWaterMark.ViewModels {
                 CanAdd = true;
                 AddTip = "添加渐变色块";
             }
-            
+
         }
     }
 }

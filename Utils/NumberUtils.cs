@@ -5,7 +5,7 @@
             bool bReturn = false;
             result = 0;
             try {
-                if (!string.IsNullOrEmpty(s)) { 
+                if (!string.IsNullOrEmpty(s)) {
                     result = double.Parse(s);
                     bReturn = true;
                 }

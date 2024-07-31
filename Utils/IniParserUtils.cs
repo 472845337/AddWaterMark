@@ -83,8 +83,8 @@ namespace AddWaterMark.Utils {
                 if (fromFloat != toFloat) {
                     isChange = true;
                 }
-            } else if (from is byte fromByte && to is byte toByte) { 
-                if(fromByte != toByte) {
+            } else if (from is byte fromByte && to is byte toByte) {
+                if (fromByte != toByte) {
                     isChange = true;
                 }
             } else if (null == from && null != to) {

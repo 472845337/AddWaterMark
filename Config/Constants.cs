@@ -33,6 +33,7 @@
         public const string INI_KEY_PATHS_VIEW_COLUMN_2 = "Column2";
         public const string INI_KEY_TAB2_SPLIT_DISTANCE = "SplitDistance";
 
+        public const string INI_KEY_SCROLL_END = "ScrollEnd";
         public const string INI_KEY_INTERVAL = "Interval";
 
         public const double MAIN_HEIGHT = 500;
@@ -57,8 +58,8 @@
 
         public const int TASK_INTERVAL = 5;
 
-        public const int WATER_MARK_LOG_LIMIT = 500;// 日志限制行数
-        public const int WATER_MARK_LOG_CACHE = 50;// 日志缓冲行数
+        public const int LOG_LIMIT = 100;
+        public const int LOG_CACHE = 20;
 
         public const string IMG_EXT_PNG = ".png";
         public const string IMG_EXT_BMP = ".bmp";

@@ -4,7 +4,7 @@ namespace AddWaterMark.Beans {
 
     [AddINotifyPropertyChangedInterface]
     internal class GradientColor {
-        public GradientColor (float point, string color) {
+        public GradientColor(float point, string color) {
             Point = point;
             Color = color;
         }

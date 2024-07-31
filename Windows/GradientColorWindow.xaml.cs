@@ -86,7 +86,7 @@ namespace AddWaterMark.Windows {
         }
 
         private void Save_Click(object sender, RoutedEventArgs e) {
-            foreach(GradientColor color in vm.GradientColorList) {
+            foreach (GradientColor color in vm.GradientColorList) {
                 if (color.Point < 0 || color.Point > 1) {
                     MessageBox.Show("请输入0-1之间的数值");
                     return;

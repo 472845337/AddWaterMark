@@ -97,25 +97,25 @@
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Content="垂直间隔"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonPurple_Style}" Content="默认" ToolTip="恢复到初始值" Click="DefaultConfig_Click"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" ToolTip="取消当前修改" Click="CancelSaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
-                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" ToolTip="保存当前修改，水印任务同步变更" Click="SaveConfig_Click" Visibility="{Binding ConfigIsChanged, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                        <Button Style="{StaticResource ButtonPurple_Style}" Content="默认" ToolTip="恢复到初始值" Command="{Binding DefaultConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" ToolTip="取消当前修改" Command="{Binding CancelConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" ToolTip="保存当前修改，水印任务同步变更" Command="{Binding SaveConfigCommand}"/>
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
                         <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}">
                             <Image.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="重新生成" ToolTip="重新生成测试水印，以便查看新配置的水印效果" Click="RefreshWaterMark_Click"/>
-                                    <MenuItem Header="选择图片" ToolTip="指定图片生成测试水印" Click="CreateImgWaterMark_Click"/>
-                                    <MenuItem Header="清空水印" ToolTip="清空当前生成的测试水印" Click="ClearWaterMark_Click"/>
-                                    <MenuItem Header="保存到本地" ToolTip="将水印图片保存到本地目录" Click="SaveWaterMark_Click"/>
+                                    <MenuItem Header="重新生成" ToolTip="重新生成测试水印，以便查看新配置的水印效果" Command="{Binding RefreshWaterMarkCommand}"/>
+                                    <MenuItem Header="选择图片" ToolTip="指定图片生成测试水印" Command="{Binding CreateImgWaterMarkCommand}"/>
+                                    <MenuItem Header="清空水印" ToolTip="清空当前生成的测试水印" Command="{Binding ClearWaterMarkCommand}"/>
+                                    <MenuItem Header="保存到本地" ToolTip="将水印图片保存到本地目录" Command="{Binding SaveWaterMarkCommand}"/>
                                 </ContextMenu>
                             </Image.ContextMenu>
                         </Image>
                     </Border>
                     <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="测试水印" Click="CreateWaterMark_Click" IsEnabled="{Binding CanTestWaterMark}"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content=">" ToolTip="指定图片生成水印" Click="CreateImgWaterMark_Click" IsEnabled="{Binding CanTestWaterMark}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="测试水印" Command="{Binding CreateWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content=">" ToolTip="指定图片生成水印" Command="{Binding CreateImgWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -132,13 +132,13 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Grid.Column="0" Header="目录">
-                            <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}">
+                            <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}" SelectionChanged="ImgFilePath_Selected">
                                 <ListView.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="修改" Click="UpdateImgFilePath_Click"/>
-                                        <MenuItem Header="删除" Click="DeleteImgFilePath_Click"/>
+                                        <MenuItem Header="修改" Command="{Binding UpdateImgFilePathCommand}"/>
+                                        <MenuItem Header="删除" Command="{Binding DeleteImgFilePathCommand}"/>
                                         <Separator/>
-                                        <MenuItem Header="打开目录" Click="OpenImgFilePath_Click"/>
+                                        <MenuItem Header="打开目录" Command="{Binding OpenImgFilePathCommand}"/>
                                     </ContextMenu>
                                 </ListView.ContextMenu>
                                 <ListView.View>
@@ -150,29 +150,41 @@
                             </ListView>
                         </GroupBox>
                         <DockPanel Grid.Row="1" LastChildFill="False">
-                            <Button Style="{StaticResource ButtonPrimary_Style}" DockPanel.Dock="Left" Content="添加" Click="AddImgFilePath_Click"/>
-                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="修改" Click="UpdateImgFilePath_Click"/>
-                            <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="删除" Click="DeleteImgFilePath_Click"/>
-                            <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="清空" Click="ImgFilePathClear_Click"/>
-                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Click="Img_WaterMark_Execute_Click" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
-                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
-                            <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Click="Img_WaterMark_Toggle_Click" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
+                            <Button Style="{StaticResource ButtonPrimary_Style}" DockPanel.Dock="Left" Content="添加" Command="{Binding AddImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="修改" Command="{Binding UpdateImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="删除" Command="{Binding DeleteImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="清空" Command="{Binding ClearImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Command="{Binding ImgWaterMarkExecuteCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
+                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                            <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
                             <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="{Binding TaskInterval}"/>
                             <Slider Style="{StaticResource Form_Style}" Width="100" DockPanel.Dock="Right" Maximum="10" Minimum="1" TickFrequency="1" Value="{Binding TaskInterval}" Thumb.DragCompleted="TaskIntervalSlider_ValueChanged"/>
                             <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="频率(分)"/>
                         </DockPanel>
                     </Grid>
                     <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch" Margin="0,3" ResizeBehavior="PreviousAndNext" Grid.ColumnSpan="2"/>
-                    <GroupBox Header ="日志" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-                        <RichTextBox Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <GroupBox.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="日志"/>
+                                <CheckBox VerticalAlignment="Center" Content="自动到底部" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
+                            </StackPanel>
+                        </GroupBox.Header>
+                        <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="清空" ToolTip="清空当前所有的运行日志" Click="WaterMarkLogClear_Click"/>
+                                    <MenuItem Header="清空" ToolTip="清空当前所有的运行日志" Command="{Binding ClearWaterMarkLogCommand}"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
                                 <Paragraph x:Name="LogsParagraph">
-                                    <Run Text="{Binding Path=WaterMarkLog}"></Run>
+                                    <ItemsControl ItemsSource="{Binding TaskLogs}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Msg}" Foreground="{Binding ColorBrush}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
@@ -180,7 +192,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="帮助">
-                <TextBlock TextWrapping="Wrap">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Content>
+                    <TextBlock TextWrapping="Wrap">
                     <Run Text="    使用说明" FontWeight="Bold" FontSize="20" Foreground="DeepSkyBlue"/>
                     <LineBreak/>
                     <Run Text="   1.功能：" Style="{StaticResource DocTitle1_Style}"/>
@@ -226,8 +240,11 @@
                     <LineBreak/>
                     <Run Text="        Gitee地址："/>
                     <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click">源代码</Hyperlink>
-                </TextBlock>
+                    </TextBlock>
+                    </ScrollViewer.Content>
+                </ScrollViewer>
             </TabItem>
+            
         </TabControl>
         <StatusBar Grid.Row="1" >
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">

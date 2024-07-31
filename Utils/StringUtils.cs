@@ -10,7 +10,7 @@ namespace AddWaterMark.Utils {
         /// <returns></returns>
         public static bool IsEmpty(string s, out string result) {
             bool isResult = false;
-            if(string.IsNullOrEmpty(s) || string.IsNullOrEmpty(s.Trim())) {
+            if (string.IsNullOrEmpty(s) || string.IsNullOrEmpty(s.Trim())) {
                 isResult = true;
                 result = string.Empty;
             } else {
@@ -34,7 +34,7 @@ namespace AddWaterMark.Utils {
             bool isResult = false;
             result = false;
             try {
-                if(!string.IsNullOrEmpty(s) && !string.IsNullOrEmpty(s.Trim())) {
+                if (!string.IsNullOrEmpty(s) && !string.IsNullOrEmpty(s.Trim())) {
                     result = Convert.ToBoolean(s);
                     isResult = true;
                 }
