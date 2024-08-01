@@ -102,7 +102,7 @@
                         <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" ToolTip="保存当前修改，水印任务同步变更" Command="{Binding SaveConfigCommand}"/>
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
-                        <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}">
+                        <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}" MouseLeftButtonUp="WaterMarkImage_MouseLeftButtonUp">
                             <Image.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="重新生成" ToolTip="重新生成测试水印，以便查看新配置的水印效果" Command="{Binding RefreshWaterMarkCommand}"/>
@@ -194,57 +194,11 @@
             <TabItem Header="帮助">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Content>
-                    <TextBlock TextWrapping="Wrap">
-                    <Run Text="    使用说明" FontWeight="Bold" FontSize="20" Foreground="DeepSkyBlue"/>
-                    <LineBreak/>
-                    <Run Text="   1.功能：" Style="{StaticResource DocTitle1_Style}"/>
-                    <LineBreak/>
-                    <Run Text="        测试水印显示效果，单文件水印处理保存到本地"/>
-                    <LineBreak/>
-                    <Run Text="        配置目录中的图片文件加水印任务"/>
-                    <LineBreak/>
-                    <Run Text="   2.使用方法：" Style="{StaticResource DocTitle1_Style}"/>
-                    <LineBreak/>
-                    <Run Text="        (1).配置面板中设置水印参数" Style="{StaticResource DocTitle2_Style}"/>
-                    <LineBreak/>
-                    <Run Text="            不透明度：100为完全不透明，"/><Run Text="注意：0为完全透明，将看不到水印" Foreground="Red"/>
-                    <LineBreak/>
-                    <Run Text="            旋转角度：-180度到180度"/><Run Text="旋转角度是基于面板中心点坐标进行旋转"/>
-                    <LineBreak/>
-                    <Run Text="            字体：可选择当前系统中所有的字体，"/><Run Text="注意中文水印，大部分英文字体会乱码" Foreground="Red"/>
-                    <LineBreak/>
-                    <Run Text="            字体大小：水印字体的尺寸(像素)，对应关系可"/>
-                    <Hyperlink NavigateUri="https://www.cnblogs.com/guohu/p/8579513.html" Click="Lnk_Click">参照链接</Hyperlink>
-                    <LineBreak/>
-                    <Run Text="            字体颜色：选择文字水印的颜色，纯色或渐变色"/>
-                    <LineBreak/>
-                    <Run Text="            字体样式：粗体，斜体，下划线，中划线"/>
-                    <LineBreak/>
-                    <Run Text="            水平间距：水印之间水平位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
-                    <LineBreak/>
-                    <Run Text="            垂直间距：水印之间垂直位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
-                    <LineBreak/>
-                    <Run Text="        (2).任务面板中配置目录" Style="{StaticResource DocTitle2_Style}"/>
-                    <LineBreak/>
-                    <Run Text="            a.配置要添加水印的图片目录"/>
-                    <LineBreak/>
-                    <Run Text="            b.手工或任务对配置的图片目录里未生成水印的图片添加水印,判断是否加水印条件为同目录下，是否存在&quot;_原文件.jpg&quot;的文件"/>
-                    <LineBreak/>
-                    <Run Text="            c.日志面板中会显示水印任务执行情况"/>
-                    <LineBreak/>
-                    <Run Text="   3.源代码" Style="{StaticResource DocTitle1_Style}"/>
-                    <LineBreak/>
-                    <Run Text="        开发语言：C# WPF .Net Framework4.5"/>
-                    <LineBreak/>
-                    <Run Text="        开发工具：VS2019"/>
-                    <LineBreak/>
-                    <Run Text="        Gitee地址："/>
-                    <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click">源代码</Hyperlink>
-                    </TextBlock>
+                        <StaticResource ResourceKey="Help_TextBlock"/>
                     </ScrollViewer.Content>
                 </ScrollViewer>
             </TabItem>
-            
+
         </TabControl>
         <StatusBar Grid.Row="1" >
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">

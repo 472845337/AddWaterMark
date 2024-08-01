@@ -26,5 +26,9 @@ namespace AddWaterMark {
                 }
             }
         }
+
+        private void Lnk_Click(object sender, RoutedEventArgs e) {
+            Process.Start(((System.Windows.Documents.Hyperlink)sender).NavigateUri.ToString());
+        }
     }
 }

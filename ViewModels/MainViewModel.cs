@@ -102,6 +102,8 @@ namespace AddWaterMark.ViewModels {
         [DoNotNotify]
         public System.Windows.Controls.Border WaterMarkBorder { get; set; }
         public BitmapImage WaterMarkBitmap { get; set; }// 水印位图
+        public double WaterMarkWidth { get; set; }
+        public double WaterMarkHeight { get; set; }
         public System.Windows.Controls.ListView ImgFilePath_ListView { get; set; }
         public int LastOpenTab { get; set; }// 上次打开Tab页
         public double Tab2SplitDistance { get; set; }// Tab2页 GridSplitter距离
@@ -273,7 +275,7 @@ namespace AddWaterMark.ViewModels {
         /// </summary>
         private void CreateImgWaterMark(object _) {
             CanTestWaterMark = false;
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog { Filter = "图片文件|*.jpg;*.jpeg;*.bmp;*.png|pdf文件|*.pdf" };
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog { Filter = "图片文件|*.jpg;*.jpeg;*.bmp;*.png" };
             if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog()) {
                 // media
                 CreateWaterMarkImage(true, openFileDialog.FileName, GetTestFormattedText());
@@ -312,7 +314,7 @@ namespace AddWaterMark.ViewModels {
 
         /// <summary>
         /// 创建水印图
-        /// System.Windows.Media中处理的位图只能是96Dpi,不知道如何处理成和原图一样的dpi
+        /// dpi处理中进行了对wpf的默认96的缩放，调整请注意
         /// </summary>
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
@@ -364,30 +366,35 @@ namespace AddWaterMark.ViewModels {
             // wpf默认的dpi是96，设置固定绽放
             double scaleX = 96f / backPhoto.DpiX;
             double scaleY = 96f / backPhoto.DpiY;
-            // 水印图层
+            double drawWidth = photoWidth * scaleX;// 绘制时的宽度
+            double drawHeight = photoHeight * scaleY;// 绘制时的高度
+            // 水印图层，图片尺寸依旧是原图的宽高
             RenderTargetBitmap composeImage = new RenderTargetBitmap((int)photoWidth, (int)photoHeight, backPhoto.DpiX, backPhoto.DpiY, PixelFormats.Default);
-            int circleDiameter = (int)Math.Sqrt(Math.Pow(photoWidth, 2D) + Math.Pow(photoHeight, 2D));
+            // 计算绘制图片的范围圆直径
+            int circleDiameter = (int)Math.Sqrt(Math.Pow(drawWidth, 2D) + Math.Pow(drawHeight, 2D));
+
+            // 定义绘制对象
             DrawingVisual drawingVisual = new DrawingVisual();
-
+            // 获取绘制内容
             DrawingContext drawingContext = drawingVisual.RenderOpen();
-            drawingContext.DrawImage(backPhoto, new Rect(0, 0, photoWidth * scaleX, photoHeight * scaleY));
-
-            double x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
-
-            // 设置旋转
-            RotateTransform transform = new RotateTransform(waterMarkRotate, photoWidth / 2, photoHeight / 2);
+            // 背景图绘制
+            drawingContext.DrawImage(backPhoto, new Rect(0, 0, drawWidth, drawHeight));
+            // 水印的起始坐标
+            double x = (drawWidth - circleDiameter) / 2, y = (drawHeight - circleDiameter) / 2;
+            // 设置旋转（水印圆直径的中心点位置）
+            RotateTransform transform = new RotateTransform(waterMarkRotate, drawWidth / 2, drawHeight / 2);
             drawingContext.PushTransform(transform);
 
-            double xcount = circleDiameter / waterMarkHorizontalDis + 2;
-            double ycount = circleDiameter / waterMarkVerticalDis + 2;
+            double xcount = circleDiameter / waterMarkHorizontalDis / scaleX + 1;
+            double ycount = circleDiameter / waterMarkVerticalDis / scaleY + 1;
             double ox = x;
             for (int k = 0; k < ycount; k++) {
                 for (int i = 0; i < xcount; i++) {
                     drawingContext.DrawText(formattedText, new Point(x, y));
-                    x += waterMarkHorizontalDis;
+                    x += waterMarkHorizontalDis * scaleX;
                 }
                 x = ox;
-                y += waterMarkVerticalDis;
+                y += waterMarkVerticalDis * scaleY;
             }
             drawingContext.Close();
             composeImage.Render(drawingVisual);
@@ -406,6 +413,8 @@ namespace AddWaterMark.ViewModels {
                     bitmapImage.Freeze();
                 }
                 WaterMarkBitmap = bitmapImage;
+                WaterMarkWidth = photoWidth;
+                WaterMarkHeight = photoHeight;
             } else {
                 // 水印文件保存
                 using FileStream fileStream = new FileStream(filePath, FileMode.Create);
@@ -503,6 +512,8 @@ namespace AddWaterMark.ViewModels {
             if (isTest) {
                 // 水印测试的，输出到水印图
                 WaterMarkBitmap = ImageUtils.BitmapToBitmapImage(bmPhoto);
+                WaterMarkWidth = photoWidth;
+                WaterMarkHeight = photoHeight;
             } else {
                 // 水印文件保存
                 string ext = Path.GetExtension(filePath).ToLower();
@@ -521,12 +532,14 @@ namespace AddWaterMark.ViewModels {
 
         /// <summary>
         /// 添加文本水印,渐变色功能未实现
+        /// iTextSharp旋转的角度需要转换，不然和图片的旋转角度就反了，赋值时取负
         /// </summary>
+        /// <param name="isTest">暂不支持测试</param>
         /// <param name="pdfPath">pdf文件</param>
         /// <param name="addText">水印文字</param>
-        /// <param name="rotate">旋转角度，0-180</param>
+        /// <param name="font">字体</param>
         private void PdfAddWatermark(bool isTest, string pdfPath, string addText, System.Drawing.Font font) {
-            int waterMarkRotate = Configs.waterMarkRotate;
+            int waterMarkRotate = -Configs.waterMarkRotate;// 为了保证和图片的旋转一致取反
             int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
             int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
             byte waterMarkOpacity = Configs.waterMarkOpacity;
@@ -534,7 +547,7 @@ namespace AddWaterMark.ViewModels {
             string waterMarkFontColor = Configs.waterMarkFontColor;
             string waterMarkFontGradientColor = Configs.waterMarkFontGradientColor;
             if (isTest) {
-                waterMarkRotate = WaterMarkRotate;
+                waterMarkRotate = -WaterMarkRotate;// 为了保证和图片的旋转一致取反
                 waterMarkHorizontalDis = WaterMarkHorizontalDis;
                 waterMarkVerticalDis = WaterMarkVerticalDis;
                 waterMarkOpacity = WaterMarkOpacity;
@@ -555,11 +568,7 @@ namespace AddWaterMark.ViewModels {
             Stream outStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
             PdfStamper stamper = new PdfStamper(reader, outStream); ;
             int pdfTotalPage = reader.NumberOfPages;//总页数
-            //第一页pdf尺寸
-            iTextSharp.text.Rectangle psize = reader.GetPageSize(1);
-            float width = psize.Width;
-            float height = psize.Height;
-            int circleDiameter = (int)Math.Sqrt(Math.Pow(width, 2D) + Math.Pow(height, 2D));
+
             // 透明度
             PdfGState gs = new PdfGState();
             // 字体
@@ -569,6 +578,11 @@ namespace AddWaterMark.ViewModels {
             BaseFont baseFont = FontsUtils.ConvertFont2BaseFont(font);
             PdfContentByte content;
             for (int i = 1; i <= pdfTotalPage; i++) {
+                //当前页pdf尺寸
+                iTextSharp.text.Rectangle psize = reader.GetPageSize(i);
+                float width = psize.Width;
+                float height = psize.Height;
+                int circleDiameter = (int)Math.Sqrt(Math.Pow(width, 2D) + Math.Pow(height, 2D));
                 float x = (width - circleDiameter) / 2, y = (height - circleDiameter) / 2;
                 //GetUnderContent内容下层
                 //GetOverContent内容上层
@@ -578,13 +592,13 @@ namespace AddWaterMark.ViewModels {
                 //开始写入文本
                 content.BeginText();
                 //设置颜色
-                if (waterMarkFontIsGradient) {
-                    // 渐变色，这个功能不符合预期 
-                    GradientColorUtils.GetPdfColor(waterMarkFontGradientColor, waterMarkOpacity * 255 / 100, out PdfDeviceNColor ncolor, out float[] tints);
-                    content.SetColorFill(ncolor, tints);
-                } else {
-                    content.SetColorFill(baseColor);
-                }
+                //if (waterMarkFontIsGradient) {
+                //    // 渐变色，这个功能不符合预期 
+                //    GradientColorUtils.GetPdfColor(waterMarkFontGradientColor, waterMarkOpacity * 255 / 100, out PdfDeviceNColor ncolor, out float[] tints);
+                //    content.SetColorFill(ncolor, tints);
+                //} else {
+                content.SetColorFill(baseColor);
+                //}
                 //字体大小
                 content.SetFontAndSize(baseFont, font.Size);
                 //设置文本矩阵
@@ -595,7 +609,7 @@ namespace AddWaterMark.ViewModels {
                 float ox = x;
                 for (int k = 0; k < ycount; k++) {
                     for (int l = 0; l < xcount; l++) {
-                        content.ShowTextAligned(iTextSharp.text.Element.ALIGN_CENTER, addText, x, y, waterMarkRotate);
+                        content.ShowTextAligned(iTextSharp.text.Element.ALIGN_LEFT, addText, x, y, waterMarkRotate);
                         x += waterMarkHorizontalDis;
                     }
                     x = ox;

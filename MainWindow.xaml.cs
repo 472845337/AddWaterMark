@@ -272,10 +272,6 @@ namespace AddWaterMark {
             }
         }
 
-        private void Lnk_Click(object sender, RoutedEventArgs e) {
-            Process.Start(((System.Windows.Documents.Hyperlink)sender).NavigateUri.ToString());
-        }
-
         private void TaskIntervalSlider_ValueChanged(object sender, RoutedEventArgs e) {
             vm.ImgWaterMarkTaskTimer.Interval = TimeSpan.FromMinutes(vm.TaskInterval);
             if (Configs.inited) {
@@ -285,6 +281,13 @@ namespace AddWaterMark {
 
         private void ScrollEnd_Checked(object sender, RoutedEventArgs e) {
             TaskLog_RichTextBox.ScrollToEnd();
+        }
+
+        private void WaterMarkImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            if(vm.WaterMarkBitmap != null) {
+                ImageWindow imageWindow = new ImageWindow(vm.WaterMarkHeight, vm.WaterMarkWidth, vm.WaterMarkBitmap);
+                imageWindow.Show();
+            }
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿<Window x:Class="AddWaterMark.Windows.ImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AddWaterMark.Windows"
+        mc:Ignorable="d"
+        Title="图片" Height="{Binding ImageHeight,Mode=TwoWay}" Width="{Binding ImageWidth,Mode=TwoWay}" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
+    <Grid>
+        <Image Source="{Binding WaterMarkImage}"/>
+    </Grid>
+</Window>

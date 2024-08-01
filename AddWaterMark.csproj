@@ -106,10 +106,14 @@
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\WaterMarkUtils.cs" />
     <Compile Include="ViewModels\GradientColorViewModel.cs" />
+    <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\ImgFilePathViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Windows\GradientColorWindow.xaml.cs">
       <DependentUpon>GradientColorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ImageWindow.xaml.cs">
+      <DependentUpon>ImageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ImgFilePathWindow.xaml.cs">
       <DependentUpon>ImgFilePathWindow.xaml</DependentUpon>
@@ -131,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\GradientColorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ImageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
