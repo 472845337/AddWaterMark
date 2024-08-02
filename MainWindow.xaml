@@ -10,7 +10,7 @@
         Width="{Binding MainWidth, Mode=TwoWay}" 
         Left="{Binding MainLeft, Mode=TwoWay}"
         Top="{Binding MainTop, Mode=TwoWay}" 
-        MinWidth="690"
+        MinWidth="590"
         MinHeight="380"
         Icon="pack://application:,,,/Resources/logo/picture.ico" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
     <Grid>
@@ -86,10 +86,18 @@
                         <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="渐变色" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="粗体" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="斜体" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="下划线" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="中划线" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="粗" FontWeight="Bold" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="斜" FontStyle="Italic" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed">
+                            <CheckBox.Content>
+                                <TextBlock Text="下划" TextDecorations="Underline"/>
+                            </CheckBox.Content>
+                        </CheckBox>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed">
+                            <CheckBox.Content>
+                                <TextBlock Text="中划" TextDecorations="Strikethrough"/>
+                            </CheckBox.Content>
+                        </CheckBox>
                     </StackPanel>
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="水平间隔"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
