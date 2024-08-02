@@ -6,7 +6,6 @@ using AddWaterMark.ViewModels;
 using AddWaterMark.Windows;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -275,7 +274,7 @@ namespace AddWaterMark {
         private void TaskIntervalSlider_ValueChanged(object sender, RoutedEventArgs e) {
             vm.ImgWaterMarkTaskTimer.Interval = TimeSpan.FromMinutes(vm.TaskInterval);
             if (Configs.inited) {
-                vm.AddWaterMarkLog($"当前频率为:{vm.TaskInterval}");
+                vm.AddWaterMarkLog($"当前频率调整为:{vm.TaskInterval}");
             }
         }
 
@@ -284,7 +283,7 @@ namespace AddWaterMark {
         }
 
         private void WaterMarkImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-            if(vm.WaterMarkBitmap != null) {
+            if (vm.WaterMarkBitmap != null) {
                 ImageWindow imageWindow = new ImageWindow(vm.WaterMarkHeight, vm.WaterMarkWidth, vm.WaterMarkBitmap);
                 imageWindow.Show();
             }

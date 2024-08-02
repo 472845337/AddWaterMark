@@ -248,7 +248,8 @@ namespace AddWaterMark.ViewModels {
         private void CreateWaterMark(object _) {
             CanTestWaterMark = false;
             // media
-            CreateWaterMarkImage(true, null, GetTestFormattedText());
+            Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
+            CreateWaterMarkImage(true, null, GetTestFormattedText(brush), WaterMarkFontSize, brush);
             // drawing
             //CreateWaterMarkImage(true, null, WaterMarkText,
             //    FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
@@ -261,7 +262,9 @@ namespace AddWaterMark.ViewModels {
         private void RefreshTestWaterMark(object obj) {
             CanTestWaterMark = false;
             // media
-            CreateWaterMarkImage(true, testImgPath, GetTestFormattedText());
+            Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
+            CreateWaterMarkImage(true, testImgPath, GetTestFormattedText(brush), WaterMarkFontSize, brush);
+            brush.Freeze();
             // drawing
             //CreateWaterMarkImage(true, testImgPath, WaterMarkText,
             //        FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
@@ -278,7 +281,9 @@ namespace AddWaterMark.ViewModels {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog { Filter = "图片文件|*.jpg;*.jpeg;*.bmp;*.png" };
             if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog()) {
                 // media
-                CreateWaterMarkImage(true, openFileDialog.FileName, GetTestFormattedText());
+                Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
+                CreateWaterMarkImage(true, openFileDialog.FileName, GetTestFormattedText(brush), WaterMarkFontSize, brush);
+                brush.Freeze();
                 // drawing
                 //CreateWaterMarkImage(true, openFileDialog.FileName, WaterMarkText,
                 //    FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
@@ -291,6 +296,7 @@ namespace AddWaterMark.ViewModels {
 
         private void ClearWaterMark(object _) {
             WaterMarkBitmap = null;
+            testImgPath = null;
             SetOperateMsg("清除水印图片成功");
         }
 
@@ -319,14 +325,18 @@ namespace AddWaterMark.ViewModels {
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
         /// <param name="formattedText">水印文本样式（包含水印文本）</param>
-        private void CreateWaterMarkImage(bool isTest, string filePath, FormattedText formattedText) {
+        private void CreateWaterMarkImage(bool isTest, string filePath, FormattedText formattedText, int fontSize, Brush brush) {
             int waterMarkRotate = Configs.waterMarkRotate;
             int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
             int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
+            bool waterMarkUnderline = Configs.waterMarkFontUnderline;
+            bool waterMarkStrikeout = Configs.waterMarkFontStrikeout;
             if (isTest) {
                 waterMarkRotate = WaterMarkRotate;
                 waterMarkHorizontalDis = WaterMarkHorizontalDis;
                 waterMarkVerticalDis = WaterMarkVerticalDis;
+                waterMarkUnderline = WaterMarkFontUnderline;
+                waterMarkStrikeout = WaterMarkFontStrikeout;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -368,6 +378,7 @@ namespace AddWaterMark.ViewModels {
             double scaleY = 96f / backPhoto.DpiY;
             double drawWidth = photoWidth * scaleX;// 绘制时的宽度
             double drawHeight = photoHeight * scaleY;// 绘制时的高度
+            formattedText.SetFontSize(fontSize * scaleX);
             // 水印图层，图片尺寸依旧是原图的宽高
             RenderTargetBitmap composeImage = new RenderTargetBitmap((int)photoWidth, (int)photoHeight, backPhoto.DpiX, backPhoto.DpiY, PixelFormats.Default);
             // 计算绘制图片的范围圆直径
@@ -391,6 +402,14 @@ namespace AddWaterMark.ViewModels {
             for (int k = 0; k < ycount; k++) {
                 for (int i = 0; i < xcount; i++) {
                     drawingContext.DrawText(formattedText, new Point(x, y));
+                    if (waterMarkUnderline) {
+                        // 下划线
+                        drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height), new Point(x + formattedText.Width, y + formattedText.Height));
+                    }
+                    if (waterMarkStrikeout) {
+                        // 中划线
+                        drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height / 2), new Point(x + formattedText.Width, y + formattedText.Height / 2));
+                    }
                     x += waterMarkHorizontalDis * scaleX;
                 }
                 x = ox;
@@ -623,9 +642,9 @@ namespace AddWaterMark.ViewModels {
         }
 
 
-        private FormattedText GetTestFormattedText() {
+        private FormattedText GetTestFormattedText(Brush brush) {
             return WaterMarkUtils.GetFormattedText(WaterMarkText, WaterMarkFontFamily, WaterMarkFontItalic, WaterMarkFontBold
-                , WaterMarkFontSize, WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
+                , WaterMarkFontSize, brush);
         }
 
 
@@ -797,15 +816,14 @@ namespace AddWaterMark.ViewModels {
                         }
                         if (processListDic.Count > 0) {
                             System.Drawing.Font font = FontsUtils.GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
-                            #region pdf相关
 
-                            #endregion
+                            Brush brush = WaterMarkUtils.GetWaterMarkBrush(Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
                             Stopwatch watch = new Stopwatch();
                             foreach (string waterMarkText in processListDic.Keys) {
                                 if (stop) {
                                     break;
                                 }
-                                FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
+                                FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, brush);
                                 List<string> processList = processListDic[waterMarkText];
                                 foreach (string filePath in processList) {
                                     if (stop) {
@@ -824,7 +842,7 @@ namespace AddWaterMark.ViewModels {
                                     } else {
                                         // 图片加水印
                                         // media
-                                        CreateWaterMarkImage(false, filePath, formattedText);
+                                        CreateWaterMarkImage(false, filePath, formattedText, Configs.waterMarkFontSize, brush);
                                         // drawing
                                         // CreateWaterMarkImage(false, filePath, waterMarkText, font);
                                     }
@@ -832,7 +850,8 @@ namespace AddWaterMark.ViewModels {
                                     AddWaterMarkLog($"{filePath}:处理完成,耗时：{watch.ElapsedMilliseconds}ms");
                                 }
                             }
-
+                            font.Dispose();
+                            brush.Freeze();
                             stop = false;
                         }
                     }

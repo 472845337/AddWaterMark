@@ -1,5 +1,5 @@
-﻿using System.Windows.Media.Imaging;
-using PropertyChanged;
+﻿using PropertyChanged;
+using System.Windows.Media.Imaging;
 
 namespace AddWaterMark.ViewModels {
     [AddINotifyPropertyChangedInterface]

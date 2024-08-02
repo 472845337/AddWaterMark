@@ -39,7 +39,7 @@ namespace AddWaterMark.Utils {
                 tints[i] = a.Point;
                 System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(a.Color);
                 iTextSharp.text.BaseColor baseColor = new iTextSharp.text.BaseColor(color.R, color.G, color.B, opacity);
-                pdfSpotColorArray[i] = new iTextSharp.text.pdf.PdfSpotColor(i.ToString(),baseColor);
+                pdfSpotColorArray[i] = new iTextSharp.text.pdf.PdfSpotColor(i.ToString(), baseColor);
             }
             pdfDeviceNColor = new iTextSharp.text.pdf.PdfDeviceNColor(pdfSpotColorArray);
         }

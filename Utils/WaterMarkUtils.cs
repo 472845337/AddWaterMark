@@ -36,7 +36,7 @@ namespace AddWaterMark.Utils {
             return brush;
         }
 
-        internal static FormattedText GetFormattedText(string waterMark, string fontFamilyStr, bool isItalic, bool isBold, double fontSize, bool isGradient, string fontColor, string fontGradientColor, byte opacity) {
+        internal static FormattedText GetFormattedText(string waterMark, string fontFamilyStr, bool isItalic, bool isBold, double fontSize, Brush brush) {
             // 字体
             FontFamily fontFamily = new FontFamily(fontFamilyStr);
             FontWeight fontWeight = FontWeights.Normal;
@@ -47,7 +47,6 @@ namespace AddWaterMark.Utils {
             if (isItalic) {
                 fontStyle = FontStyles.Italic;
             }
-            Brush brush = GetWaterMarkBrush(isGradient, fontColor, fontGradientColor, opacity);
             Typeface typeface = new Typeface(fontFamily, fontStyle, fontWeight, FontStretches.Normal);
             return new FormattedText(
                 waterMark,

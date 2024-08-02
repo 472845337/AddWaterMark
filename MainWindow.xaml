@@ -38,8 +38,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="水印文字"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed">
-                    </TextBox>
+                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="不透明度"/>
                     <Grid Grid.Row="0" Grid.Column="3" Style="{StaticResource Value_Style}">
                         <Grid.ColumnDefinitions>
@@ -114,8 +113,18 @@
                         </Image>
                     </Border>
                     <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="测试水印" Command="{Binding CreateWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content=">" ToolTip="指定图片生成水印" Command="{Binding CreateImgWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="测试水印" Command="{Binding RefreshWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="0 4 0 0">
+                            <Menu Background="#f0ad4e">
+                                <MenuItem Height="24">
+                                    <MenuItem.Header>
+                                        <Path Fill="White" Data="M 0 3 L 0,3 6,9 L 6,9 0,15 L 0,15 0,3"/>
+                                    </MenuItem.Header>
+                                    <MenuItem Header="空白背景" Command="{Binding CreateWaterMarkCommand}"/>
+                                    <MenuItem Header="图片背景" Command="{Binding CreateImgWaterMarkCommand}"/>
+                                </MenuItem>
+                            </Menu>
+                        </Border>
                     </StackPanel>
                 </Grid>
             </TabItem>
