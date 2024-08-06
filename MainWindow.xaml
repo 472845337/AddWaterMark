@@ -11,7 +11,7 @@
         Left="{Binding MainLeft, Mode=TwoWay}"
         Top="{Binding MainTop, Mode=TwoWay}" 
         MinWidth="590"
-        MinHeight="380"
+        MinHeight="420"
         Icon="pack://application:,,,/Resources/logo/picture.ico" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
     <Grid>
         <Grid.RowDefinitions>
@@ -149,7 +149,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Grid.Row="0" Grid.Column="0" Header="目录">
-                            <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}" SelectionChanged="ImgFilePath_Selected">
+                            <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}" SelectionChanged="ImgFilePath_Selected" MouseLeftButtonDown="ImgFilePath_ListView_MouseLeftButtonDown" MouseDoubleClick="ImgFilePath_ListView_MouseDoubleClick">
                                 <ListView.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="修改" Command="{Binding UpdateImgFilePathCommand}"/>
@@ -160,6 +160,16 @@
                                 </ListView.ContextMenu>
                                 <ListView.View>
                                     <GridView>
+                                        <GridViewColumn Width="28">
+                                            <GridViewColumn.Header>
+                                                <CheckBox IsChecked="{Binding AllSelect, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding IsSelect}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
                                         <GridViewColumn Header="水印" Width="{Binding PathsViewColumn1, Mode=TwoWay}" DisplayMemberBinding="{Binding WaterMark}"/>
                                         <GridViewColumn Header="目录" Width="{Binding PathsViewColumn2, Mode=TwoWay}" DisplayMemberBinding="{Binding FilePath}"/>
                                     </GridView>
@@ -183,14 +193,14 @@
                     <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="日志"/>
+                                <Label VerticalAlignment="Center" Content="日志"/>
                                 <CheckBox VerticalAlignment="Center" Content="自动到底部" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
                             </StackPanel>
                         </GroupBox.Header>
                         <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="清空" ToolTip="清空当前所有的运行日志" Command="{Binding ClearWaterMarkLogCommand}"/>
+                                    <MenuItem Header="清空日志" ToolTip="清空运行日志" Command="{Binding ClearWaterMarkLogCommand}"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
@@ -218,6 +228,13 @@
 
         </TabControl>
         <StatusBar Grid.Row="1" >
+            <StatusBarItem Visibility="Collapsed">
+                <ComboBox IsReadOnly="True">
+                    <ComboBoxItem Content="zh-cn" IsSelected="True"/>
+                    <ComboBoxItem Content="zh-tw"/>
+                    <ComboBoxItem Content="en"/>
+                </ComboBox>
+            </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
                 <TextBlock Text="{Binding OperateMsg}" Foreground="{Binding OperateMsgColor}"/>
             </StatusBarItem>

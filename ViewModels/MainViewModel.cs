@@ -8,6 +8,7 @@ using AddWaterMark.Windows;
 using iTextSharp.text.pdf;
 using PropertyChanged;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -48,8 +49,8 @@ namespace AddWaterMark.ViewModels {
             ClearWaterMarkLogCommand = new RelayCommand(ClearWaterMarkLog, (obj) => { return TaskLogs.Count > 0; });
             #endregion
             OperateMessageTimer.Tick += OperateMessageTimer_Tick;
-            ImgWaterMarkExecuteTimer.Tick += ImgWaterMark_Tick;
-            ImgWaterMarkTaskTimer.Tick += ImgWaterMark_Tick;
+            ImgWaterMarkExecuteTimer.Tick += ImgWaterMarkHand_Tick;
+            ImgWaterMarkTaskTimer.Tick += ImgWaterMarkTask_Tick;
         }
         public RelayCommand DefaultConfigCommand { get; set; }
         public RelayCommand CancelConfigCommand { get; set; }
@@ -59,7 +60,6 @@ namespace AddWaterMark.ViewModels {
         public RelayCommand CreateImgWaterMarkCommand { get; set; }
         public RelayCommand ClearWaterMarkCommand { get; set; }
         public RelayCommand SaveWaterMarkCommand { get; set; }
-
 
         public RelayCommand AddImgFilePathCommand { get; set; }
         public RelayCommand UpdateImgFilePathCommand { get; set; }
@@ -104,11 +104,13 @@ namespace AddWaterMark.ViewModels {
         public BitmapImage WaterMarkBitmap { get; set; }// 水印位图
         public double WaterMarkWidth { get; set; }
         public double WaterMarkHeight { get; set; }
+        [DoNotNotify]
         public System.Windows.Controls.ListView ImgFilePath_ListView { get; set; }
         public int LastOpenTab { get; set; }// 上次打开Tab页
         public double Tab2SplitDistance { get; set; }// Tab2页 GridSplitter距离
         public double PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度
         public double PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度
+        public bool AllSelect { get; set; }
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
         public bool ScrollEnd { get; set; }
@@ -130,6 +132,10 @@ namespace AddWaterMark.ViewModels {
             OperateMsg = msg;
         }
 
+        /// <summary>
+        /// 恢复默认的配置项
+        /// </summary>
+        /// <param name="obj"></param>
         private void SetDefaultConfig(object obj) {
             if (MessageBoxResult.OK == MessageBox.Show("确认恢复初始值？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
                 WaterMarkText = Constants.WATER_MARK_TEXT;
@@ -221,6 +227,10 @@ namespace AddWaterMark.ViewModels {
         private void WaterMarkLogChanged() {
             ClearWaterMarkLogCommand.RaiseCanExecuteChanged();
         }
+
+        /// <summary>
+        /// 保存当前配置到ini文件
+        /// </summary>
         internal void SaveConfigs() {
             IniParser.Model.IniData iniData = new IniParser.Model.IniData();
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WATER_MARK, Constants.INI_KEY_WATER_MARK_TEXT, ref Configs.waterMarkText, WaterMarkText);
@@ -305,7 +315,7 @@ namespace AddWaterMark.ViewModels {
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog {
                     FileName = "测试水印.jpg",
                     DefaultExt = "*.jpg",
-                    Filter = "JPG|*.jpg|BMP|*.bmp|PNG|*.png|PDF|*.pdf"
+                    Filter = "JPG|*.jpg|BMP|*.bmp|PNG|*.png"
                 };
                 if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog()) {
                     ImageUtils.SaveBitmapImageIntoFile(WaterMarkBitmap, saveFileDialog.FileName);
@@ -319,7 +329,7 @@ namespace AddWaterMark.ViewModels {
 
 
         /// <summary>
-        /// 创建水印图
+        /// Media Drawing方式创建水印图
         /// dpi处理中进行了对wpf的默认96的缩放，调整请注意
         /// </summary>
         /// <param name="isTest">测试水印</param>
@@ -344,7 +354,7 @@ namespace AddWaterMark.ViewModels {
             string ext = string.IsNullOrEmpty(filePath) ? ".jpg" : Path.GetExtension(filePath).ToLower();
             BitmapSource backPhoto;
             double photoWidth, photoHeight;
-
+            double backDpiX = 72, backDpiY = 72;
             if (string.IsNullOrEmpty(filePath)) {
                 // 未指定图片，绘制白色背景图
                 photoWidth = WaterMarkBorder.ActualWidth;
@@ -352,7 +362,7 @@ namespace AddWaterMark.ViewModels {
                 int stride = (((int)photoWidth * 32 + 31) & ~31) / 8;
                 byte[] pixels = new byte[(int)photoHeight * stride];
                 BitmapPalette myPalette = new BitmapPalette(new List<Color> { Colors.White });
-                backPhoto = BitmapSource.Create((int)photoWidth, (int)photoHeight, 72, 72, PixelFormats.Indexed1, myPalette, pixels, stride);
+                backPhoto = BitmapSource.Create((int)photoWidth, (int)photoHeight, backDpiX, backDpiY, PixelFormats.Indexed1, myPalette, pixels, stride);
             } else {
                 FileStream fs = new FileStream(filePath, FileMode.Open);
                 BinaryReader br = new BinaryReader(fs);
@@ -371,16 +381,22 @@ namespace AddWaterMark.ViewModels {
                 }
                 photoWidth = backPhoto.PixelWidth;
                 photoHeight = backPhoto.PixelHeight;
+                if(backPhoto.DpiX != 0) {
+                    backDpiX = backPhoto.DpiX;
+                }
+                if(backPhoto.DpiY != 0) {
+                    backDpiY = backPhoto.DpiY;
+                }
             }
 
             // wpf默认的dpi是96，设置固定绽放
-            double scaleX = 96f / backPhoto.DpiX;
-            double scaleY = 96f / backPhoto.DpiY;
+            double scaleX = 96f / backDpiX;
+            double scaleY = 96f / backDpiY;
             double drawWidth = photoWidth * scaleX;// 绘制时的宽度
             double drawHeight = photoHeight * scaleY;// 绘制时的高度
             formattedText.SetFontSize(fontSize * scaleX);
             // 水印图层，图片尺寸依旧是原图的宽高
-            RenderTargetBitmap composeImage = new RenderTargetBitmap((int)photoWidth, (int)photoHeight, backPhoto.DpiX, backPhoto.DpiY, PixelFormats.Default);
+            RenderTargetBitmap composeImage = new RenderTargetBitmap((int)photoWidth, (int)photoHeight, backDpiX, backDpiY, PixelFormats.Pbgra32);
             // 计算绘制图片的范围圆直径
             int circleDiameter = (int)Math.Sqrt(Math.Pow(drawWidth, 2D) + Math.Pow(drawHeight, 2D));
 
@@ -443,7 +459,7 @@ namespace AddWaterMark.ViewModels {
         }
 
         /// <summary>
-        /// 创建水印图
+        /// Graphics Drawing方式创建水印图
         /// </summary>
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
@@ -562,17 +578,17 @@ namespace AddWaterMark.ViewModels {
             int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
             int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
             byte waterMarkOpacity = Configs.waterMarkOpacity;
-            bool waterMarkFontIsGradient = Configs.waterMarkFontIsGradient;
+            //bool waterMarkFontIsGradient = Configs.waterMarkFontIsGradient;
             string waterMarkFontColor = Configs.waterMarkFontColor;
-            string waterMarkFontGradientColor = Configs.waterMarkFontGradientColor;
+            //string waterMarkFontGradientColor = Configs.waterMarkFontGradientColor;
             if (isTest) {
                 waterMarkRotate = -WaterMarkRotate;// 为了保证和图片的旋转一致取反
                 waterMarkHorizontalDis = WaterMarkHorizontalDis;
                 waterMarkVerticalDis = WaterMarkVerticalDis;
                 waterMarkOpacity = WaterMarkOpacity;
-                waterMarkFontIsGradient = WaterMarkFontIsGradient;
+                //waterMarkFontIsGradient = WaterMarkFontIsGradient;
                 waterMarkFontColor = WaterMarkFontColor;
-                waterMarkFontGradientColor = WaterMarkFontGradientColor;
+                //waterMarkFontGradientColor = WaterMarkFontGradientColor;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -682,8 +698,6 @@ namespace AddWaterMark.ViewModels {
                     ServiceFactory.GetImgFilePathService().Update(imgFilePath);
                     SetOperateMsg("修改目录成功");
                 }
-            } else {
-                MessageBox.Show("请先选择目录！", Constants.MSG_ERROR);
             }
         }
 
@@ -743,9 +757,8 @@ namespace AddWaterMark.ViewModels {
                 MessageBox.Show("当前路径为空，请添加文件目录！", Constants.MSG_ERROR);
             } else {
                 if (ImgWaterMarkTimerCanRun) {
-                    ImgWaterMarkTimerCanRun = false;
-                    // 解发一次水印定时任务
                     handExecute = true;
+                    ImgWaterMarkTimerCanRun = false;
                     ImgWaterMarkExecuteTimer.Start();
                 }
             }
@@ -758,17 +771,17 @@ namespace AddWaterMark.ViewModels {
                 if (ImgWaterMarkTimerCanRun) {
                     AddWaterMarkLog("图片加水印定时器已开启...");
                     SetTaskStatus(Colors.Green, "任务运行中");
+                    stop = false;
                     // 立即执行一次
                     ImgWaterMarkExecuteTimer.Start();
                     ImgWaterMarkTaskTimer.Start();
-                    stop = false;
                     SetOperateMsg("水印定时器已开启");
                 } else {
                     AddWaterMarkLog("图片加水印定时器已关闭...");
                     SetTaskStatus(Colors.Red, "任务未运行");
+                    stop = true;
                     ImgWaterMarkExecuteTimer.Stop();
                     ImgWaterMarkTaskTimer.Stop();
-                    stop = true;
                     SetOperateMsg("水印定时器已关闭");
                 }
                 ImgWaterMarkTimerCanRun = !ImgWaterMarkTimerCanRun;
@@ -776,102 +789,120 @@ namespace AddWaterMark.ViewModels {
         }
 
 
-        private static readonly Dictionary<string, List<string>> fileListDic = new Dictionary<string, List<string>>();// 待添加水印文件
-        private static bool isRun = false;// 任务是否运行
-        private static bool stop = false;// 任务是否停止
-        private static bool handExecute = false;// 手工执行
-        private void ImgWaterMark_Tick(object sender, EventArgs e) {
+
+        private void ImgWaterMarkHand_Tick(object sender, EventArgs e) {
             if (isRun) {
                 return;
             }
             isRun = true;
             Task.Factory.StartNew(delegate {
-                if (handExecute) {
-                    AddWaterMarkLog("图片加水印开始执行...");
+                if (handExecute) { 
+                    AddWaterMarkLog("图片加水印开始执行..."); 
                 }
-                fileListDic.Clear();
-                if (ImgFilePaths.Count > 0) {
-                    foreach (ImgFilePath imgFilePath in ImgFilePaths) {
-                        AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark);
-                    }
-                    if (fileListDic.Count > 0) {
-                        Dictionary<string, List<string>> processListDic = new Dictionary<string, List<string>>();
-                        foreach (string waterMarkText in fileListDic.Keys) {
-                            List<string> fileList = fileListDic[waterMarkText];
-                            foreach (string onefile in fileList) {
-                                string ext = Path.GetExtension(onefile);
-                                string filename = Path.GetFileName(onefile);
-                                if (!filename.Contains("_原文件" + ext)) {
-                                    string ywj = Path.GetDirectoryName(onefile) + "\\" + Path.GetFileNameWithoutExtension(onefile) + "_原文件" + ext;
-                                    if (!File.Exists(ywj)) {
-                                        bool hasValue = processListDic.TryGetValue(waterMarkText, out List<string> processList);
-                                        if (!hasValue) {
-                                            processList = new List<string>();
-                                            processListDic.Add(waterMarkText, processList);
-                                        }
-                                        processList.Add(onefile);
-                                    }
-                                }
-                            }
-                        }
-                        if (processListDic.Count > 0) {
-                            System.Drawing.Font font = FontsUtils.GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
-
-                            Brush brush = WaterMarkUtils.GetWaterMarkBrush(Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
-                            Stopwatch watch = new Stopwatch();
-                            foreach (string waterMarkText in processListDic.Keys) {
-                                if (stop) {
-                                    break;
-                                }
-                                FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, brush);
-                                List<string> processList = processListDic[waterMarkText];
-                                foreach (string filePath in processList) {
-                                    if (stop) {
-                                        break;
-                                    }
-                                    watch.Restart();
-
-                                    string ext = Path.GetExtension(filePath).ToLower();
-                                    if (".pdf".Equals(ext)) {
-                                        // PDF文件加水印
-                                        try {
-                                            PdfAddWatermark(false, filePath, waterMarkText, font);
-                                        } catch (Exception e) {
-                                            Console.WriteLine(e.Message);
-                                        }
-                                    } else {
-                                        // 图片加水印
-                                        // media
-                                        CreateWaterMarkImage(false, filePath, formattedText, Configs.waterMarkFontSize, brush);
-                                        // drawing
-                                        // CreateWaterMarkImage(false, filePath, waterMarkText, font);
-                                    }
-                                    watch.Stop();
-                                    AddWaterMarkLog($"{filePath}:处理完成,耗时：{watch.ElapsedMilliseconds}ms");
-                                }
-                            }
-                            font.Dispose();
-                            brush.Freeze();
-                            stop = false;
-                        }
-                    }
-                }
-                if (handExecute) {
+                ImgWaterMarkExecute();
+                if (handExecute) { 
                     AddWaterMarkLog("图片加水印执行结束...");
-                    handExecute = false;
                     ImgWaterMarkTimerCanRun = true;
-                    ImgWaterMarkExecuteTimer.Stop();
                 }
+                ImgWaterMarkExecuteTimer.Stop();
+                isRun = false;
+                handExecute = false;
+            });
+        }
+        private void ImgWaterMarkTask_Tick(object sender, EventArgs e) {
+            if (isRun) {
+                return;
+            }
+            isRun = true;
+            Task.Factory.StartNew(delegate {
+                ImgWaterMarkExecute();
                 isRun = false;
             });
         }
 
+        private static readonly Dictionary<string, List<string>> fileListDic = new Dictionary<string, List<string>>();// 待添加水印文件
+        private static bool isRun = false;// 任务是否运行
+        private static bool stop = false;// 任务是否停止
+        private static bool handExecute = false;
+        private void ImgWaterMarkExecute() {
+            if (ImgFilePaths.Count == 0 || ImgFilePaths.Where(a => a.IsSelect).ToList().Count == 0) {
+                AddWaterMarkLog("目录列表为空或未勾选任何目录...");
+            } else {
+                foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
+                    AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark);
+                }
+                if (fileListDic.Count > 0) {
+                    Dictionary<string, List<string>> processListDic = new Dictionary<string, List<string>>();
+                    foreach (string waterMarkText in fileListDic.Keys) {
+                        List<string> fileList = fileListDic[waterMarkText];
+                        foreach (string onefile in fileList) {
+                            string ext = Path.GetExtension(onefile);
+                            string filename = Path.GetFileName(onefile);
+                            if (!filename.Contains("_原文件" + ext)) {
+                                string ywj = Path.GetDirectoryName(onefile) + "\\" + Path.GetFileNameWithoutExtension(onefile) + "_原文件" + ext;
+                                if (!File.Exists(ywj)) {
+                                    bool hasValue = processListDic.TryGetValue(waterMarkText, out List<string> processList);
+                                    if (!hasValue) {
+                                        processList = new List<string>();
+                                        processListDic.Add(waterMarkText, processList);
+                                    }
+                                    processList.Add(onefile);
+                                }
+                            }
+                        }
+                    }
+                    if (processListDic.Count > 0) {
+                        System.Drawing.Font font = FontsUtils.GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
+
+                        Brush brush = WaterMarkUtils.GetWaterMarkBrush(Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
+                        Stopwatch watch = new Stopwatch();
+                        foreach (string waterMarkText in processListDic.Keys) {
+                            if (stop) {
+                                break;
+                            }
+                            FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, brush);
+                            List<string> processList = processListDic[waterMarkText];
+                            foreach (string filePath in processList) {
+                                if (stop) {
+                                    break;
+                                }
+                                watch.Restart();
+
+                                string ext = Path.GetExtension(filePath).ToLower();
+                                if (".pdf".Equals(ext)) {
+                                    // PDF文件加水印
+                                    try {
+                                        PdfAddWatermark(false, filePath, waterMarkText, font);
+                                    } catch (Exception e) {
+                                        Console.WriteLine(e.Message);
+                                    }
+                                } else {
+                                    // 图片加水印
+                                    // media
+                                    CreateWaterMarkImage(false, filePath, formattedText, Configs.waterMarkFontSize, brush);
+                                    // drawing
+                                    // CreateWaterMarkImage(false, filePath, waterMarkText, font);
+                                }
+                                watch.Stop();
+                                AddWaterMarkLog($"{filePath}:处理完成,耗时：{watch.ElapsedMilliseconds}ms");
+                            }
+                        }
+                        font.Dispose();
+                        brush.Freeze();
+                        stop = false;
+                    }
+                    // 执行结束清空集合
+                    processListDic.Clear();
+                }
+                fileListDic.Clear();
+            }
+        }
+
         /// <summary>
-        /// 列出所有的图片文件
+        /// 列出所有的图片(jpg,bmp,png)文件和pdf文件
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="filepath"></param>
-        /// <param name="waterMark"></param>
+        /// <param name="filepath">目录</param>
+        /// <param name="waterMark">水印文本</param>
         private void AddImgFileList(string filepath, string waterMark) {
             bool hasList = fileListDic.TryGetValue(waterMark, out List<string> list);
             if (!hasList) {
@@ -924,8 +955,7 @@ namespace AddWaterMark.ViewModels {
         }
         public void AddWaterMarkLog(Color color, string log) {
             ThreadPool.QueueUserWorkItem(delegate {
-                SynchronizationContext.SetSynchronizationContext(new
-                    DispatcherSynchronizationContext(Application.Current.Dispatcher));
+                SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Application.Current.Dispatcher));
                 SynchronizationContext.Current.Post(pl => {
                     //里面写真正的业务内容
                     TaskLogs.Add(new Log { ColorBrush = new SolidColorBrush(color), Msg = $"{DateTime.Now:yy-M-d HH:mm:ss}-{log}" });

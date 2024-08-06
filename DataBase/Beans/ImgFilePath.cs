@@ -7,5 +7,7 @@
         // 水印文本
         [TableParam("water_mark", "VARCHAR")]
         public string WaterMark { get; set; }
+        // 是否选中
+        public bool IsSelect { get; set; } = true;
     }
 }

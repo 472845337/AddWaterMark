@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Linq;
 
 namespace AddWaterMark {
     /// <summary>
@@ -112,6 +113,7 @@ namespace AddWaterMark {
             // 图片水印目录数据
             List<ImgFilePath> imgFilePathList = ServiceFactory.GetImgFilePathService().SelectList(null);
             vm.ImgFilePaths = new System.Collections.ObjectModel.ObservableCollection<ImgFilePath>(imgFilePathList);
+            vm.AllSelect = vm.ImgFilePaths.Where(a => !a.IsSelect).ToList().Count == 0;
             // 配置目录列表的GridView栏目宽度
             string pathsViewColumn1Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_1];
             string pathsViewColumn2Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_2];
@@ -236,7 +238,7 @@ namespace AddWaterMark {
                 isChange = true;
             }
             if (vm.WaterMarkFontIsGradient) {
-                vm.SetOperateMsg(Colors.OrangeRed, "注意：渐变色不支持PDF的水印");
+                vm.SetOperateMsg(Colors.OrangeRed, "注意：渐变色不支持PDF！");
             }
             vm.ConfigIsChanged = isChange;
         }
@@ -287,6 +289,26 @@ namespace AddWaterMark {
                 ImageWindow imageWindow = new ImageWindow(vm.WaterMarkHeight, vm.WaterMarkWidth, vm.WaterMarkBitmap);
                 imageWindow.Show();
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e) {
+            foreach (ImgFilePath path in vm.ImgFilePaths) {
+                path.IsSelect = true;
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e) {
+            foreach (ImgFilePath path in vm.ImgFilePaths) {
+                path.IsSelect = false;
+            }
+        }
+
+        private void ImgFilePath_ListView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+            ImgFilePath_ListView.SelectedItem = null;
+        }
+
+        private void ImgFilePath_ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+            vm.UpdateImgFilePathCommand.Execute(null);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AddWaterMark.Config {
     class Constants {
-        public const string SET_FILE = "Config/Ini/Set.ini";
+        public const string SET_FILE = "Set.ini";
 
         public const string INI_SECTION_WINDOW = "Window";
         public const string INI_SECTION_WATER_MARK = "WaterMark";
