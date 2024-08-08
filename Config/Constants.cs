@@ -72,5 +72,7 @@
         public const string MSG_ERROR = "错误";
         public const string MSG_WARN = "警告";
         public const string MSG_INFO = "提示";
+
+        public const string PRI_FILE_SUFFIX = "_原文件";
     }
 }

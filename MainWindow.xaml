@@ -82,7 +82,9 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Style="{StaticResource Value_Style}" Background="{Binding WaterMarkFontColor}" MouseLeftButtonUp="FontColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2CollapsedConverter}}"/>
-                        <TextBlock Grid.Column="0" Style="{StaticResource Value_Style}" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}" MouseLeftButtonUp="FontGradientColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                        <Border Style="{StaticResource Value_Style}" BorderBrush="Gray" BorderThickness="1">
+                            <TextBlock Grid.Column="0" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}" MouseLeftButtonUp="FontGradientColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                        </Border>
                         <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="渐变色" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
@@ -181,6 +183,8 @@
                             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="修改" Command="{Binding UpdateImgFilePathCommand}"/>
                             <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="删除" Command="{Binding DeleteImgFilePathCommand}"/>
                             <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="清空" Command="{Binding ClearImgFilePathCommand}"/>
+
+                            <Button Style="{StaticResource ButtonPurple_Style}" DockPanel.Dock="Right" Content="R" ToolTip="水印文件删除，恢复原文件名" Command="{Binding ResumeImgWaterMarkCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}" ToolTipService.ShowOnDisabled="True"/>
                             <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Command="{Binding ImgWaterMarkExecuteCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
                             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
                             <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>

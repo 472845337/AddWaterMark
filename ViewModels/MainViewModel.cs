@@ -47,6 +47,7 @@ namespace AddWaterMark.ViewModels {
             ImgWaterMarkExecuteCommand = new RelayCommand(ImgWaterMarkExecute);// 该命令不可设置Enable，因为是Task处理水印任务，赋值ImgWaterMarkTimerCanRun时会异常
             ImgWaterMarkTaskToggleCommand = new RelayCommand(ImgWaterMarkTaskToggle);
             ClearWaterMarkLogCommand = new RelayCommand(ClearWaterMarkLog, (obj) => { return TaskLogs.Count > 0; });
+            ResumeImgWaterMarkCommand = new RelayCommand(ResumeWaterMark);
             #endregion
             OperateMessageTimer.Tick += OperateMessageTimer_Tick;
             ImgWaterMarkExecuteTimer.Tick += ImgWaterMarkHand_Tick;
@@ -70,6 +71,7 @@ namespace AddWaterMark.ViewModels {
         public RelayCommand ImgWaterMarkExecuteCommand { get; set; }
         public RelayCommand ImgWaterMarkTaskToggleCommand { get; set; }
         public RelayCommand ClearWaterMarkLogCommand { get; set; }
+        public RelayCommand ResumeImgWaterMarkCommand { get; set; }
 
         public readonly DispatcherTimer OperateMessageTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(5) };
         // 手工执行也是定时任务跑一下，只不过是跑完一次后，停止该计时器
@@ -374,17 +376,17 @@ namespace AddWaterMark.ViewModels {
                 bmp.StreamSource = new MemoryStream(bytes);
                 bmp.EndInit();
                 backPhoto = bmp;
-                // 图片水印任务处理，原文件改名
                 if (!isTest) {
-                    string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + "_原文件" + ext;
+                    // 图片水印任务处理，原文件改名
+                    string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + Constants.PRI_FILE_SUFFIX + ext;
                     File.Move(filePath, newpath);
                 }
                 photoWidth = backPhoto.PixelWidth;
                 photoHeight = backPhoto.PixelHeight;
-                if(backPhoto.DpiX != 0) {
+                if (backPhoto.DpiX != 0) {
                     backDpiX = backPhoto.DpiX;
                 }
-                if(backPhoto.DpiY != 0) {
+                if (backPhoto.DpiY != 0) {
                     backDpiY = backPhoto.DpiY;
                 }
             }
@@ -504,7 +506,8 @@ namespace AddWaterMark.ViewModels {
                 br.Dispose();
                 fs.Dispose();
                 if (!isTest) {
-                    string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + "_原文件" + ext;
+                    // 图片水印任务处理，原文件改名
+                    string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + Constants.PRI_FILE_SUFFIX + ext;
                     File.Move(filePath, newpath);
                 }
                 using MemoryStream ms = new MemoryStream(bytes);
@@ -594,7 +597,8 @@ namespace AddWaterMark.ViewModels {
                 }
             }
             string ext = Path.GetExtension(pdfPath);
-            string newpath = Path.GetDirectoryName(pdfPath) + "\\" + Path.GetFileNameWithoutExtension(pdfPath) + "_原文件" + ext;
+            // 水印任务处理，原文件改名
+            string newpath = Path.GetDirectoryName(pdfPath) + "\\" + Path.GetFileNameWithoutExtension(pdfPath) + Constants.PRI_FILE_SUFFIX + ext;
             File.Move(pdfPath, newpath);
 
             //读取pdf
@@ -652,7 +656,6 @@ namespace AddWaterMark.ViewModels {
                 }
                 content.EndText();
             }
-
             stamper.Close();
             reader.Close();
         }
@@ -757,6 +760,7 @@ namespace AddWaterMark.ViewModels {
                 MessageBox.Show("当前路径为空，请添加文件目录！", Constants.MSG_ERROR);
             } else {
                 if (ImgWaterMarkTimerCanRun) {
+                    stop = false;
                     handExecute = true;
                     ImgWaterMarkTimerCanRun = false;
                     ImgWaterMarkExecuteTimer.Start();
@@ -788,7 +792,57 @@ namespace AddWaterMark.ViewModels {
             }
         }
 
+        #region 恢复水印文件名
+        private void ResumeWaterMark(object _) {
+            if (ImgWaterMarkTimerCanRun) {
+                stop = false;
+                if (MessageBoxResult.OK == MessageBox.Show("所有水印文件删除，原文件恢复，操作不可撤回，确认删除？", Constants.MSG_WARN, MessageBoxButton.OKCancel, MessageBoxImage.Warning)) {
+                    Task.Factory.StartNew(delegate {
+                        ImgWaterMarkTimerCanRun = false;
+                        AddWaterMarkLog("开始恢复水印文件！");
+                        foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
+                            if (stop) {
+                                break;
+                            }
+                            ResumePathWaterMark(imgFilePath.FilePath);
+                        }
+                        AddWaterMarkLog("恢复水印文件结束！");
+                        ImgWaterMarkTimerCanRun = true;
+                    });
+                }
+            } else {
+                AddWaterMarkLog("任务处理中，请稍侯再试！");
+            }
+        }
 
+        private void ResumePathWaterMark(string path) {
+            if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory) {
+                string[] childFileNameArray = Directory.GetFileSystemEntries(path);
+                foreach(string childFileName in childFileNameArray) {
+                    if (stop) {
+                        break;
+                    }
+                    ResumePathWaterMark(childFileName);
+                }
+            } else {
+                string fileName = Path.GetFileName(path);
+                // 水印对应的原文件是以"_原文件"重命名的
+                if (fileName.Contains(Constants.PRI_FILE_SUFFIX)) {
+                    // 对应水印文件名
+                    string waterMarkFilePath = Path.GetDirectoryName(path) + "\\" + fileName.Replace(Constants.PRI_FILE_SUFFIX, string.Empty);
+                    // 水印文件删除
+                    if (File.Exists(waterMarkFilePath)) {
+                        File.Delete(waterMarkFilePath);
+                        AddWaterMarkLog("水印文件：“" + waterMarkFilePath + "”删除成功");
+                    }
+                    // 原文件恢复原名
+                    File.Move(path, waterMarkFilePath);
+                    AddWaterMarkLog("原文件：“" + path + "”恢复文件名成功");
+                    
+                }
+            }
+        }
+        #endregion
 
         private void ImgWaterMarkHand_Tick(object sender, EventArgs e) {
             if (isRun) {
@@ -796,11 +850,11 @@ namespace AddWaterMark.ViewModels {
             }
             isRun = true;
             Task.Factory.StartNew(delegate {
-                if (handExecute) { 
-                    AddWaterMarkLog("图片加水印开始执行..."); 
+                if (handExecute) {
+                    AddWaterMarkLog("图片加水印开始执行...");
                 }
                 ImgWaterMarkExecute();
-                if (handExecute) { 
+                if (handExecute) {
                     AddWaterMarkLog("图片加水印执行结束...");
                     ImgWaterMarkTimerCanRun = true;
                 }
@@ -838,9 +892,10 @@ namespace AddWaterMark.ViewModels {
                         foreach (string onefile in fileList) {
                             string ext = Path.GetExtension(onefile);
                             string filename = Path.GetFileName(onefile);
-                            if (!filename.Contains("_原文件" + ext)) {
-                                string ywj = Path.GetDirectoryName(onefile) + "\\" + Path.GetFileNameWithoutExtension(onefile) + "_原文件" + ext;
-                                if (!File.Exists(ywj)) {
+                            // 获取未加过水印的图片：当前文件同目录下没有文件名加_原文件后缀的文件名，（a.jpg，a_原文件.jpg表示已经加过水印）
+                            if (!filename.Contains(Constants.PRI_FILE_SUFFIX + ext)) {
+                                string priFile = Path.GetDirectoryName(onefile) + "\\" + Path.GetFileNameWithoutExtension(onefile) + Constants.PRI_FILE_SUFFIX + ext;
+                                if (!File.Exists(priFile)) {
                                     bool hasValue = processListDic.TryGetValue(waterMarkText, out List<string> processList);
                                     if (!hasValue) {
                                         processList = new List<string>();
@@ -889,7 +944,6 @@ namespace AddWaterMark.ViewModels {
                         }
                         font.Dispose();
                         brush.Freeze();
-                        stop = false;
                     }
                     // 执行结束清空集合
                     processListDic.Clear();
