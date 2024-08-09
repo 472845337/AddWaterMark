@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/AddWaterMark;component/Resources/Style/Buttons.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/AddWaterMark;component/Langs/default.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <con:Boolean2VisibleConverter x:Key="Boolean2VisibleConverter" />
             <con:Boolean2CollapsedConverter x:Key="Boolean2CollapsedConverter" />
@@ -38,55 +39,54 @@
                 <Setter Property="Foreground" Value="CadetBlue"/>
             </Style>
             <TextBlock x:Key="Help_TextBlock" TextWrapping="Wrap">
-                <Run Text="    使用说明" FontWeight="Bold" FontSize="20" Foreground="DeepSkyBlue"/>
+                <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Title}" FontWeight="Bold" FontSize="20" Foreground="DeepSkyBlue"/>
                 <LineBreak/>
-                <Run Text="   1.功能：" Style="{StaticResource DocTitle1_Style}"/>
+                <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Function}" Style="{StaticResource DocTitle1_Style}"/>
                 <LineBreak/>
-                <Run Text="        测试水印显示效果，单文件水印处理保存到本地"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Function_1}"/>
                 <LineBreak/>
-                <Run Text="        配置目录中的图片文件（包含PDF）加水印任务，"/><Run Text="注意：PDF不支持渐变色" Foreground="Red"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Function_2}"/><Run Text="{DynamicResource Function_2_Important}" Foreground="Red"/>
                 <LineBreak/>
-                <Run Text="   2.使用方法：" Style="{StaticResource DocTitle1_Style}"/>
+                <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Manuals}" Style="{StaticResource DocTitle1_Style}"/>
                 <LineBreak/>
-                <Run Text="        (1).配置面板中设置水印参数" Style="{StaticResource DocTitle2_Style}"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Manuals_Config}" Style="{StaticResource DocTitle2_Style}"/>
                 <LineBreak/>
-                <Run Text="            不透明度：100为完全不透明，"/><Run Text="注意：0为完全透明，无法看到水印" Foreground="Red"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_Opacity}"/><Run Text="{DynamicResource Manuals_Config_Opacity_Important}" Foreground="Red"/>
                 <LineBreak/>
-                <Run Text="            旋转角度：-180度到180度"/><Run Text="旋转角度是基于面板中心点坐标进行旋转"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_Rotate}"/>
                 <LineBreak/>
-                <Run Text="            字体：可选择当前系统中所有的字体，"/><Run Text="注意中文水印，大部分英文字体会乱码" Foreground="Red"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_FontFamily}"/><Run Text="{DynamicResource Manuals_Config_FontFamily_Important}" Foreground="Red"/>
                 <LineBreak/>
-                <Run Text="            字体大小：水印字体的尺寸(像素)，对应关系可"/>
-                <Hyperlink NavigateUri="https://www.cnblogs.com/guohu/p/8579513.html" Click="Lnk_Click">参照链接</Hyperlink>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_FontSize}"/><Hyperlink NavigateUri="https://www.cnblogs.com/guohu/p/8579513.html" Click="Lnk_Click"><Run Text="{DynamicResource Manuals_Config_FontSize_Link}"/></Hyperlink>
                 <LineBreak/>
-                <Run Text="            字体颜色：选择文字水印的颜色，纯色或渐变色"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_FontColor}"/>
                 <LineBreak/>
-                <Run Text="            字体样式：粗体，斜体，下划线，中划线"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_FontStyle}"/>
                 <LineBreak/>
-                <Run Text="            水平间距：水印之间水平位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_Horizontal_Dis}"/><Run Text="{DynamicResource Manuals_Config_Dis_Important}" Foreground="Red"/>
                 <LineBreak/>
-                <Run Text="            垂直间距：水印之间垂直位移量"/><Run Text="（间距小水印会重叠）" Foreground="Red"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Config_Vetical_Dis}"/><Run Text="{DynamicResource Manuals_Config_Dis_Important}" Foreground="Red"/>
                 <LineBreak/>
-                <Run Text="        (2).任务面板中配置目录" Style="{StaticResource DocTitle2_Style}"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Manuals_Task}" Style="{StaticResource DocTitle2_Style}"/>
                 <LineBreak/>
-                <Run Text="            a.配置要添加水印的图片目录"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Task_Path}"/>
                 <LineBreak/>
-                <Run Text="            b.手工或任务对配置的图片目录里未生成水印的图片添加水印,判断是否加水印条件为同目录下，是否存在&quot;_原文件.jpg&quot;的文件"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Task_Execute}"/>
                 <LineBreak/>
-                <Run Text="            c.日志面板中会显示水印任务执行情况"/>
+                <Run Text="{DynamicResource Indentation2}"/><Run Text="{DynamicResource Manuals_Task_Log}"/>
                 <LineBreak/>
-                <Run Text="   3.源代码" Style="{StaticResource DocTitle1_Style}"/>
+                <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Resources}" Style="{StaticResource DocTitle1_Style}"/>
                 <LineBreak/>
-                <Run Text="        开发语言：C# WPF .Net Framework4.5"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Resources_Language}"/>
                 <LineBreak/>
-                <Run Text="        开发工具：VS2019"/>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Resources_Tool}"/>
                 <LineBreak/>
-                <Run Text="        Gitee地址："/>
-                <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click">源代码</Hyperlink>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Resources_Git}"/>
+                <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click"><Run Text="{DynamicResource Resources_Git_Link}"/></Hyperlink>
                 <LineBreak/>
-                <Run Text="   4.Bug反馈" Style="{StaticResource DocTitle1_Style}"/>
+                <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Bug}" Style="{StaticResource DocTitle1_Style}"/>
                 <LineBreak/>
-                <Run Text="        发送邮件至"/><Hyperlink NavigateUri="https://mail.qq.com/" Click="Lnk_Click">1320311706@qq.com</Hyperlink>
+                <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Bug_Email}"/>
             </TextBlock>
         </ResourceDictionary>
     </Application.Resources>

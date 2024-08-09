@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddWaterMark"
         mc:Ignorable="d"
-        Title="加水印" 
+        Title="{DynamicResource MainTitle}" 
         Height="{Binding MainHeight, Mode=TwoWay}" 
         Width="{Binding MainWidth, Mode=TwoWay}" 
         Left="{Binding MainLeft, Mode=TwoWay}"
@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" x:Name="WaterMark_TabControl" SelectedIndex="{Binding LastOpenTab}">
-            <TabItem Header="配置">
+            <TabItem Header="{DynamicResource TabHeaderConfig}">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -37,9 +37,9 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="水印文字"/>
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Text}"/>
                     <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
-                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="不透明度"/>
+                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Opacity}"/>
                     <Grid Grid.Row="0" Grid.Column="3" Style="{StaticResource Value_Style}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -49,7 +49,7 @@
                         <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="100" Minimum="0" TickFrequency="5" Value="{Binding WaterMarkOpacity}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkOpacity}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Content="旋转"/>
+                    <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Rotate}"/>
                     <Grid Grid.Row="0" Grid.Column="5" Style="{StaticResource Value_Style}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -58,7 +58,7 @@
                         <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="180" Minimum="-180" TickFrequency="5" Value="{Binding WaterMarkRotate}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkRotate}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" Content="字体"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" Content="{DynamicResource Set_Font_Family}"/>
                     <ComboBox Style="{StaticResource Value_Style}" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" IsReadOnly="True" ItemsSource="{Binding SystemFonts}" SelectedValue="{Binding WaterMarkFontFamily}" SelectionChanged="Configs_Changed">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -66,7 +66,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="2" Content="字号"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="2" Content="{DynamicResource Set_Font_Size}"/>
                     <Grid Style="{StaticResource Value_Style}" Grid.Row="1" Grid.Column="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -75,7 +75,7 @@
                         <Slider Grid.Column="0" Style="{StaticResource Slider_Style}" Maximum="80" Minimum="4" TickFrequency="2" Value="{Binding WaterMarkFontSize}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkFontSize}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Content="文字颜色"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Content="{DynamicResource Set_Font_Color}"/>
                     <Grid Grid.Row="1" Grid.Column="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -85,60 +85,60 @@
                         <Border Style="{StaticResource Value_Style}" BorderBrush="Gray" BorderThickness="1">
                             <TextBlock Grid.Column="0" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}" MouseLeftButtonUp="FontGradientColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2VisibleConverter}}"/>
                         </Border>
-                        <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="渐变色" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Is_Gradient_Color}" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="粗" FontWeight="Bold" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="斜" FontStyle="Italic" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Bold}" FontWeight="Bold" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Italic}" FontStyle="Italic" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                         <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed">
                             <CheckBox.Content>
-                                <TextBlock Text="下划" TextDecorations="Underline"/>
+                                <TextBlock Text="{DynamicResource Set_Underline}" TextDecorations="Underline"/>
                             </CheckBox.Content>
                         </CheckBox>
                         <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed">
                             <CheckBox.Content>
-                                <TextBlock Text="中划" TextDecorations="Strikethrough"/>
+                                <TextBlock Text="{DynamicResource Set_Strikeout}" TextDecorations="Strikethrough"/>
                             </CheckBox.Content>
                         </CheckBox>
                     </StackPanel>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="水平间隔"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="{DynamicResource Set_Horizental_Dis}"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Content="垂直间隔"/>
+                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Content="{DynamicResource Set_Vertical_Dis}"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonPurple_Style}" Content="默认" ToolTip="恢复到初始值" Command="{Binding DefaultConfigCommand}"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Content="取消" ToolTip="取消当前修改" Command="{Binding CancelConfigCommand}"/>
-                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="保存" ToolTip="保存当前修改，水印任务同步变更" Command="{Binding SaveConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonPurple_Style}" Content="{DynamicResource Set_Default}" ToolTip="{DynamicResource Set_Default_ToolTip}" Command="{Binding DefaultConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Cancel}" ToolTip="{DynamicResource Set_Cancel_ToolTip}" Command="{Binding CancelConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Save}" ToolTip="{DynamicResource Set_Save_ToolTip}" Command="{Binding SaveConfigCommand}"/>
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
                         <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}" MouseLeftButtonUp="WaterMarkImage_MouseLeftButtonUp">
                             <Image.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="重新生成" ToolTip="重新生成测试水印，以便查看新配置的水印效果" Command="{Binding RefreshWaterMarkCommand}"/>
-                                    <MenuItem Header="选择图片" ToolTip="指定图片生成测试水印" Command="{Binding CreateImgWaterMarkCommand}"/>
-                                    <MenuItem Header="清空水印" ToolTip="清空当前生成的测试水印" Command="{Binding ClearWaterMarkCommand}"/>
-                                    <MenuItem Header="保存到本地" ToolTip="将水印图片保存到本地目录" Command="{Binding SaveWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Refresh}" ToolTip="{DynamicResource Test_Refresh_ToolTip}" Command="{Binding RefreshWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Img}" ToolTip="{DynamicResource Test_Img_ToolTip}" Command="{Binding CreateImgWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Clear}" ToolTip="{DynamicResource Test_Clear_ToolTip}" Command="{Binding ClearWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Save_Local}" ToolTip="{DynamicResource Test_Save_Local_ToolTip}" Command="{Binding SaveWaterMarkCommand}"/>
                                 </ContextMenu>
                             </Image.ContextMenu>
                         </Image>
                     </Border>
                     <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="测试水印" Command="{Binding RefreshWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Margin="0 2 0 0" Content="{DynamicResource Test}" Command="{Binding RefreshWaterMarkCommand}" IsEnabled="{Binding CanTestWaterMark}"/>
                         <Border BorderBrush="Gray" BorderThickness="1" Margin="0 4 0 0">
                             <Menu Background="#f0ad4e">
                                 <MenuItem Height="24">
                                     <MenuItem.Header>
                                         <Path Fill="White" Data="M 0 3 L 0,3 6,9 L 6,9 0,15 L 0,15 0,3"/>
                                     </MenuItem.Header>
-                                    <MenuItem Header="空白背景" Command="{Binding CreateWaterMarkCommand}"/>
-                                    <MenuItem Header="图片背景" Command="{Binding CreateImgWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Blank_Background}" Command="{Binding CreateWaterMarkCommand}"/>
+                                    <MenuItem Header="{DynamicResource Test_Img_Background}" Command="{Binding CreateImgWaterMarkCommand}"/>
                                 </MenuItem>
                             </Menu>
                         </Border>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="任务">
+            <TabItem Header="{DynamicResource TabHeaderTask}">
                 <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="ImgFilePaths_Row" MinHeight="100"/>
@@ -150,14 +150,14 @@
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <GroupBox Grid.Row="0" Grid.Column="0" Header="目录">
+                        <GroupBox Grid.Row="0" Grid.Column="0" Header="{DynamicResource Path_Group}">
                             <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}" SelectionChanged="ImgFilePath_Selected" MouseLeftButtonDown="ImgFilePath_ListView_MouseLeftButtonDown" MouseDoubleClick="ImgFilePath_ListView_MouseDoubleClick">
                                 <ListView.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="修改" Command="{Binding UpdateImgFilePathCommand}"/>
-                                        <MenuItem Header="删除" Command="{Binding DeleteImgFilePathCommand}"/>
+                                        <MenuItem Header="{DynamicResource Update}" Command="{Binding UpdateImgFilePathCommand}"/>
+                                        <MenuItem Header="{DynamicResource Delete}" Command="{Binding DeleteImgFilePathCommand}"/>
                                         <Separator/>
-                                        <MenuItem Header="打开目录" Command="{Binding OpenImgFilePathCommand}"/>
+                                        <MenuItem Header="{DynamicResource OpenDic}" Command="{Binding OpenImgFilePathCommand}"/>
                                     </ContextMenu>
                                 </ListView.ContextMenu>
                                 <ListView.View>
@@ -172,39 +172,39 @@
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Header="水印" Width="{Binding PathsViewColumn1, Mode=TwoWay}" DisplayMemberBinding="{Binding WaterMark}"/>
-                                        <GridViewColumn Header="目录" Width="{Binding PathsViewColumn2, Mode=TwoWay}" DisplayMemberBinding="{Binding FilePath}"/>
+                                        <GridViewColumn Header="{DynamicResource Text}" Width="{Binding PathsViewColumn1, Mode=TwoWay}" DisplayMemberBinding="{Binding WaterMark}"/>
+                                        <GridViewColumn Header="{DynamicResource Path}" Width="{Binding PathsViewColumn2, Mode=TwoWay}" DisplayMemberBinding="{Binding FilePath}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                         </GroupBox>
                         <DockPanel Grid.Row="1" LastChildFill="False">
-                            <Button Style="{StaticResource ButtonPrimary_Style}" DockPanel.Dock="Left" Content="添加" Command="{Binding AddImgFilePathCommand}"/>
-                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="修改" Command="{Binding UpdateImgFilePathCommand}"/>
-                            <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="删除" Command="{Binding DeleteImgFilePathCommand}"/>
-                            <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="清空" Command="{Binding ClearImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonPrimary_Style}" DockPanel.Dock="Left" Content="{DynamicResource Add}" Command="{Binding AddImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Left" Content="{DynamicResource Update}" Command="{Binding UpdateImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Left" Content="{DynamicResource Delete}" Command="{Binding DeleteImgFilePathCommand}"/>
+                            <Button Style="{StaticResource ButtonDanger_Style}" DockPanel.Dock="Left" Content="{DynamicResource Clear}" Command="{Binding ClearImgFilePathCommand}"/>
 
-                            <Button Style="{StaticResource ButtonPurple_Style}" DockPanel.Dock="Right" Content="R" ToolTip="水印文件删除，恢复原文件名" Command="{Binding ResumeImgWaterMarkCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}" ToolTipService.ShowOnDisabled="True"/>
-                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="手工执行" ToolTip="手工执行一次加水印任务" Command="{Binding ImgWaterMarkExecuteCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
-                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="启动" ToolTip="开启加水印任务，自动扫描未加水印图片文件，加上水印" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
-                            <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="停止" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
+                            <Button Style="{StaticResource ButtonPurple_Style}" DockPanel.Dock="Right" Content="R" ToolTip="{DynamicResource Resume_ToolTip}" Command="{Binding ResumeImgWaterMarkCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}" ToolTipService.ShowOnDisabled="True"/>
+                            <Button Style="{StaticResource ButtonPink_Style}" DockPanel.Dock="Right" Content="{DynamicResource HandExecute}" ToolTip="{DynamicResource HandExecute_ToolTip}" Command="{Binding ImgWaterMarkExecuteCommand}" IsEnabled="{Binding ImgWaterMarkTimerCanRun}"/>
+                            <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="{DynamicResource Task_Start}" ToolTip="{DynamicResource Task_Start_ToolTip}" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2VisibleConverter}}"/>
+                            <Button Style="{StaticResource ButtonYellow_Style}" DockPanel.Dock="Right" Content="{DynamicResource Task_Stop}" Command="{Binding ImgWaterMarkTaskToggleCommand}" Visibility="{Binding ImgWaterMarkTimerCanRun, Converter={StaticResource Boolean2CollapsedConverter}}"/>
                             <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="{Binding TaskInterval}"/>
                             <Slider Style="{StaticResource Form_Style}" Width="100" DockPanel.Dock="Right" Maximum="10" Minimum="1" TickFrequency="1" Value="{Binding TaskInterval}" Thumb.DragCompleted="TaskIntervalSlider_ValueChanged"/>
-                            <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="频率(分)"/>
+                            <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="{DynamicResource Task_Interval}"/>
                         </DockPanel>
                     </Grid>
                     <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch" Margin="0,3" ResizeBehavior="PreviousAndNext" Grid.ColumnSpan="2"/>
                     <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
-                                <Label VerticalAlignment="Center" Content="日志"/>
-                                <CheckBox VerticalAlignment="Center" Content="自动到底部" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
+                                <Label VerticalAlignment="Center" Content="{DynamicResource Log_Group}"/>
+                                <CheckBox VerticalAlignment="Center" Content="{DynamicResource Log_Scroll_End}" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
                             </StackPanel>
                         </GroupBox.Header>
                         <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="清空日志" ToolTip="清空运行日志" Command="{Binding ClearWaterMarkLogCommand}"/>
+                                    <MenuItem Header="{DynamicResource Log_Clear}" Command="{Binding ClearWaterMarkLogCommand}"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
@@ -222,7 +222,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="帮助">
+            <TabItem Header="{DynamicResource TabHeaderHelp}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Content>
                         <StaticResource ResourceKey="Help_TextBlock"/>
@@ -232,12 +232,8 @@
 
         </TabControl>
         <StatusBar Grid.Row="1" >
-            <StatusBarItem Visibility="Collapsed">
-                <ComboBox IsReadOnly="True">
-                    <ComboBoxItem Content="zh-cn" IsSelected="True"/>
-                    <ComboBoxItem Content="zh-tw"/>
-                    <ComboBoxItem Content="en"/>
-                </ComboBox>
+            <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
+                <ComboBox Name="Lang_ComboBox" ItemsSource="{Binding LangList}" SelectedValue="{Binding Language}" SelectedValuePath="Value" DisplayMemberPath="Name" SelectionChanged="Lang_ComboBox_SelectionChanged" IsReadOnly="True"/>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
                 <TextBlock Text="{Binding OperateMsg}" Foreground="{Binding OperateMsgColor}"/>

@@ -34,7 +34,7 @@ namespace AddWaterMark.Windows {
             }
             bool isNumeric = NumberUtils.IsNumeric(point, out double pointD);
             if (!isNumeric || pointD < 0 || pointD > 1) {
-                MessageBox.Show("请输入0-1之间的数值");
+                MessageBox.Show(Lang.Find("GradientPointLimit"));
             }
 
         }
@@ -55,7 +55,7 @@ namespace AddWaterMark.Windows {
         /// <param name="e"></param>
         private void DeleteGradientColor_Click(object sender, RoutedEventArgs e) {
             if (vm.GradientColorList.Count < 3) {
-                MessageBox.Show("渐变色不能小于2种！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("GradientCountLimit"), Lang.Find("Msgbox_Error"));
                 return;
             }
             Button deleteButton = sender as Button;
@@ -88,7 +88,7 @@ namespace AddWaterMark.Windows {
         private void Save_Click(object sender, RoutedEventArgs e) {
             foreach (GradientColor color in vm.GradientColorList) {
                 if (color.Point < 0 || color.Point > 1) {
-                    MessageBox.Show("请输入0-1之间的数值");
+                    MessageBox.Show(Lang.Find("GradientPointLimit"));
                     return;
                 }
             }

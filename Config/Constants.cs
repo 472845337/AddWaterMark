@@ -11,6 +11,7 @@
         public const string INI_KEY_TOP = "Top";
         public const string INI_KEY_HEIGHT = "Height";
         public const string INI_KEY_WIDTH = "Width";
+        public const string INI_KEY_LANGUAGE = "Language";
 
         public const string INI_KEY_WATER_MARK_TEXT = "Text";// 水印文本
         public const string INI_KEY_WATER_MARK_OPACITY = "Opacity";// 不透明度
@@ -40,6 +41,7 @@
         public const double MAIN_WIDTH = 600;
         public const double MAIN_LEFT = 300;
         public const double MAIN_TOP = 50;
+        public const string LANGUAGE = "zh_cn";
 
         public const string WATER_MARK_TEXT = "水印";
         public const byte WATER_MARK_OPACITY = 25;
@@ -69,10 +71,6 @@
         public const string IMG_EXT_TIFF = ".tiff";
         public const string IMG_EXT_WMP = ".wmp";
 
-        public const string MSG_ERROR = "错误";
-        public const string MSG_WARN = "警告";
-        public const string MSG_INFO = "提示";
-
-        public const string PRI_FILE_SUFFIX = "_原文件";
+        public const string PRI_FILE_SUFFIX = "_pri";
     }
 }

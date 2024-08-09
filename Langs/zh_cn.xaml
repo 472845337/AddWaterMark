@@ -1,0 +1,178 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="MainTitle">加水印</sys:String>
+    <sys:String x:Key="GradientTitle">渐变色</sys:String>
+    <sys:String x:Key="ImageTitle">水印图</sys:String>
+    <sys:String x:Key="ImagePathTitle">图片目录</sys:String>
+    
+    <sys:String x:Key="TabHeaderConfig">配置</sys:String>
+    <sys:String x:Key="TabHeaderTask">任务</sys:String>
+    <sys:String x:Key="TabHeaderHelp">帮助</sys:String>
+    <!--#region 配置项 -->
+    <sys:String x:Key="Set_Text">水印文字</sys:String>
+    <sys:String x:Key="Set_Opacity">不透明度</sys:String>
+    <sys:String x:Key="Set_Rotate">旋转</sys:String>
+    <sys:String x:Key="Set_Font_Family">字体</sys:String>
+    <sys:String x:Key="Set_Font_Size">字号</sys:String>
+    <sys:String x:Key="Set_Font_Color">颜色</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">渐变色</sys:String>
+    <sys:String x:Key="Set_Bold">粗</sys:String>
+    <sys:String x:Key="Set_Italic">斜</sys:String>
+    <sys:String x:Key="Set_Underline">下划</sys:String>
+    <sys:String x:Key="Set_Strikeout">中划</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">水平间距</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">垂直间距</sys:String>
+    <sys:String x:Key="Set_Default">默认</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">恢复到初始值</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">取消当前修改</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">保存当前修改，水印任务同步变更</sys:String>
+
+    <sys:String x:Key="Test_Refresh">重新生成</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">重新生成测试水印，以便查看新配置的水印效果</sys:String>
+    <sys:String x:Key="Test_Img">选择图片</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">指定图片生成测试水印</sys:String>
+    <sys:String x:Key="Test_Clear">清空水印</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">清空当前生成的测试水印</sys:String>
+    <sys:String x:Key="Test_Save_Local">保存到本地</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">将水印图片保存到本地目录</sys:String>
+    
+    <sys:String x:Key="Test">测试水印</sys:String>
+    <sys:String x:Key="Test_Blank_Background">空白背景</sys:String>
+    <sys:String x:Key="Test_Img_Background">图片背景</sys:String>
+    <!--#endregion-->
+    
+    <!--#region 任务页 -->
+    <sys:String x:Key="Path_Group">目录</sys:String>
+    
+    <sys:String x:Key="OpenDic">打开目录</sys:String>
+
+    <sys:String x:Key="Text">水印</sys:String>
+    <sys:String x:Key="Path">目录</sys:String>
+
+    <sys:String x:Key="Add">添加</sys:String>
+    <sys:String x:Key="Update">修改</sys:String>
+    <sys:String x:Key="Delete">删除</sys:String>
+    <sys:String x:Key="Clear">清空</sys:String>
+    <sys:String x:Key="Save">保存</sys:String>
+    <sys:String x:Key="Cancel">取消</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">水印文件删除，恢复原文件名</sys:String>
+    <sys:String x:Key="HandExecute">手工执行</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">手工执行一次加水印任务</sys:String>
+    <sys:String x:Key="Task_Start">启动</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">开启加水印任务，自动扫描未加水印图片文件，加上水印</sys:String>
+    <sys:String x:Key="Task_Stop">停止</sys:String>
+    <sys:String x:Key="Task_Interval">频率(分)</sys:String>
+
+    <sys:String x:Key="Log_Group">日志</sys:String>
+    <sys:String x:Key="Log_Scroll_End">自动到底部</sys:String>
+
+    <sys:String x:Key="Log_Clear">清空日志</sys:String>
+    <!--#endregion-->
+    
+    <!--#region 帮助页 -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">使用说明</sys:String>
+    <sys:String x:Key="Help_Function">1.功能：</sys:String>
+    <sys:String x:Key="Function_1">测试水印显示效果，单文件水印处理保存到本地</sys:String>
+    <sys:String x:Key="Function_2">配置目录中的图片文件（包含PDF）加水印任务，</sys:String>
+    <sys:String x:Key="Function_2_Important">注意：PDF不支持渐变色</sys:String>
+    <sys:String x:Key="Help_Manuals">2.使用方法：</sys:String>
+    <sys:String x:Key="Manuals_Config">(1).配置面板中设置水印参数</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">不透明度：100为完全不透明，</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">注意：0为完全透明，无法看到水印</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">旋转角度：-180度到180度，旋转角度是基于面板中心点坐标进行旋转</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">字体：可选择当前系统中所有的字体，</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">注意中文水印，大部分英文字体会乱码</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">字体大小：水印字体的尺寸(像素)，对应关系可</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">参照链接</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">字体颜色：选择文字水印的颜色，纯色或渐变色</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">字体样式：粗体，斜体，下划线，中划线</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">水平间距：水印之间水平位移量</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">垂直间距：水印之间垂直位移量</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">（间距小水印会重叠）</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2).任务面板中配置目录</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a.配置要添加水印的图片目录</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b.手工或任务对配置的图片目录里未生成水印的图片添加水印,判断是否加水印条件为同目录下，是否存在&quot;_pri.jpg&quot;的文件</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c.日志面板中会显示水印任务执行情况</sys:String>
+
+    <sys:String x:Key="Help_Resources">3.源代码</sys:String>
+    <sys:String x:Key="Resources_Language">开发语言：C# WPF .Net Framework4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">开发工具：VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">Gitee地址：</sys:String>
+    <sys:String x:Key="Resources_Git_Uri">https://gitee.com/wsjy/add-water-mark.git</sys:String>
+    <sys:String x:Key="Resources_Git_Link">源代码</sys:String>
+
+    <sys:String x:Key="Help_Bug">4.Bug反馈</sys:String>
+    <sys:String x:Key="Bug_Email">发送邮件至1320311706@qq.com</sys:String>
+    <!--#endregion-->
+    
+    <!--#region 消息-->
+    <sys:String x:Key="Msgbox_Info">提示</sys:String>
+    <sys:String x:Key="Msgbox_Warn">警告</sys:String>
+    <sys:String x:Key="Msgbox_Error">错误</sys:String>
+    <sys:String x:Key="Exit_Confirm">确认退出该程序吗？</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">存在修改的配置，保存配置吗？</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">当前频率调整为:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">确认恢复初始值？</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">恢复默认配置成功！</sys:String>
+    <sys:String x:Key="LogClearSuccess">日志清空成功！</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">取消修改成功</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">保存配置成功</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">生成水印成功</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">刷新水印成功</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">清除水印图片成功</sys:String>
+    <sys:String x:Key="ImageFileFilter">图片文件|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">测试水印.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">清除水印图片成功</sys:String>
+    <sys:String x:Key="SaveWatemarkError">不存在水印图片！</sys:String>
+    <sys:String x:Key="AddPathSuccess">添加目录成功</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">修改目录成功</sys:String>
+    <sys:String x:Key="DeletePathConfirm">确认删除该路径？</sys:String>
+    <sys:String x:Key="DeletePathSuccess">删除成功</sys:String>
+    <sys:String x:Key="DeletePathError">请先选择要删除路径！</sys:String>
+    <sys:String x:Key="ClearPathConfirm">确认清空所有路径？</sys:String>
+    <sys:String x:Key="ClearPathSuccess">清空成功</sys:String>
+    <sys:String x:Key="ClearPathError">当前路径为空，无需清空！</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">当前目录不存在！</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">请先选择路径！</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">当前路径为空，请添加文件目录！</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">图片加水印定时器已开启...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">任务运行中</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">水印定时器已开启</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">图片加水印定时器已关闭...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">任务未运行</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">水印定时器已关闭</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">所有水印文件删除，原文件恢复，操作不可撤回，确认删除？</sys:String>
+    <sys:String x:Key="StartResume">开始恢复水印文件！</sys:String>
+    <sys:String x:Key="OverResume">恢复水印文件结束！</sys:String>
+    <sys:String x:Key="TaskingNextTry">任务处理中，请稍侯再试！</sys:String>
+    <sys:String x:Key="LogWatermark">水印文件：“</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">”删除成功</sys:String>
+    <sys:String x:Key="PriFile">原文件：“</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">”恢复文件名成功</sys:String>
+    <sys:String x:Key="StartAddWatermark">图片加水印开始执行...</sys:String>
+    <sys:String x:Key="OverAddWatermark">图片加水印执行结束...</sys:String>
+    <sys:String x:Key="UnselectedPath">目录列表为空或未勾选任何目录...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">:处理完成,耗时：</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">添加渐变</sys:String>
+    <sys:String x:Key="GradientPointLimit">请输入0-1之间的数值</sys:String>
+    <sys:String x:Key="GradientCountLimit">渐变色不能小于2种！</sys:String>
+    <sys:String x:Key="GradientCountTooltip">渐变色最少2种颜色</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">删除该渐变色块</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">最多10个渐变色</sys:String>
+    <sys:String x:Key="GradientAddTooltip">添加渐变色块</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">渐变色为空</sys:String>
+
+    <sys:String x:Key="PathEmpty">图片目录不能为空！</sys:String>
+    <sys:String x:Key="TextEmpty">水印不能为空！</sys:String>
+    <sys:String x:Key="PathNotExist">当前配置目录不存在，确认继续添加吗？</sys:String>
+    <sys:String x:Key="SamePathExist">您已添加相同的目录：</sys:String>
+    <sys:String x:Key="ChildPath">您已添加目录存在包含关系：</sys:String>
+</ResourceDictionary>

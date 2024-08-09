@@ -77,6 +77,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Beans\GradientColor.cs" />
+    <Compile Include="Beans\Lang.cs" />
     <Compile Include="Beans\Log.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Config\Configs.cs" />
@@ -118,6 +119,25 @@
     <Compile Include="Windows\ImgFilePathWindow.xaml.cs">
       <DependentUpon>ImgFilePathWindow.xaml</DependentUpon>
     </Compile>
+    <Content Include="Langs\zh_tw.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Langs\zh_cn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Langs\default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Include="Langs\en.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

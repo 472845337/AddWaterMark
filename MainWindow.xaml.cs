@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Linq;
+using AddWaterMark.Beans;
 
 namespace AddWaterMark {
     /// <summary>
@@ -42,19 +43,22 @@ namespace AddWaterMark {
         /// <param name="e"></param>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
             var iniData = IniParserUtils.GetIniData(Constants.SET_FILE);
-            #region 窗口尺寸和位置
+            #region 窗口尺寸位置和语言项
             string mainLeftStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_LEFT];
             string mainTopStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_TOP];
             string mainHeightStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_HEIGHT];
             string mainWidthStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_WIDTH];
+            string language = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_LANGUAGE];
             Configs.mainHeight = NumberUtils.IsNumeric(mainHeightStr, out double mainHeight) ? mainHeight : Constants.MAIN_HEIGHT;
             Configs.mainWidth = NumberUtils.IsNumeric(mainWidthStr, out double mainWidth) ? mainWidth : Constants.MAIN_WIDTH;
             Configs.mainLeft = NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? mainLeft : Constants.MAIN_LEFT;
             Configs.mainTop = NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? mainTop : Constants.MAIN_TOP;
+            Configs.language = string.IsNullOrEmpty(language) ? Constants.LANGUAGE : language;
             vm.MainHeight = Configs.mainHeight;
             vm.MainWidth = Configs.mainWidth;
             vm.MainLeft = Configs.mainLeft;
             vm.MainTop = Configs.mainTop;
+            vm.Language = Configs.language;
             #endregion
             #region 水印设置项
             string text = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_TEXT];
@@ -142,14 +146,14 @@ namespace AddWaterMark {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            if (MessageBoxResult.OK == MessageBox.Show("确认退出该程序吗？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+            if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("Exit_Confirm"), Lang.Find("Msgbox_Error"), MessageBoxButton.OKCancel)) {
                 if (!Configs.inited) {
                     return;
                 }
                 // 页面GridSplitter位置获取
                 vm.Tab2SplitDistance = ImgFilePaths_Row.Height.Value;
                 if (vm.ConfigIsChanged) {
-                    MessageBoxResult result = MessageBox.Show("存在修改的配置，保存配置吗？", Constants.MSG_WARN, MessageBoxButton.YesNoCancel);
+                    MessageBoxResult result = MessageBox.Show(Lang.Find("Exit_Save_Confirm"), Lang.Find("Msgbox_Warn"), MessageBoxButton.YesNoCancel);
                     if (MessageBoxResult.Yes == result) {
                         // 保存配置退出
                         vm.SaveConfigs();
@@ -249,6 +253,7 @@ namespace AddWaterMark {
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_TOP, ref Configs.mainTop, vm.MainTop);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_HEIGHT, ref Configs.mainHeight, vm.MainHeight);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_WIDTH, ref Configs.mainWidth, vm.MainWidth);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_WINDOW, Constants.INI_KEY_LANGUAGE, ref Configs.language, vm.Language);
 
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_LAST_OPEN_TAB, ref Configs.lastOpenTab, vm.LastOpenTab);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_1, ref Configs.pathsViewColumn1, vm.PathsViewColumn1);
@@ -257,6 +262,7 @@ namespace AddWaterMark {
 
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_TASK, Constants.INI_KEY_SCROLL_END, ref Configs.scrollEnd, vm.ScrollEnd);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_TASK, Constants.INI_KEY_INTERVAL, ref Configs.taskInterval, vm.TaskInterval);
+
             IniParserUtils.SaveIniData(Constants.SET_FILE, iniData);
         }
 
@@ -276,7 +282,7 @@ namespace AddWaterMark {
         private void TaskIntervalSlider_ValueChanged(object sender, RoutedEventArgs e) {
             vm.ImgWaterMarkTaskTimer.Interval = TimeSpan.FromMinutes(vm.TaskInterval);
             if (Configs.inited) {
-                vm.AddWaterMarkLog($"当前频率调整为:{vm.TaskInterval}");
+                vm.AddWaterMarkLog($"{Lang.Find("ChangeTaskInterval")}{vm.TaskInterval}");
             }
         }
 
@@ -309,6 +315,38 @@ namespace AddWaterMark {
 
         private void ImgFilePath_ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
             vm.UpdateImgFilePathCommand.Execute(null);
+        }
+
+        private void Lang_ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+            Lang lang = Lang_ComboBox.SelectedItem as Lang;
+            ResourceDictionary langRd = null;
+            System.IO.FileStream fs = null;
+            try {
+                //根据名字载入语言文件
+                fs = new System.IO.FileStream(Configs.AppStartPath + "/Langs/" + lang.Value + ".xaml", System.IO.FileMode.Open);
+                langRd = System.Windows.Markup.XamlReader.Load(fs) as ResourceDictionary;
+            } catch (Exception e2) {
+                MessageBox.Show(e2.Message);
+            } finally {
+                if (fs != null) {
+                    fs.Close();
+                }
+            }
+
+            if (langRd != null) {
+                //如果已使用其他语言,先清空
+                if (Application.Current.Resources.MergedDictionaries.Count > 0) {
+                    Application.Current.Resources.MergedDictionaries.Clear();
+                }
+                Application.Current.Resources.MergedDictionaries.Add(langRd);
+                // 部分已经加载的刷新一下
+                if (vm.ImgWaterMarkTaskTimer.IsEnabled) {
+                    vm.SetTaskStatus(Colors.Green, Lang.Find("WatermarkTaskRunning"));
+                } else {
+                    vm.SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
+                }
+
+            }
         }
     }
 }

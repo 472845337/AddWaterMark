@@ -1,0 +1,178 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="MainTitle">Add Water Mark</sys:String>
+    <sys:String x:Key="GradientTitle">Gradient Color</sys:String>
+    <sys:String x:Key="ImageTitle">Watermark Image</sys:String>
+    <sys:String x:Key="ImagePathTitle">Image Path</sys:String>
+    
+    <sys:String x:Key="TabHeaderConfig">Setting</sys:String>
+    <sys:String x:Key="TabHeaderTask">Task</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Help</sys:String>
+    <!--#region 配置项 -->
+    <sys:String x:Key="Set_Text">Text</sys:String>
+    <sys:String x:Key="Set_Opacity">Opacity</sys:String>
+    <sys:String x:Key="Set_Rotate">Rotate</sys:String>
+    <sys:String x:Key="Set_Font_Family">Family</sys:String>
+    <sys:String x:Key="Set_Font_Size">Size</sys:String>
+    <sys:String x:Key="Set_Font_Color">Color</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Gradient</sys:String>
+    <sys:String x:Key="Set_Bold">B</sys:String>
+    <sys:String x:Key="Set_Italic">I</sys:String>
+    <sys:String x:Key="Set_Underline">U</sys:String>
+    <sys:String x:Key="Set_Strikeout">abc</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Hspace</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Vspace</sys:String>
+    <sys:String x:Key="Set_Default">Default</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">resume to default settings</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">cancel the update</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">save the update, water mark task will change too</sys:String>
+
+    <sys:String x:Key="Test_Refresh">refresh</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">recreate test watermark to see the newly effect</sys:String>
+    <sys:String x:Key="Test_Img">Select Image</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">select image file to test watermark</sys:String>
+    <sys:String x:Key="Test_Clear">Clear</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">clear the test watermark</sys:String>
+    <sys:String x:Key="Test_Save_Local">Save</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">put the watermark save to local</sys:String>
+
+    <sys:String x:Key="Test">TestWatermark</sys:String>
+    <sys:String x:Key="Test_Blank_Background">blank background</sys:String>
+    <sys:String x:Key="Test_Img_Background">image background</sys:String>
+    <!--#endregion-->
+
+    <!--#region 任务页 -->
+    <sys:String x:Key="Path_Group">Path</sys:String>
+
+    <sys:String x:Key="OpenDic">OpenPath</sys:String>
+
+    <sys:String x:Key="Group_TextColumn">Text</sys:String>
+    <sys:String x:Key="Group_PathColumn">Path</sys:String>
+
+    <sys:String x:Key="Add">Add</sys:String>
+    <sys:String x:Key="Update">Update</sys:String>
+    <sys:String x:Key="Delete">Delete</sys:String>
+    <sys:String x:Key="Clear">Clear</sys:String>
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">watermark files delete and resume pri-files name</sys:String>
+    <sys:String x:Key="HandExecute">HandExecute</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">run one times</sys:String>
+    <sys:String x:Key="Task_Start">Start</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">start the task of add watermark,auto scan not watermarked images files then add watermark</sys:String>
+    <sys:String x:Key="Task_Stop">Stop</sys:String>
+    <sys:String x:Key="Task_Interval">Interval(min)</sys:String>
+
+    <sys:String x:Key="Log_Group">Log</sys:String>
+    <sys:String x:Key="Log_Scroll_End">ScrollEnd</sys:String>
+
+    <sys:String x:Key="Log_Clear">Clear Log</sys:String>
+    <!--#endregion-->
+
+    <!--#region 帮助页 -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Use Manuals</sys:String>
+    <sys:String x:Key="Help_Function">1.Function：</sys:String>
+    <sys:String x:Key="Function_1">Test watermark effect, also can save the test to local disk</sys:String>
+    <sys:String x:Key="Function_2">Add path of watermark about images include pdf,</sys:String>
+    <sys:String x:Key="Function_2_Important">Notice：gradient color is unsupport to pdf files</sys:String>
+    <sys:String x:Key="Help_Manuals">2.How to use：</sys:String>
+    <sys:String x:Key="Manuals_Config">(1).At setting page set watermark configs</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Opacity:100 means completely opaque，</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">notice:0 is transparent, can't see watermark</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Rotate：-180 angle to 180 angle, the angle is base on panel center</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">FontFamily:can select system font family,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">notice that chinese watermark, lost of english font family will uncoded</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Font size:watermark size(pixel),the match you can see:</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">Refer</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Font color:choice watermark color, solid color or gradient color</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Font style:bold,italic,underline,strikeout</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Horizontal distance:horizontal displacement between watermarks</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Vertical distance:vertical displacement between watermarks</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(little distance will make two watermrk overlap)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2).Task panel set the image path</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a.add the path of need to add watermark</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b.hand or task to add watermark of the image paths,if that file is image or pdf,and not exist files like that suffix &quot;_pri&quot;</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c.log panel will show watermark execute status.</sys:String>
+
+    <sys:String x:Key="Help_Resources">3.Resources</sys:String>
+    <sys:String x:Key="Resources_Language">Dev Language：C# WPF .Net Framework4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Dev Tool：VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">Gitee Url：</sys:String>
+    <sys:String x:Key="Resources_Git_Uri">https://gitee.com/wsjy/add-water-mark.git</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Resources</sys:String>
+
+    <sys:String x:Key="Help_Bug">4.Bug Response</sys:String>
+    <sys:String x:Key="Bug_Email">Send email to 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region 消息-->
+    <sys:String x:Key="Msgbox_Info">Info</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Warn</sys:String>
+    <sys:String x:Key="Msgbox_Error">Error</sys:String>
+    <sys:String x:Key="Exit_Confirm">Sure Exit?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Settings has changed, if not save?</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Task interval change to:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">Confirm resume default settings?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">resume default settings success!</sys:String>
+    <sys:String x:Key="LogClearSuccess">Log clear success!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">cancel update success</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">save settings success</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">create watermark success</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">refresh watermark success</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">clear watermark success</sys:String>
+    <sys:String x:Key="ImageFileFilter">Image Files|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">test_watermark.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">save watermark success</sys:String>
+    <sys:String x:Key="SaveWatemarkError">watermark not exist!</sys:String>
+    <sys:String x:Key="AddPathSuccess">add path success</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">update path success</sys:String>
+    <sys:String x:Key="DeletePathConfirm">Confirm delete the path?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">delete success</sys:String>
+    <sys:String x:Key="DeletePathError">Please select path first！</sys:String>
+    <sys:String x:Key="ClearPathConfirm">Confirm clear all paths?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">clear success</sys:String>
+    <sys:String x:Key="ClearPathError">Path is empty,not need clear!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">The path not exist!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">Please select path first!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">Path is empty,please add path first!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Add watermark timer started...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Task running</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Watermark timer started</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Add watermark timer stoped...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Task unrun</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Watermark timer stoped</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Delete all watermark files, resume primary files, the operate can't retract, confirm delete?</sys:String>
+    <sys:String x:Key="StartResume">Start resume watermark files!</sys:String>
+    <sys:String x:Key="OverResume">Finish resume watermark files!</sys:String>
+    <sys:String x:Key="TaskingNextTry">Task is run, try next time!</sys:String>
+    <sys:String x:Key="LogWatermark">watermark file:"</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">"delete success</sys:String>
+    <sys:String x:Key="PriFile">primary file:"</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">"resume file name success</sys:String>
+    <sys:String x:Key="StartAddWatermark">Add watermark start to execute...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Add watermark finished...</sys:String>
+    <sys:String x:Key="UnselectedPath">path list is empty or not select any path...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">"execute over,spend time:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Add Gradient</sys:String>
+    <sys:String x:Key="GradientPointLimit">Please input a number between 0 and 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">Gradient color count can't less than 2</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Gradient color at least 2 colors</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Delete the gradient color</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">Gradient color at most 10 colors</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Add gradient color</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Gradient is empty</sys:String>
+
+    <sys:String x:Key="PathEmpty">Path can't empty!</sys:String>
+    <sys:String x:Key="TextEmpty">Text can't empty!</sys:String>
+    <sys:String x:Key="PathNotExist">Path is not exist at disk, continue add?</sys:String>
+    <sys:String x:Key="SamePathExist">Already add a same path:</sys:String>
+    <sys:String x:Key="ChildPath">The path is child or parent:</sys:String>
+</ResourceDictionary>

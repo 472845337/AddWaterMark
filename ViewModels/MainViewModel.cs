@@ -25,6 +25,10 @@ namespace AddWaterMark.ViewModels {
     class MainViewModel {
         public MainViewModel() {
             SystemFonts = new ObservableCollection<string>(FontsUtils.GetSystemFonts());// 系统字体
+            LangList = new ObservableCollection<Lang>();
+            LangList.Add(new Lang { Name = "中文-简体", Value = "zh_cn" });
+            LangList.Add(new Lang { Name = "中文-繁體", Value = "zh_tw" });
+            LangList.Add(new Lang { Name = "English", Value = "en" });
             #region 水印配置项命令
             DefaultConfigCommand = new RelayCommand(SetDefaultConfig);
             CancelConfigCommand = new RelayCommand(CancelSaveConfig, CanCancelOrSave);
@@ -52,6 +56,8 @@ namespace AddWaterMark.ViewModels {
             OperateMessageTimer.Tick += OperateMessageTimer_Tick;
             ImgWaterMarkExecuteTimer.Tick += ImgWaterMarkHand_Tick;
             ImgWaterMarkTaskTimer.Tick += ImgWaterMarkTask_Tick;
+
+            SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
         }
         public RelayCommand DefaultConfigCommand { get; set; }
         public RelayCommand CancelConfigCommand { get; set; }
@@ -78,10 +84,13 @@ namespace AddWaterMark.ViewModels {
         public readonly DispatcherTimer ImgWaterMarkExecuteTimer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(100) };
         // 水印任务定时器
         public readonly DispatcherTimer ImgWaterMarkTaskTimer = new DispatcherTimer();
+
+        public ObservableCollection<Lang> LangList { get; set; }
         public double MainHeight { get; set; }// 主窗口高度
         public double MainWidth { get; set; }// 主窗口宽度
         public double MainLeft { get; set; }// 主窗口左边位置
         public double MainTop { get; set; }// 主窗口顶部位置
+        public string Language { get; set; }
         [OnChangedMethod("CancelOrSaveCommandChanged")]
         public bool ConfigIsChanged { get; set; }// 配置是否修改
         public string WaterMarkText { get; set; }// 水印文本
@@ -119,7 +128,7 @@ namespace AddWaterMark.ViewModels {
         public ObservableCollection<Log> TaskLogs { get; set; } = new ObservableCollection<Log>();
         public System.Windows.Controls.RichTextBox TaskLog_RichTextBox { get; set; }
         public int TaskInterval { get; set; }
-        public string TaskStatus { get; private set; } = "任务未运行";
+        public string TaskStatus { get; private set; }
         public Brush TaskStatusColor { get; private set; } = new SolidColorBrush(Colors.Red);
         public Brush OperateMsgColor { get; private set; }// 操作信息颜色
         public string OperateMsg { get; private set; }// 操作信息
@@ -139,7 +148,7 @@ namespace AddWaterMark.ViewModels {
         /// </summary>
         /// <param name="obj"></param>
         private void SetDefaultConfig(object obj) {
-            if (MessageBoxResult.OK == MessageBox.Show("确认恢复初始值？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+            if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("ConfigResumeDefault"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
                 WaterMarkText = Constants.WATER_MARK_TEXT;
                 WaterMarkOpacity = Constants.WATER_MARK_OPACITY;
                 WaterMarkRotate = Constants.WATER_MARK_ROTATE;
@@ -156,7 +165,7 @@ namespace AddWaterMark.ViewModels {
                 WaterMarkVerticalDis = Constants.WATER_MARK_VERTICAL_DIS;
                 ConfigIsChanged = false;
                 SaveConfigs();
-                SetOperateMsg("恢复默认配置成功");
+                SetOperateMsg(Lang.Find("ConfigResumeDefaultSuccess"));
             }
         }
 
@@ -181,7 +190,7 @@ namespace AddWaterMark.ViewModels {
             WaterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
             WaterMarkVerticalDis = Configs.waterMarkVerticalDis;
             ConfigIsChanged = false;
-            SetOperateMsg("取消修改成功");
+            SetOperateMsg(Lang.Find("CancelUpdateSuccess"));
         }
         /// <summary>
         /// 保存当前修改的配置
@@ -191,7 +200,7 @@ namespace AddWaterMark.ViewModels {
         private void SaveConfig(object obj) {
             SaveConfigs();
             ConfigIsChanged = false;
-            SetOperateMsg("保存配置成功");
+            SetOperateMsg(Lang.Find("SaveSettingsSuccess"));
         }
         private bool CanCancelOrSave(object obj) {
             return ConfigIsChanged;
@@ -266,7 +275,7 @@ namespace AddWaterMark.ViewModels {
             //CreateWaterMarkImage(true, null, WaterMarkText,
             //    FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
             //   );
-            SetOperateMsg("生成水印成功");
+            SetOperateMsg(Lang.Find("CreateWatemarkSuccess"));
             CanTestWaterMark = true;
             testImgPath = null;
         }
@@ -281,7 +290,7 @@ namespace AddWaterMark.ViewModels {
             //CreateWaterMarkImage(true, testImgPath, WaterMarkText,
             //        FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
             //        );
-            SetOperateMsg("刷新水印成功");
+            SetOperateMsg(Lang.Find("RefreshWatemarkSuccess"));
             CanTestWaterMark = true;
         }
 
@@ -290,7 +299,7 @@ namespace AddWaterMark.ViewModels {
         /// </summary>
         private void CreateImgWaterMark(object _) {
             CanTestWaterMark = false;
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog { Filter = "图片文件|*.jpg;*.jpeg;*.bmp;*.png" };
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog { Filter = Lang.Find("ImageFileFilter") };
             if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog()) {
                 // media
                 Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
@@ -300,7 +309,7 @@ namespace AddWaterMark.ViewModels {
                 //CreateWaterMarkImage(true, openFileDialog.FileName, WaterMarkText,
                 //    FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
                 //    );
-                SetOperateMsg("生成水印成功");
+                SetOperateMsg(Lang.Find("CreateWatemarkSuccess"));
                 testImgPath = openFileDialog.FileName;
             }
             CanTestWaterMark = true;
@@ -309,22 +318,22 @@ namespace AddWaterMark.ViewModels {
         private void ClearWaterMark(object _) {
             WaterMarkBitmap = null;
             testImgPath = null;
-            SetOperateMsg("清除水印图片成功");
+            SetOperateMsg(Lang.Find("ClearWatemarkSuccess"));
         }
 
         private void SaveWaterMark(object _) {
             if (null != WaterMarkBitmap) {
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog {
-                    FileName = "测试水印.jpg",
+                    FileName = Lang.Find("SaveWatermarkFileName"),
                     DefaultExt = "*.jpg",
                     Filter = "JPG|*.jpg|BMP|*.bmp|PNG|*.png"
                 };
                 if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog()) {
                     ImageUtils.SaveBitmapImageIntoFile(WaterMarkBitmap, saveFileDialog.FileName);
-                    SetOperateMsg("保存水印文件成功");
+                    SetOperateMsg(Lang.Find("SaveWatemarkSuccess"));
                 }
             } else {
-                MessageBox.Show("不存在水印图片！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("SaveWatemarkError"), Lang.Find("Msgbox_Error"));
             }
         }
 
@@ -682,7 +691,7 @@ namespace AddWaterMark.ViewModels {
                 };
                 ServiceFactory.GetImgFilePathService().Insert(imgFilePath);
                 ImgFilePaths.Add(imgFilePath);
-                SetOperateMsg("添加目录成功");
+                SetOperateMsg(Lang.Find("AddPathSuccess"));
                 ImgFilePathsChanged();
             }
         }
@@ -699,7 +708,7 @@ namespace AddWaterMark.ViewModels {
                     imgFilePath.FilePath = imgFilePathWindow.vm.FilePath;
                     imgFilePath.WaterMark = imgFilePathWindow.vm.WaterMark;
                     ServiceFactory.GetImgFilePathService().Update(imgFilePath);
-                    SetOperateMsg("修改目录成功");
+                    SetOperateMsg(Lang.Find("UpdatePathSuccess"));
                 }
             }
         }
@@ -712,28 +721,28 @@ namespace AddWaterMark.ViewModels {
         /// <param name="e"></param>
         private void DeleteImgFilePath(object _) {
             if (ImgFilePath_ListView.SelectedIndex > -1) {
-                if (MessageBoxResult.OK == MessageBox.Show("确认删除该路径？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+                if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("DeletePathConfirm"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
                     ImgFilePath selected = (ImgFilePath)ImgFilePath_ListView.SelectedItem;
                     ServiceFactory.GetImgFilePathService().Delete(selected.Id);
                     ImgFilePaths.Remove(selected);
-                    SetOperateMsg("删除成功");
+                    SetOperateMsg(Lang.Find("DeletePathSuccess"));
                     ImgFilePathsChanged();
                 }
             } else {
-                MessageBox.Show("请先选择要删除路径！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("DeletePathError"), Lang.Find("Msgbox_Error"));
             }
         }
 
         private void ClearImgFilePath(object _) {
             if (ImgFilePaths.Count > 0) {
-                if (MessageBoxResult.OK == MessageBox.Show("确认清空所有路径？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+                if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("ClearPathConfirm"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
                     ServiceFactory.GetImgFilePathService().Clear();
                     ImgFilePaths.Clear();
-                    SetOperateMsg("清空成功");
+                    SetOperateMsg(Lang.Find("ClearPathSuccess"));
                     ImgFilePathsChanged();
                 }
             } else {
-                MessageBox.Show("当前路径为空，无需清空！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("ClearPathError"), Lang.Find("Msgbox_Error"));
             }
         }
 
@@ -748,16 +757,16 @@ namespace AddWaterMark.ViewModels {
                 if (Directory.Exists(selected.FilePath)) {
                     Process.Start(selected.FilePath);
                 } else {
-                    MessageBox.Show("当前目录不存在！", Constants.MSG_ERROR);
+                    MessageBox.Show(Lang.Find("OpenPathUnexistError"), Lang.Find("Msgbox_Error"));
                 }
             } else {
-                MessageBox.Show("请先选择路径！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("OpenPathUnselectError"), Lang.Find("Msgbox_Error"));
             }
         }
 
         private void ImgWaterMarkExecute(object _) {
             if (ImgFilePaths.Count == 0) {
-                MessageBox.Show("当前路径为空，请添加文件目录！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("WatermarkExecuteNoPath"), Lang.Find("Msgbox_Error"));
             } else {
                 if (ImgWaterMarkTimerCanRun) {
                     stop = false;
@@ -769,24 +778,24 @@ namespace AddWaterMark.ViewModels {
         }
         private void ImgWaterMarkTaskToggle(object _) {
             if (ImgFilePaths.Count == 0) {
-                MessageBox.Show("当前路径为空，请添加文件目录！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("WatermarkExecuteNoPath"), Lang.Find("Msgbox_Error"));
             } else {
                 // 水印定时任务切换状态
                 if (ImgWaterMarkTimerCanRun) {
-                    AddWaterMarkLog("图片加水印定时器已开启...");
-                    SetTaskStatus(Colors.Green, "任务运行中");
+                    AddWaterMarkLog(Lang.Find("WatermarkTaskStarted"));
+                    SetTaskStatus(Colors.Green, Lang.Find("WatermarkTaskRunning"));
                     stop = false;
                     // 立即执行一次
                     ImgWaterMarkExecuteTimer.Start();
                     ImgWaterMarkTaskTimer.Start();
-                    SetOperateMsg("水印定时器已开启");
+                    SetOperateMsg(Lang.Find("WatermarkTaskStartedMsg"));
                 } else {
-                    AddWaterMarkLog("图片加水印定时器已关闭...");
-                    SetTaskStatus(Colors.Red, "任务未运行");
+                    AddWaterMarkLog(Lang.Find("WatermarkTaskStoped"));
+                    SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
                     stop = true;
                     ImgWaterMarkExecuteTimer.Stop();
                     ImgWaterMarkTaskTimer.Stop();
-                    SetOperateMsg("水印定时器已关闭");
+                    SetOperateMsg(Lang.Find("WatermarkTaskStopedMsg"));
                 }
                 ImgWaterMarkTimerCanRun = !ImgWaterMarkTimerCanRun;
             }
@@ -796,29 +805,29 @@ namespace AddWaterMark.ViewModels {
         private void ResumeWaterMark(object _) {
             if (ImgWaterMarkTimerCanRun) {
                 stop = false;
-                if (MessageBoxResult.OK == MessageBox.Show("所有水印文件删除，原文件恢复，操作不可撤回，确认删除？", Constants.MSG_WARN, MessageBoxButton.OKCancel, MessageBoxImage.Warning)) {
+                if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("WatermarkFilesResume"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel, MessageBoxImage.Warning)) {
                     Task.Factory.StartNew(delegate {
                         ImgWaterMarkTimerCanRun = false;
-                        AddWaterMarkLog("开始恢复水印文件！");
+                        AddWaterMarkLog(Lang.Find("StartResume"));
                         foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
                             if (stop) {
                                 break;
                             }
                             ResumePathWaterMark(imgFilePath.FilePath);
                         }
-                        AddWaterMarkLog("恢复水印文件结束！");
+                        AddWaterMarkLog(Lang.Find("OverResume"));
                         ImgWaterMarkTimerCanRun = true;
                     });
                 }
             } else {
-                AddWaterMarkLog("任务处理中，请稍侯再试！");
+                AddWaterMarkLog(Lang.Find("TaskingNextTry"));
             }
         }
 
         private void ResumePathWaterMark(string path) {
             if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory) {
                 string[] childFileNameArray = Directory.GetFileSystemEntries(path);
-                foreach(string childFileName in childFileNameArray) {
+                foreach (string childFileName in childFileNameArray) {
                     if (stop) {
                         break;
                     }
@@ -833,12 +842,11 @@ namespace AddWaterMark.ViewModels {
                     // 水印文件删除
                     if (File.Exists(waterMarkFilePath)) {
                         File.Delete(waterMarkFilePath);
-                        AddWaterMarkLog("水印文件：“" + waterMarkFilePath + "”删除成功");
+                        AddWaterMarkLog($"{Lang.Find("LogWatermark")}{ waterMarkFilePath}{ Lang.Find("LogWatermarkDelSuccess")}");
                     }
                     // 原文件恢复原名
                     File.Move(path, waterMarkFilePath);
-                    AddWaterMarkLog("原文件：“" + path + "”恢复文件名成功");
-                    
+                    AddWaterMarkLog($"{Lang.Find("PriFile")}{path}{ Lang.Find("ResumeNameSuccess")}");
                 }
             }
         }
@@ -851,11 +859,11 @@ namespace AddWaterMark.ViewModels {
             isRun = true;
             Task.Factory.StartNew(delegate {
                 if (handExecute) {
-                    AddWaterMarkLog("图片加水印开始执行...");
+                    AddWaterMarkLog(Lang.Find("StartAddWatermark"));
                 }
                 ImgWaterMarkExecute();
                 if (handExecute) {
-                    AddWaterMarkLog("图片加水印执行结束...");
+                    AddWaterMarkLog(Lang.Find("OverAddWatermark"));
                     ImgWaterMarkTimerCanRun = true;
                 }
                 ImgWaterMarkExecuteTimer.Stop();
@@ -880,7 +888,7 @@ namespace AddWaterMark.ViewModels {
         private static bool handExecute = false;
         private void ImgWaterMarkExecute() {
             if (ImgFilePaths.Count == 0 || ImgFilePaths.Where(a => a.IsSelect).ToList().Count == 0) {
-                AddWaterMarkLog("目录列表为空或未勾选任何目录...");
+                AddWaterMarkLog(Lang.Find("UnselectedPath"));
             } else {
                 foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
                     AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark);
@@ -939,7 +947,7 @@ namespace AddWaterMark.ViewModels {
                                     // CreateWaterMarkImage(false, filePath, waterMarkText, font);
                                 }
                                 watch.Stop();
-                                AddWaterMarkLog($"{filePath}:处理完成,耗时：{watch.ElapsedMilliseconds}ms");
+                                AddWaterMarkLog($"{filePath}{Lang.Find("WatermarkSpendTime")}{watch.ElapsedMilliseconds}ms");
                             }
                         }
                         font.Dispose();
@@ -1034,7 +1042,7 @@ namespace AddWaterMark.ViewModels {
         /// <param name="e"></param>
         private void ClearWaterMarkLog(object _) {
             TaskLogs.Clear();
-            SetOperateMsg("日志清空成功");
+            SetOperateMsg(Lang.Find("LogClearSuccess"));
             WaterMarkLogChanged();
         }
     }

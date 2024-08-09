@@ -1,4 +1,4 @@
-﻿using AddWaterMark.Config;
+﻿using AddWaterMark.Beans;
 using AddWaterMark.DataBase.Beans;
 using AddWaterMark.ViewModels;
 using System;
@@ -40,24 +40,24 @@ namespace AddWaterMark.Windows {
 
         private void SaveImgFilePath_Click(object sender, RoutedEventArgs e) {
             if (string.IsNullOrEmpty(vm.FilePath)) {
-                MessageBox.Show("图片目录不能为空！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("PathEmpty"), Lang.Find("Msgbox_Error"));
                 return;
             }
             if (string.IsNullOrEmpty(vm.WaterMark)) {
-                MessageBox.Show("水印不能为空！", Constants.MSG_ERROR);
+                MessageBox.Show(Lang.Find("TextEmpty"), Lang.Find("Msgbox_Error"));
                 return;
             }
             if (!Directory.Exists(vm.FilePath)) {
-                if (MessageBoxResult.Cancel == MessageBox.Show("当前配置目录不存在，确认继续添加吗？", Constants.MSG_WARN, MessageBoxButton.OKCancel)) {
+                if (MessageBoxResult.Cancel == MessageBox.Show(Lang.Find("PathNotExist"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
                     return;
                 }
             }
             bool isRepeatPath = GetRepeatPath(vm.Id, vm.FilePath, out string repeatPath, out string childPath);
             if (isRepeatPath) {
                 if (!string.IsNullOrEmpty(repeatPath)) {
-                    MessageBox.Show($"您已添加相同的目录：{repeatPath}");
+                    MessageBox.Show($"{Lang.Find("SamePathExist")}{repeatPath}");
                 } else if (!string.IsNullOrEmpty(childPath)) {
-                    MessageBox.Show($"您已添加目录存在包含关系：{childPath}");
+                    MessageBox.Show($"{Lang.Find("ChildPath")}{childPath}");
                 }
                 return;
             }

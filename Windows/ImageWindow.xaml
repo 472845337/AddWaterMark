@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddWaterMark.Windows"
         mc:Ignorable="d"
-        Title="图片" Height="{Binding ImageHeight,Mode=TwoWay}" Width="{Binding ImageWidth,Mode=TwoWay}" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
+        Title="{DynamicResource ImageTitle}" Height="{Binding ImageHeight,Mode=TwoWay}" Width="{Binding ImageWidth,Mode=TwoWay}" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
     <Grid>
         <Image Source="{Binding WaterMarkImage}"/>
     </Grid>

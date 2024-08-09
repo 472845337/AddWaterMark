@@ -9,6 +9,7 @@ namespace AddWaterMark.Config {
         public static double mainWidth;// 主窗口宽
         public static double mainTop;// 主窗口顶部位置
         public static double mainLeft;// 主窗口左边位置
+        public static string language;
 
         public static string waterMarkText;
         public static byte waterMarkOpacity;
