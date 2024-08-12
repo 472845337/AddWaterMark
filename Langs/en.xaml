@@ -117,6 +117,7 @@
     <sys:String x:Key="Msgbox_Error">Error</sys:String>
     <sys:String x:Key="Exit_Confirm">Sure Exit?</sys:String>
     <sys:String x:Key="Exit_Save_Confirm">Settings has changed, if not save?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">Notice:gradient color is unsupport pdf!</sys:String>
     <sys:String x:Key="ChangeTaskInterval">Task interval change to:</sys:String>
     <sys:String x:Key="ConfigResumeDefault">Confirm resume default settings?</sys:String>
     <sys:String x:Key="ConfigResumeDefaultSuccess">resume default settings success!</sys:String>

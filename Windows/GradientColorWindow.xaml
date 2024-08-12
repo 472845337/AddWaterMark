@@ -40,8 +40,8 @@
             <Button Style="{StaticResource ButtonPrimary_Style}" Content="{DynamicResource AddGradientPoint}" Click="AddGradientColor_Click" IsEnabled="{Binding CanAdd}" ToolTip="{Binding AddTip}" ToolTipService.ShowOnDisabled="True"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Set_Cancel}" Click="Cancel_Click"/>
-            <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Set_Save}" Click="Save_Click"/>
+            <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Cancel}" Click="Cancel_Click"/>
+            <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Save}" Click="Save_Click"/>
         </StackPanel>
     </Grid>
 </Window>

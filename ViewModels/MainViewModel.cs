@@ -27,7 +27,7 @@ namespace AddWaterMark.ViewModels {
             SystemFonts = new ObservableCollection<string>(FontsUtils.GetSystemFonts());// 系统字体
             LangList = new ObservableCollection<Lang>();
             LangList.Add(new Lang { Name = "中文-简体", Value = "zh_cn" });
-            LangList.Add(new Lang { Name = "中文-繁體", Value = "zh_tw" });
+            LangList.Add(new Lang { Name = "中文-正體", Value = "zh_tw" });
             LangList.Add(new Lang { Name = "English", Value = "en" });
             #region 水印配置项命令
             DefaultConfigCommand = new RelayCommand(SetDefaultConfig);

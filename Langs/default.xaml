@@ -117,6 +117,7 @@
     <sys:String x:Key="Msgbox_Error">错误</sys:String>
     <sys:String x:Key="Exit_Confirm">确认退出该程序吗？</sys:String>
     <sys:String x:Key="Exit_Save_Confirm">存在修改的配置，保存配置吗？</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">注意：渐变色不支持PDF！</sys:String>
     <sys:String x:Key="ChangeTaskInterval">当前频率调整为:</sys:String>
     <sys:String x:Key="ConfigResumeDefault">确认恢复初始值？</sys:String>
     <sys:String x:Key="ConfigResumeDefaultSuccess">恢复默认配置成功！</sys:String>

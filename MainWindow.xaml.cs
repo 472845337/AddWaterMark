@@ -242,7 +242,7 @@ namespace AddWaterMark {
                 isChange = true;
             }
             if (vm.WaterMarkFontIsGradient) {
-                vm.SetOperateMsg(Colors.OrangeRed, "注意：渐变色不支持PDF！");
+                vm.SetOperateMsg(Colors.OrangeRed, Lang.Find("GradientColorUnsupportPdf"));
             }
             vm.ConfigIsChanged = isChange;
         }
@@ -336,7 +336,19 @@ namespace AddWaterMark {
             if (langRd != null) {
                 //如果已使用其他语言,先清空
                 if (Application.Current.Resources.MergedDictionaries.Count > 0) {
-                    Application.Current.Resources.MergedDictionaries.Clear();
+                    // Resources中会包含非语言资源，需要排除，只清空语言资源
+                    List<int> langResources = new List<int>();
+                    for (int i = 0;i< Application.Current.Resources.MergedDictionaries.Count;i++) {
+                        var source = Application.Current.Resources.MergedDictionaries[i].Source;
+                        string originalString = source.OriginalString;
+                        // 语言包资源路径判断
+                        if (originalString.Contains("component/Langs/")) {
+                            langResources.Add(i);
+                        }
+                    }
+                    foreach(int i in langResources) {
+                        Application.Current.Resources.MergedDictionaries.RemoveAt(i);
+                    }
                 }
                 Application.Current.Resources.MergedDictionaries.Add(langRd);
                 // 部分已经加载的刷新一下
