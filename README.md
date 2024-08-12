@@ -1,7 +1,9 @@
 # AddWaterMark
 
 #### 介绍
-水印工具，自定义水印给配置的图片目录添加水印
+水印工具，自定义水印给配置的图片目录添加水印，jpg,bmp,png和pdf文件添加水印的任务
+使用了PropertyChanged.Fody,IniParser,iTextPdf,Sqlite
+并实现了简单的国际化，有中文简体，中文繁体，英文
 
 #### 软件架构
 .net framework 4.5
