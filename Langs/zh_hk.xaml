@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <x:Array x:Key="LangArray" Type="{x:Type sys:String}">
         <sys:String>zh_cn=簡體中文</sys:String>
-        <sys:String>zh_tw=繁體中文（台灣）</sys:String>
+        <sys:String>zh_tw=繁體中文（臺灣）</sys:String>
         <sys:String>zh_hk=繁體中文（香港）</sys:String>
         <sys:String>zh_mo=繁體中文（澳門）</sys:String>
         <sys:String>en=英文</sys:String>
@@ -68,8 +68,8 @@
     <sys:String x:Key="Resume_ToolTip">水印檔案刪除，恢復原檔案名</sys:String>
     <sys:String x:Key="HandExecute">手工执行</sys:String>
     <sys:String x:Key="HandExecute_ToolTip">手工执行一次加水印任務</sys:String>
-    <sys:String x:Key="Task_Start">啟動</sys:String>
-    <sys:String x:Key="Task_Start_ToolTip">開啟加水印任務，自動扫描未加水印圖片檔案，加上水印</sys:String>
+    <sys:String x:Key="Task_Start">啓動</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">開啓加水印任務，自動扫描未加水印圖片檔案，加上水印</sys:String>
     <sys:String x:Key="Task_Stop">停止</sys:String>
     <sys:String x:Key="Task_Interval">頻率(分)</sys:String>
 
@@ -90,22 +90,22 @@
     <sys:String x:Key="Function_2_Important">注意：PDF不支持漸變色</sys:String>
     <sys:String x:Key="Help_Manuals">2.使用方法：</sys:String>
     <sys:String x:Key="Manuals_Config">(1).配置面板中設定水印參數</sys:String>
-    <sys:String x:Key="Manuals_Config_Opacity">不透明度：100為完全不透明，</sys:String>
-    <sys:String x:Key="Manuals_Config_Opacity_Important">注意：0為完全透明，無法看到水印</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">不透明度：100爲完全不透明，</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">注意：0爲完全透明，無法看到水印</sys:String>
     <sys:String x:Key="Manuals_Config_Rotate">旋轉角度：-180度到180度，旋轉角度是基於面板中心點坐標進行旋轉</sys:String>
     <sys:String x:Key="Manuals_Config_FontFamily">字體：可選擇當前繫統中所有的字體，</sys:String>
     <sys:String x:Key="Manuals_Config_FontFamily_Important">注意中文水印，大部分英文字體會亂碼</sys:String>
     <sys:String x:Key="Manuals_Config_FontSize">字體大小：水印字體的尺寸(像素)，對應關繫可</sys:String>
     <sys:String x:Key="Manuals_Config_FontSize_Link">參照鏈接</sys:String>
     <sys:String x:Key="Manuals_Config_FontColor">字體颜色：選擇文字水印的颜色，純色或漸變色</sys:String>
-    <sys:String x:Key="Manuals_Config_FontStyle">字體様式：粗體，斜體，下劃線，中劃線</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">字體様式：粗體，斜體，下劃綫，中劃綫</sys:String>
     <sys:String x:Key="Manuals_Config_Horizontal_Dis">水平間距：水印之間水平位移量</sys:String>
     <sys:String x:Key="Manuals_Config_Vetical_Dis">垂直間距：水印之間垂直位移量</sys:String>
     <sys:String x:Key="Manuals_Config_Dis_Important">（間距小水印会重叠）</sys:String>
 
     <sys:String x:Key="Manuals_Task">(2).任務面板中配置目録</sys:String>
     <sys:String x:Key="Manuals_Task_Path">a.配置要添加水印的圖片目録</sys:String>
-    <sys:String x:Key="Manuals_Task_Execute">b.手工或任務對配置的圖片目録裡未生成水印的圖片添加水印,判斷是否加水印条件為同目録下，是否存在&quot;_pri.jpg&quot;的檔案</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b.手工或任務對配置的圖片目録裏未生成水印的圖片添加水印,判斷是否加水印条件爲同目録下，是否存在&quot;_pri.jpg&quot;的檔案</sys:String>
     <sys:String x:Key="Manuals_Task_Log">c.日誌面板中會顯示水印任務执行情況</sys:String>
 
     <sys:String x:Key="Help_Resources">3.源代碼</sys:String>
@@ -126,7 +126,7 @@
     <sys:String x:Key="Exit_Confirm">確認退出該程式嗎？</sys:String>
     <sys:String x:Key="Exit_Save_Confirm">存在修改的配置，保存配置嗎？</sys:String>
     <sys:String x:Key="GradientColorUnsupportPdf">注意：漸變色不支持PDF！</sys:String>
-    <sys:String x:Key="ChangeTaskInterval">當前頻率調整為:</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">當前頻率調整爲:</sys:String>
     <sys:String x:Key="ConfigResumeDefault">確認恢復初始值？</sys:String>
     <sys:String x:Key="ConfigResumeDefaultSuccess">恢復預設配置成功！</sys:String>
     <sys:String x:Key="LogClearSuccess">日誌清空成功！</sys:String>
@@ -146,13 +146,13 @@
     <sys:String x:Key="DeletePathError">請先選擇要刪除路徑！</sys:String>
     <sys:String x:Key="ClearPathConfirm">確認清空所有路徑？</sys:String>
     <sys:String x:Key="ClearPathSuccess">清空成功</sys:String>
-    <sys:String x:Key="ClearPathError">當前路徑為空，無需清空！</sys:String>
+    <sys:String x:Key="ClearPathError">當前路徑爲空，無需清空！</sys:String>
     <sys:String x:Key="OpenPathUnexistError">當前目録不存在！</sys:String>
     <sys:String x:Key="OpenPathUnselectError">請先選擇路徑！</sys:String>
-    <sys:String x:Key="WatermarkExecuteNoPath">當前路徑為空，請添加檔案目録！</sys:String>
-    <sys:String x:Key="WatermarkTaskStarted">圖片加水印定時器已開啟...</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">當前路徑爲空，請添加檔案目録！</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">圖片加水印定時器已開啓...</sys:String>
     <sys:String x:Key="WatermarkTaskRunning">任務運行中</sys:String>
-    <sys:String x:Key="WatermarkTaskStartedMsg">水印定時器已開啟</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">水印定時器已開啓</sys:String>
     <sys:String x:Key="WatermarkTaskStoped">圖片加水印定時器已關閉...</sys:String>
     <sys:String x:Key="WatermarkTaskUnrun">任務未運行</sys:String>
     <sys:String x:Key="WatermarkTaskStopedMsg">水印定時器已關閉</sys:String>
@@ -166,7 +166,7 @@
     <sys:String x:Key="ResumeNameSuccess">”恢復檔案名成功</sys:String>
     <sys:String x:Key="StartAddWatermark">圖片加水印開始执行...</sys:String>
     <sys:String x:Key="OverAddWatermark">圖片加水印执行结束...</sys:String>
-    <sys:String x:Key="UnselectedPath">目録列錶為空或未勾選任何目録...</sys:String>
+    <sys:String x:Key="UnselectedPath">目録列錶爲空或未勾選任何目録...</sys:String>
     <sys:String x:Key="WatermarkSpendTime">:處理完成,耗時：</sys:String>
     <!--#endregion-->
 
@@ -177,10 +177,10 @@
     <sys:String x:Key="GradientDeleteTooltip">刪除該漸變色块</sys:String>
     <sys:String x:Key="GradientCountMaxTooltip">最多10個漸變色</sys:String>
     <sys:String x:Key="GradientAddTooltip">添加漸變色块</sys:String>
-    <sys:String x:Key="GradientEmptyTooltip">漸變色為空</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">漸變色爲空</sys:String>
 
-    <sys:String x:Key="PathEmpty">圖片目録不能為空！</sys:String>
-    <sys:String x:Key="TextEmpty">水印不能為空！</sys:String>
+    <sys:String x:Key="PathEmpty">圖片目録不能爲空！</sys:String>
+    <sys:String x:Key="TextEmpty">水印不能爲空！</sys:String>
     <sys:String x:Key="PathNotExist">當前配置目録不存在，確認繼續添加嗎？</sys:String>
     <sys:String x:Key="SamePathExist">您已添加相同的目録：</sys:String>
     <sys:String x:Key="ChildPath">您已添加目録存在包含關繫：</sys:String>

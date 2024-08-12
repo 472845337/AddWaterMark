@@ -1,6 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <x:Array x:Key="LangArray" Type="{x:Type sys:String}">
+        <sys:String>zh_cn=Chinese Simplified</sys:String>
+        <sys:String>zh_tw=Chinese Traditional(TW)</sys:String>
+        <sys:String>zh_hk=Chinese Traditional(HK)</sys:String>
+        <sys:String>zh_mo=Chinese Traditional(MO)</sys:String>
+        <sys:String>en=English</sys:String>
+    </x:Array>
+    
     <sys:String x:Key="MainTitle">Add Water Mark</sys:String>
     <sys:String x:Key="GradientTitle">Gradient Color</sys:String>
     <sys:String x:Key="ImageTitle">Watermark Image</sys:String>

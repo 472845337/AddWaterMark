@@ -12,6 +12,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Linq;
 using AddWaterMark.Beans;
+using System.Collections.ObjectModel;
 
 namespace AddWaterMark {
     /// <summary>
@@ -322,7 +323,7 @@ namespace AddWaterMark {
             ResourceDictionary langRd = null;
             System.IO.FileStream fs = null;
             try {
-                //根据名字载入语言文件
+                //根据名字载入语言文件,将语言解析成字典（不像default.xaml一样包含source）
                 fs = new System.IO.FileStream(Configs.AppStartPath + "/Langs/" + lang.Value + ".xaml", System.IO.FileMode.Open);
                 langRd = System.Windows.Markup.XamlReader.Load(fs) as ResourceDictionary;
             } catch (Exception e2) {
@@ -334,30 +335,41 @@ namespace AddWaterMark {
             }
 
             if (langRd != null) {
-                //如果已使用其他语言,先清空
+                //如果已使用其他语言（default是系统启动时加载的，其他语言是keys中包含字典值）,先清空
                 if (Application.Current.Resources.MergedDictionaries.Count > 0) {
                     // Resources中会包含非语言资源，需要排除，只清空语言资源
                     List<int> langResources = new List<int>();
-                    for (int i = 0;i< Application.Current.Resources.MergedDictionaries.Count;i++) {
+                    for (int i = 0; i < Application.Current.Resources.MergedDictionaries.Count; i++) {
                         var source = Application.Current.Resources.MergedDictionaries[i].Source;
-                        string originalString = source.OriginalString;
-                        // 语言包资源路径判断
-                        if (originalString.Contains("component/Langs/")) {
+                        if(source != null) {
+                            string originalString = source.OriginalString;
+                            // 语言包资源路径判断，default.xaml会走这个判断
+                            if (originalString.Contains("component/Langs/")) {
+                                langResources.Add(i);
+                            }
+                        } else {
+                            // 非default的语言字典，source是空的
                             langResources.Add(i);
                         }
                     }
-                    foreach(int i in langResources) {
+                    foreach (int i in langResources) {
                         Application.Current.Resources.MergedDictionaries.RemoveAt(i);
                     }
                 }
                 Application.Current.Resources.MergedDictionaries.Add(langRd);
-                // 部分已经加载的刷新一下
+                #region 部分已经加载的刷新一下
+                // 语言显示
+                Dictionary<string, string> langNameDic = Lang.LangNameDic("LangArray");
+                foreach(Lang l in vm.LangList) {
+                    l.Name = langNameDic[l.Value];
+                }
+                // 状态
                 if (vm.ImgWaterMarkTaskTimer.IsEnabled) {
                     vm.SetTaskStatus(Colors.Green, Lang.Find("WatermarkTaskRunning"));
                 } else {
                     vm.SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
                 }
-
+                #endregion
             }
         }
     }
