@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PropertyChanged;
+using System.Collections.Generic;
 using System.Windows;
-using PropertyChanged;
 
 namespace AddWaterMark.Beans {
     [AddINotifyPropertyChangedInterface]
@@ -12,13 +12,21 @@ namespace AddWaterMark.Beans {
             return Application.Current.TryFindResource(key) as string;
         }
 
-        public static Dictionary<string, string> LangNameDic(string key) {
-            var lang = Application.Current.TryFindResource(key);
-            string[] langStringList = lang as string[];
+        public static List<Lang> FindLangList() {
+            var langArray = Application.Current.TryFindResource("LangArray");
+            string[] langStringList = langArray as string[];
+            List<Lang> langList = new List<Lang>();
+            foreach (string langString in langStringList) {
+                string[] nameValueArray = langString.Split('=');
+                langList.Add(new Lang { Name = nameValueArray[1], Value = nameValueArray[0] });
+            }
+            return langList;
+        }
+
+        public static Dictionary<string, string> LangNameDic() {
             Dictionary<string, string> langNameDic = new Dictionary<string, string>();
-            foreach(string langString in langStringList) {
-                string[] langArray = langString.Split('=');
-                langNameDic.Add(langArray[0], langArray[1]);
+            foreach (Lang lang in FindLangList()) {
+                langNameDic.Add(lang.Value, lang.Name);
             }
             return langNameDic;
         }

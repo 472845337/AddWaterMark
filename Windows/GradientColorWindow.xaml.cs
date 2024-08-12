@@ -1,5 +1,4 @@
 ﻿using AddWaterMark.Beans;
-using AddWaterMark.Config;
 using AddWaterMark.Utils;
 using AddWaterMark.ViewModels;
 using System;

@@ -1,4 +1,5 @@
-﻿using AddWaterMark.Config;
+﻿using AddWaterMark.Beans;
+using AddWaterMark.Config;
 using AddWaterMark.DataBase.Beans;
 using AddWaterMark.DataBase.Services;
 using AddWaterMark.Utils;
@@ -6,13 +7,11 @@ using AddWaterMark.ViewModels;
 using AddWaterMark.Windows;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Linq;
-using AddWaterMark.Beans;
-using System.Collections.ObjectModel;
 
 namespace AddWaterMark {
     /// <summary>
@@ -323,7 +322,7 @@ namespace AddWaterMark {
             ResourceDictionary langRd = null;
             System.IO.FileStream fs = null;
             try {
-                //根据名字载入语言文件,将语言解析成字典（不像default.xaml一样包含source）
+                //根据名字载入语言文件,将语言解析成字典（和default.xaml不同，这里不包含source）
                 fs = new System.IO.FileStream(Configs.AppStartPath + "/Langs/" + lang.Value + ".xaml", System.IO.FileMode.Open);
                 langRd = System.Windows.Markup.XamlReader.Load(fs) as ResourceDictionary;
             } catch (Exception e2) {
@@ -341,7 +340,7 @@ namespace AddWaterMark {
                     List<int> langResources = new List<int>();
                     for (int i = 0; i < Application.Current.Resources.MergedDictionaries.Count; i++) {
                         var source = Application.Current.Resources.MergedDictionaries[i].Source;
-                        if(source != null) {
+                        if (source != null) {
                             string originalString = source.OriginalString;
                             // 语言包资源路径判断，default.xaml会走这个判断
                             if (originalString.Contains("component/Langs/")) {
@@ -359,8 +358,8 @@ namespace AddWaterMark {
                 Application.Current.Resources.MergedDictionaries.Add(langRd);
                 #region 部分已经加载的刷新一下
                 // 语言显示
-                Dictionary<string, string> langNameDic = Lang.LangNameDic("LangArray");
-                foreach(Lang l in vm.LangList) {
+                Dictionary<string, string> langNameDic = Lang.LangNameDic();
+                foreach (Lang l in vm.LangList) {
                     l.Name = langNameDic[l.Value];
                 }
                 // 状态

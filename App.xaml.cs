@@ -24,7 +24,7 @@ namespace AddWaterMark {
                     var errorMsg = "已存在运行程序！";
                     if ("zh_tw".Equals(language)) {
                         errorMsg = "已存在運行程式！";
-                    }else if ("en".Equals(language)) {
+                    } else if ("en".Equals(language)) {
                         errorMsg = "The Application Already Running!";
                     }
                     MessageBox.Show(errorMsg, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
