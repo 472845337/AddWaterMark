@@ -682,7 +682,6 @@ namespace AddWaterMark.ViewModels {
             ImgFilePathWindow imgFilePathWindow = new ImgFilePathWindow(null, ImgFilePaths);
             if (true == imgFilePathWindow.ShowDialog()) {
                 ImgFilePath imgFilePath = new ImgFilePath {
-                    Id = Guid.NewGuid().ToString(),
                     FilePath = imgFilePathWindow.vm.FilePath,
                     WaterMark = imgFilePathWindow.vm.WaterMark
                 };

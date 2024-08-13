@@ -12,8 +12,8 @@ namespace AddWaterMark.DataBase {
     public abstract class TableData {
         // section
         [DoNotNotify]
-        [TableParam(true, "id", "VARCHAR")]
-        public string Id { get; set; }
+        [TableParam(true, "id", "INTEGER", true)]
+        public long? Id { get; set; }
 
     }
 }

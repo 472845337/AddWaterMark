@@ -38,7 +38,10 @@ namespace AddWaterMark.DataBase {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(tableParam.param).Append(" ").Append(tableParam.type);
                         if (tableParam.isKey) {
-                            sb.Append(" PRIMARY KEY AUTOINCREMENT");
+                            sb.Append(" PRIMARY KEY");
+                        }
+                        if (tableParam.autoIncrement) {
+                            sb.Append(" AUTOINCREMENT");
                         }
                         addColumnList.Add(sb.ToString());
                     }
@@ -56,8 +59,9 @@ namespace AddWaterMark.DataBase {
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        public long Insert(T t) {
-            return SqlLiteHelper.InsertData(GetTableName(), GetParams(t, true));
+        public void Insert(T t) {
+            long id = SqlLiteHelper.InsertData(GetTableName(), GetParams(t, true));
+            t.Id = id;
         }
 
         /// <summary>
@@ -65,7 +69,7 @@ namespace AddWaterMark.DataBase {
         /// </summary>
         internal void Clear() {
             // 清空所有的数据
-            SqlLiteHelper.ExecuteNonQuery("DELETE FROM " + GetTableName(), null);
+            SqlLiteHelper.ExecuteNonQuery($"DELETE FROM {GetTableName()}", null);
         }
 
         /// <summary>
@@ -73,11 +77,11 @@ namespace AddWaterMark.DataBase {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int Delete(string id) {
-            if (string.IsNullOrEmpty(id)) {
+        public int Delete(long? id) {
+            if (null == id) {
                 return 0;
             } else {
-                return SqlLiteHelper.ExecuteNonQuery("DELETE FROM " + GetTableName() + " where id=@id", new[] { new SQLiteParameter("id", id) });
+                return SqlLiteHelper.ExecuteNonQuery($"DELETE FROM {GetTableName()} where id=@id", new[] { new SQLiteParameter("id", id) });
             }
         }
 
@@ -183,9 +187,12 @@ namespace AddWaterMark.DataBase {
                     sb.Append(", ");
                 }
                 sb.Append(tableParam.param).Append(" ").Append(tableParam.type);
-                //if (tableParam.isKey) {
-                //    sb.Append(" PRIMARY KEY AUTOINCREMENT");
-                //}
+                if (tableParam.isKey) {
+                    sb.Append(" PRIMARY KEY");
+                }
+                if (tableParam.autoIncrement) {
+                    sb.Append(" AUTOINCREMENT");
+                }
             }
             insertSql.Append(sb).Append(")");
             SqlLiteHelper.ExecuteNonQuery(insertSql.ToString(), null);

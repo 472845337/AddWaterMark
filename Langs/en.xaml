@@ -36,7 +36,7 @@
     <sys:String x:Key="Set_Cancel_ToolTip">cancel the update</sys:String>
     <sys:String x:Key="Set_Save_ToolTip">save the update, water mark task will change too</sys:String>
 
-    <sys:String x:Key="Test_Refresh">refresh</sys:String>
+    <sys:String x:Key="Test_Refresh">Refresh</sys:String>
     <sys:String x:Key="Test_Refresh_ToolTip">recreate test watermark to see the newly effect</sys:String>
     <sys:String x:Key="Test_Img">Select Image</sys:String>
     <sys:String x:Key="Test_Img_ToolTip">select image file to test watermark</sys:String>
@@ -55,8 +55,8 @@
 
     <sys:String x:Key="OpenDic">OpenPath</sys:String>
 
-    <sys:String x:Key="Group_TextColumn">Text</sys:String>
-    <sys:String x:Key="Group_PathColumn">Path</sys:String>
+    <sys:String x:Key="Text">Text</sys:String>
+    <sys:String x:Key="Path">Path</sys:String>
 
     <sys:String x:Key="Add">Add</sys:String>
     <sys:String x:Key="Update">Update</sys:String>

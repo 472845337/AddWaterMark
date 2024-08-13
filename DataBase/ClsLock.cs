@@ -102,7 +102,7 @@ namespace AddWaterMark.DataBase {
             if (Enabled == false || _lockSlim.IsWriteLockHeld) {
                 return Disposable.Empty;
             } else if (_lockSlim.IsReadLockHeld) {
-                throw new NotImplementedException("读取模式下不能进入写入锁定状态");
+                throw new NotImplementedException("ReadMode can't get into writelock state");
             } else {
                 _lockSlim.EnterWriteLock();
                 return new Lock(_lockSlim, true);

@@ -22,7 +22,7 @@
             <Run Text="*" Foreground="Red"/>
         </TextBlock>
         <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}"/>
-        <Button Style="{StaticResource Button_Style}" Content="..." Grid.Row="0" Grid.Column="2" Click="SelectImgFilePath_Click"/>
+        <Button Style="{StaticResource ButtonPrimary_Style}" Content="..." Grid.Row="0" Grid.Column="2" Click="SelectImgFilePath_Click"/>
         <TextBlock Style="{StaticResource Form_Style}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
             <Run Text="{DynamicResource Text}"/>
             <Run Text="*" Foreground="Red"/>
@@ -30,7 +30,7 @@
         <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WaterMark}"/>
         <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="False" Margin="0 0 0 5">
             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="{DynamicResource Save}" Click="SaveImgFilePath_Click"/>
-            <Button Style="{StaticResource Button_Style}" DockPanel.Dock="Right" Content="{DynamicResource Cancel}" Click="Cancel_Click"/>
+            <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Right" Content="{DynamicResource Cancel}" Click="Cancel_Click"/>
         </DockPanel>
     </Grid>
 </Window>

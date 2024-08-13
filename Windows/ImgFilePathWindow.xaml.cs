@@ -70,7 +70,7 @@ namespace AddWaterMark.Windows {
         /// <param name="id"></param>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private bool GetRepeatPath(string id, string filePath, out string repeatPath, out string childPath) {
+        private bool GetRepeatPath(long? id, string filePath, out string repeatPath, out string childPath) {
             bool isRepeat = false;
             repeatPath = string.Empty;
             childPath = string.Empty;

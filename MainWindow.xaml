@@ -112,6 +112,15 @@
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
                         <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}" MouseLeftButtonUp="WaterMarkImage_MouseLeftButtonUp">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
                             <Image.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="{DynamicResource Test_Refresh}" ToolTip="{DynamicResource Test_Refresh_ToolTip}" Command="{Binding RefreshWaterMarkCommand}"/>
@@ -145,7 +154,7 @@
                         <RowDefinition Height="10"/>
                         <RowDefinition MinHeight="100"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
@@ -193,15 +202,15 @@
                             <Label Style="{StaticResource Form_Style}" DockPanel.Dock="Right" Content="{DynamicResource Task_Interval}"/>
                         </DockPanel>
                     </Grid>
-                    <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch" Margin="0,3" ResizeBehavior="PreviousAndNext" Grid.ColumnSpan="2"/>
-                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                    <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Margin="0,3" ResizeBehavior="PreviousAndNext"/>
+                    <GroupBox Grid.Row="2">
                         <GroupBox.Header>
                             <StackPanel Orientation="Horizontal">
                                 <Label VerticalAlignment="Center" Content="{DynamicResource Log_Group}"/>
                                 <CheckBox VerticalAlignment="Center" Content="{DynamicResource Log_Scroll_End}" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
                             </StackPanel>
                         </GroupBox.Header>
-                        <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Foreground="LightGreen" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                        <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="{DynamicResource Log_Clear}" Command="{Binding ClearWaterMarkLogCommand}"/>
@@ -233,7 +242,11 @@
         </TabControl>
         <StatusBar Grid.Row="1" >
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
-                <ComboBox Name="Lang_ComboBox" ItemsSource="{Binding LangList}" SelectedValue="{Binding Language}" SelectedValuePath="Value" DisplayMemberPath="Name" SelectionChanged="Lang_ComboBox_SelectionChanged" IsReadOnly="True"/>
+                <ComboBox Name="Lang_ComboBox" ItemsSource="{Binding LangList}" 
+                          SelectedValue="{Binding Language}"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="Lang_ComboBox_SelectionChanged" IsReadOnly="True"/>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">
                 <TextBlock Text="{Binding OperateMsg}" Foreground="{Binding OperateMsgColor}"/>

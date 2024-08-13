@@ -8,7 +8,7 @@ namespace AddWaterMark.ViewModels {
     public class ImgFilePathViewModel {
         [DoNotNotify]
         public List<ImgFilePath> CurImgFilePaths { get; set; }
-        public string Id { get; set; }
+        public long? Id { get; set; }
         public string FilePath { get; set; }
         public string WaterMark { get; set; }
     }

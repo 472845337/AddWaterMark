@@ -22,7 +22,7 @@
                             <ColumnDefinition Width="40"/>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Border Style="{StaticResource Form_Style}" Grid.Column="0" Background="{Binding Color}" BorderThickness="1" BorderBrush="Gray" MouseLeftButtonUp="ChangeColor_MouseLeftButtonUp" Tag="{Binding}"/>
                         <Slider Style="{StaticResource Form_Style}" Grid.Column="1" Minimum="0" Maximum="100" TickFrequency="5" IsSnapToTickEnabled="True" Value="{Binding Point, Converter={StaticResource PointConverter},Mode=TwoWay}" ValueChanged="PointSlider_ValueChanged"/>

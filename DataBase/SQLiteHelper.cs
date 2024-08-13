@@ -185,7 +185,7 @@ namespace AddWaterMark.DataBase {
                 throw new ArgumentNullException(nameof(table));
             }
             EnsureConnection();
-            SQLiteDataReader reader = ExecuteReader("SELECT count(*) as c FROM sqlite_master WHERE type='table' AND name=@tableName ", new[] { new SQLiteParameter("tableName", table) });
+            SQLiteDataReader reader = ExecuteReader("SELECT count(1) as c FROM sqlite_master WHERE type='table' AND name=@tableName ", new[] { new SQLiteParameter("tableName", table) });
             if (reader == null) {
                 return false;
             }
@@ -482,7 +482,7 @@ namespace AddWaterMark.DataBase {
             }
             buf.Remove(buf.Length - 1, 1);
             buf.Append("); ");
-            buf.Append(" SELECT last_insert_rowid();");
+            buf.Append($" SELECT last_insert_rowid() FROM {table};");
 
             return buf.ToString();
         }
