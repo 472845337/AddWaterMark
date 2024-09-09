@@ -53,7 +53,7 @@ namespace AddWaterMark {
             Configs.mainWidth = NumberUtils.IsNumeric(mainWidthStr, out double mainWidth) ? mainWidth : Constants.MAIN_WIDTH;
             Configs.mainLeft = NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? mainLeft : Constants.MAIN_LEFT;
             Configs.mainTop = NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? mainTop : Constants.MAIN_TOP;
-            Configs.language = string.IsNullOrEmpty(language) ? Constants.LANGUAGE : language;
+            Configs.language = string.IsNullOrEmpty(language) || !Lang.LangNameDic().ContainsKey(language) ? Constants.LANGUAGE : language;
             vm.MainHeight = Configs.mainHeight;
             vm.MainWidth = Configs.mainWidth;
             vm.MainLeft = Configs.mainLeft;

@@ -886,6 +886,7 @@ namespace AddWaterMark.ViewModels {
             if (ImgFilePaths.Count == 0 || ImgFilePaths.Where(a => a.IsSelect).ToList().Count == 0) {
                 AddWaterMarkLog(Lang.Find("UnselectedPath"));
             } else {
+                // 获取目录下所有图片文件
                 foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
                     AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark);
                 }
@@ -897,9 +898,12 @@ namespace AddWaterMark.ViewModels {
                             string ext = Path.GetExtension(onefile);
                             string filename = Path.GetFileName(onefile);
                             // 获取未加过水印的图片：当前文件同目录下没有文件名加_原文件后缀的文件名，（a.jpg，a_原文件.jpg表示已经加过水印）
-                            if (!filename.Contains(Constants.PRI_FILE_SUFFIX + ext)) {
-                                string priFile = Path.GetDirectoryName(onefile) + "\\" + Path.GetFileNameWithoutExtension(onefile) + Constants.PRI_FILE_SUFFIX + ext;
-                                if (!File.Exists(priFile)) {
+                            if (!filename.Contains(Constants.PRI_FILE_SUFFIX + ext) && !filename.Contains("_原文件" + ext)) {
+                                string directoryName = Path.GetDirectoryName(onefile);
+                                string fileNameWithoutExt = Path.GetFileNameWithoutExtension(onefile);
+                                string priFile = directoryName + "\\" + fileNameWithoutExt + Constants.PRI_FILE_SUFFIX + ext;
+                                string priFile2 = directoryName + "\\" + fileNameWithoutExt + "_原文件" + ext;
+                                if (!File.Exists(priFile) && !File.Exists(priFile2)) {
                                     bool hasValue = processListDic.TryGetValue(waterMarkText, out List<string> processList);
                                     if (!hasValue) {
                                         processList = new List<string>();
