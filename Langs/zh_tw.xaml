@@ -112,7 +112,6 @@
     <sys:String x:Key="Resources_Language">開發語言：C# WPF .Net Framework4.5</sys:String>
     <sys:String x:Key="Resources_Tool">開發工具：VS2019</sys:String>
     <sys:String x:Key="Resources_Git">Gitee地址：</sys:String>
-    <sys:String x:Key="Resources_Git_Uri">https://gitee.com/wsjy/add-water-mark.git</sys:String>
     <sys:String x:Key="Resources_Git_Link">源代碼</sys:String>
 
     <sys:String x:Key="Help_Bug">4.Bug反饋</sys:String>

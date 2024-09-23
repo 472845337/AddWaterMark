@@ -111,8 +111,7 @@
     <sys:String x:Key="Help_Resources">3.Resources</sys:String>
     <sys:String x:Key="Resources_Language">Dev Language：C# WPF .Net Framework4.5</sys:String>
     <sys:String x:Key="Resources_Tool">Dev Tool：VS2019</sys:String>
-    <sys:String x:Key="Resources_Git">Gitee Url：</sys:String>
-    <sys:String x:Key="Resources_Git_Uri">https://gitee.com/wsjy/add-water-mark.git</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub Url：</sys:String>
     <sys:String x:Key="Resources_Git_Link">Resources</sys:String>
 
     <sys:String x:Key="Help_Bug">4.Bug Response</sys:String>
