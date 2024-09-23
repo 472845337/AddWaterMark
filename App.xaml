@@ -83,7 +83,7 @@
                 <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Resources_Tool}"/>
                 <LineBreak/>
                 <Run Text="{DynamicResource Indentation1}"/><Run Text="{DynamicResource Resources_Git}"/>
-                <Hyperlink NavigateUri="https://gitee.com/wsjy/add-water-mark.git" Click="Lnk_Click"><Run Text="{DynamicResource Resources_Git_Link}"/></Hyperlink>
+                <Hyperlink NavigateUri="https://github.com/472845337/AddWaterMark.git" Click="Lnk_Click"><Run Text="{DynamicResource Resources_Git_Link}"/></Hyperlink>
                 <LineBreak/>
                 <Run Text="{DynamicResource Indentation}"/><Run Text="{DynamicResource Help_Bug}" Style="{StaticResource DocTitle1_Style}"/>
                 <LineBreak/>
