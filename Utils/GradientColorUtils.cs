@@ -30,18 +30,17 @@ namespace AddWaterMark.Utils {
             return gradientColorStr;
         }
 
-        public static void GetPdfColor(string gradientColor, int opacity, out iTextSharp.text.pdf.PdfDeviceNColor pdfDeviceNColor, out float[] tints) {
+        public static void GetPdfColor(string gradientColor, out iTextSharp.text.pdf.PdfSpotColor[] spotColors, out float[] tints) {
             List<GradientColor> gradientColors = GetList(gradientColor);
             tints = new float[gradientColors.Count];
-            iTextSharp.text.pdf.PdfSpotColor[] pdfSpotColorArray = new iTextSharp.text.pdf.PdfSpotColor[gradientColors.Count];
+            spotColors = new iTextSharp.text.pdf.PdfSpotColor[gradientColors.Count];
             for (int i = 0; i < gradientColors.Count; i++) {
                 GradientColor a = gradientColors[i];
                 tints[i] = a.Point;
                 System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(a.Color);
-                iTextSharp.text.BaseColor baseColor = new iTextSharp.text.BaseColor(color.R, color.G, color.B, opacity);
-                pdfSpotColorArray[i] = new iTextSharp.text.pdf.PdfSpotColor(i.ToString(), baseColor);
+                iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);
+                spotColors[i] = new iTextSharp.text.pdf.PdfSpotColor(i.ToString(), a.Point, baseColor);
             }
-            pdfDeviceNColor = new iTextSharp.text.pdf.PdfDeviceNColor(pdfSpotColorArray);
         }
     }
 }

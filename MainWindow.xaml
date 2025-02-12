@@ -13,6 +13,11 @@
         MinWidth="590"
         MinHeight="420"
         Icon="pack://application:,,,/Resources/logo/picture.ico" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style TargetType="Paragraph">
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -107,8 +112,8 @@
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Style="{StaticResource ButtonPurple_Style}" Content="{DynamicResource Set_Default}" ToolTip="{DynamicResource Set_Default_ToolTip}" Command="{Binding DefaultConfigCommand}"/>
-                        <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Cancel}" ToolTip="{DynamicResource Set_Cancel_ToolTip}" Command="{Binding CancelConfigCommand}"/>
                         <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Save}" ToolTip="{DynamicResource Set_Save_ToolTip}" Command="{Binding SaveConfigCommand}"/>
+                        <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Cancel}" ToolTip="{DynamicResource Set_Cancel_ToolTip}" Command="{Binding CancelConfigCommand}"/>
                     </StackPanel>
                     <Border x:Name="WaterMarkBorder" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Gray" Margin="0 5 0 0">
                         <Image x:Name="WaterMarkImage" Source="{Binding WaterMarkBitmap}" MouseLeftButtonUp="WaterMarkImage_MouseLeftButtonUp">
@@ -210,22 +215,13 @@
                                 <CheckBox VerticalAlignment="Center" Content="{DynamicResource Log_Scroll_End}" IsChecked="{Binding ScrollEnd}" Checked="ScrollEnd_Checked"/>
                             </StackPanel>
                         </GroupBox.Header>
-                        <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
+                        <RichTextBox x:Name="TaskLog_RichTextBox" Background="Black" Foreground="White" SelectionBrush="White" Padding="5" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto">
                             <RichTextBox.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="{DynamicResource Log_Clear}" Command="{Binding ClearWaterMarkLogCommand}"/>
                                 </ContextMenu>
                             </RichTextBox.ContextMenu>
                             <FlowDocument>
-                                <Paragraph x:Name="LogsParagraph">
-                                    <ItemsControl ItemsSource="{Binding TaskLogs}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Msg}" Foreground="{Binding ColorBrush}" TextWrapping="Wrap"/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </Paragraph>
                             </FlowDocument>
                         </RichTextBox>
                     </GroupBox>

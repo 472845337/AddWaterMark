@@ -119,10 +119,5 @@ namespace AddWaterMark.Windows {
             }
             return isRepeat;
         }
-
-
-        private void Cancel_Click(object sender, RoutedEventArgs e) {
-            DialogResult = false;
-        }
     }
 }

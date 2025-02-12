@@ -4,8 +4,7 @@ using PropertyChanged;
 using System.Collections.ObjectModel;
 
 namespace AddWaterMark.ViewModels {
-    [AddINotifyPropertyChangedInterface]
-    class GradientColorViewModel {
+    class GradientColorViewModel : AbstractViewModel{
 
         public string WaterMarkFontGradientColor { get; set; }// 渐变色
 

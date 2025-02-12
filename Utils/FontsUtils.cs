@@ -46,22 +46,19 @@ namespace AddWaterMark.Utils {
         }
 
         private static int ConvertFontStyle(FontStyle _fontStyle) {
-            int style = -1;
+            int style = iTextSharp.text.Font.NORMAL;
 
-            if ((_fontStyle & FontStyle.Regular) != 0) {
-                style |= iTextSharp.text.Font.NORMAL;
-            }
             if ((_fontStyle & FontStyle.Bold) != 0) {
-                style |= iTextSharp.text.Font.BOLD;
+                style += iTextSharp.text.Font.BOLD;
             }
             if ((_fontStyle & FontStyle.Italic) != 0) {
-                style |= iTextSharp.text.Font.ITALIC;
+                style += iTextSharp.text.Font.ITALIC;
             }
             if ((_fontStyle & FontStyle.Underline) != 0) {
-                style |= iTextSharp.text.Font.UNDERLINE;
+                style += iTextSharp.text.Font.UNDERLINE;
             }
             if ((_fontStyle & FontStyle.Strikeout) != 0) {
-                style |= iTextSharp.text.Font.STRIKETHRU;
+                style += iTextSharp.text.Font.STRIKETHRU;
             }
             return style;
         }

@@ -282,7 +282,7 @@ namespace AddWaterMark {
         private void TaskIntervalSlider_ValueChanged(object sender, RoutedEventArgs e) {
             vm.ImgWaterMarkTaskTimer.Interval = TimeSpan.FromMinutes(vm.TaskInterval);
             if (Configs.inited) {
-                vm.AddWaterMarkLog($"{Lang.Find("ChangeTaskInterval")}{vm.TaskInterval}");
+                vm.AddWaterMarkLog(Colors.Orange, $"{Lang.Find("ChangeTaskInterval")}{vm.TaskInterval}");
             }
         }
 

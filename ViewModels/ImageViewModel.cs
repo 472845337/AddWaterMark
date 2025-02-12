@@ -2,8 +2,7 @@
 using System.Windows.Media.Imaging;
 
 namespace AddWaterMark.ViewModels {
-    [AddINotifyPropertyChangedInterface]
-    class ImageViewModel {
+    class ImageViewModel : AbstractViewModel{
         public double ImageHeight { get; set; }
         public double ImageWidth { get; set; }
         public BitmapImage WaterMarkImage { get; set; }

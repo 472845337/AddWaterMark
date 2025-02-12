@@ -3,9 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <x:Array x:Key="LangArray" Type="{x:Type sys:String}">
         <sys:String>zh_cn=簡體中文</sys:String>
-        <sys:String>zh_tw=繁體中文（台灣）</sys:String>
-        <sys:String>zh_hk=繁體中文（香港）</sys:String>
-        <sys:String>zh_mo=繁體中文（澳門）</sys:String>
+        <sys:String>zh_tw=繁體中文</sys:String>
         <sys:String>en=英文</sys:String>
     </x:Array>
     

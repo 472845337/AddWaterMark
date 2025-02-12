@@ -77,13 +77,6 @@ namespace AddWaterMark.Windows {
             vm.ChangeGradient();
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e) {
-            vm.GradientColorList.Clear();
-            vm.WaterMarkFontGradientColor = string.Empty;
-            DataContext = null;
-            DialogResult = false;
-        }
-
         private void Save_Click(object sender, RoutedEventArgs e) {
             foreach (GradientColor color in vm.GradientColorList) {
                 if (color.Point < 0 || color.Point > 1) {

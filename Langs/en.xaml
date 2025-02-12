@@ -3,9 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <x:Array x:Key="LangArray" Type="{x:Type sys:String}">
         <sys:String>zh_cn=Chinese Simplified</sys:String>
-        <sys:String>zh_tw=Chinese Traditional(TW)</sys:String>
-        <sys:String>zh_hk=Chinese Traditional(HK)</sys:String>
-        <sys:String>zh_mo=Chinese Traditional(MO)</sys:String>
+        <sys:String>zh_tw=Chinese Traditional</sys:String>
         <sys:String>en=English</sys:String>
     </x:Array>
     

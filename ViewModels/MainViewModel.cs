@@ -16,13 +16,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace AddWaterMark.ViewModels {
-    [AddINotifyPropertyChangedInterface]
-    class MainViewModel {
+    class MainViewModel : AbstractViewModel{
         public MainViewModel() {
             SystemFonts = new ObservableCollection<string>(FontsUtils.GetSystemFonts());// 系统字体
             LangList = new ObservableCollection<Lang>(Lang.FindLangList());// 语言
@@ -47,7 +47,7 @@ namespace AddWaterMark.ViewModels {
             #region 水印执行命令
             ImgWaterMarkExecuteCommand = new RelayCommand(ImgWaterMarkExecute);// 该命令不可设置Enable，因为是Task处理水印任务，赋值ImgWaterMarkTimerCanRun时会异常
             ImgWaterMarkTaskToggleCommand = new RelayCommand(ImgWaterMarkTaskToggle);
-            ClearWaterMarkLogCommand = new RelayCommand(ClearWaterMarkLog, (obj) => { return TaskLogs.Count > 0; });
+            ClearWaterMarkLogCommand = new RelayCommand(ClearWaterMarkLog, (obj) => { return TaskLog_RichTextBox.Document.Blocks.Count > 0; });
             ResumeImgWaterMarkCommand = new RelayCommand(ResumeWaterMark);
             #endregion
             OperateMessageTimer.Tick += OperateMessageTimer_Tick;
@@ -88,7 +88,7 @@ namespace AddWaterMark.ViewModels {
         public double MainLeft { get; set; }// 主窗口左边位置
         public double MainTop { get; set; }// 主窗口顶部位置
         public string Language { get; set; }
-        [OnChangedMethod("CancelOrSaveCommandChanged")]
+        [OnChangedMethod(nameof(CancelOrSaveCommandChanged))]
         public bool ConfigIsChanged { get; set; }// 配置是否修改
         public string WaterMarkText { get; set; }// 水印文本
         public byte WaterMarkOpacity { get; set; }// 不透明度
@@ -122,7 +122,6 @@ namespace AddWaterMark.ViewModels {
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
         public bool ScrollEnd { get; set; }
-        public ObservableCollection<Log> TaskLogs { get; set; } = new ObservableCollection<Log>();
         public System.Windows.Controls.RichTextBox TaskLog_RichTextBox { get; set; }
         public int TaskInterval { get; set; }
         public string TaskStatus { get; private set; }
@@ -583,21 +582,21 @@ namespace AddWaterMark.ViewModels {
         /// <param name="addText">水印文字</param>
         /// <param name="font">字体</param>
         private void PdfAddWatermark(bool isTest, string pdfPath, string addText, System.Drawing.Font font) {
-            int waterMarkRotate = -Configs.waterMarkRotate;// 为了保证和图片的旋转一致取反
-            int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
-            int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
-            byte waterMarkOpacity = Configs.waterMarkOpacity;
-            //bool waterMarkFontIsGradient = Configs.waterMarkFontIsGradient;
-            string waterMarkFontColor = Configs.waterMarkFontColor;
-            //string waterMarkFontGradientColor = Configs.waterMarkFontGradientColor;
+            int rotate = -Configs.waterMarkRotate;// 为了保证和图片的旋转一致取反
+            int horizontalDis = Configs.waterMarkHorizontalDis;
+            int verticalDis = Configs.waterMarkVerticalDis;
+            byte opacity = Configs.waterMarkOpacity;
+            bool isGradient = Configs.waterMarkFontIsGradient;
+            string fontColor = Configs.waterMarkFontColor;
+            string gradientColor = Configs.waterMarkFontGradientColor;
             if (isTest) {
-                waterMarkRotate = -WaterMarkRotate;// 为了保证和图片的旋转一致取反
-                waterMarkHorizontalDis = WaterMarkHorizontalDis;
-                waterMarkVerticalDis = WaterMarkVerticalDis;
-                waterMarkOpacity = WaterMarkOpacity;
-                //waterMarkFontIsGradient = WaterMarkFontIsGradient;
-                waterMarkFontColor = WaterMarkFontColor;
-                //waterMarkFontGradientColor = WaterMarkFontGradientColor;
+                rotate = -WaterMarkRotate;// 为了保证和图片的旋转一致取反
+                horizontalDis = WaterMarkHorizontalDis;
+                verticalDis = WaterMarkVerticalDis;
+                opacity = WaterMarkOpacity;
+                isGradient = WaterMarkFontIsGradient;
+                fontColor = WaterMarkFontColor;
+                gradientColor = WaterMarkFontGradientColor;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -610,18 +609,17 @@ namespace AddWaterMark.ViewModels {
             //读取pdf
             PdfReader reader = new PdfReader(newpath);
             //创建新pdf
-            Stream outStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
-            PdfStamper stamper = new PdfStamper(reader, outStream); ;
+            using Stream outStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
+            PdfStamper stamper = new PdfStamper(reader, outStream);
             int pdfTotalPage = reader.NumberOfPages;//总页数
 
             // 透明度
-            PdfGState gs = new PdfGState();
+            PdfGState gs = new PdfGState() { FillOpacity = WaterMarkOpacity/100F };
             // 字体
-            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(waterMarkFontColor);
-            iTextSharp.text.BaseColor baseColor = new iTextSharp.text.BaseColor(color.R, color.G, color.B, waterMarkOpacity * 255 / 100);
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(fontColor);
+            iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);
 
             BaseFont baseFont = FontsUtils.ConvertFont2BaseFont(font);
-            PdfContentByte content;
             for (int i = 1; i <= pdfTotalPage; i++) {
                 //当前页pdf尺寸
                 iTextSharp.text.Rectangle psize = reader.GetPageSize(i);
@@ -629,36 +627,36 @@ namespace AddWaterMark.ViewModels {
                 float height = psize.Height;
                 int circleDiameter = (int)Math.Sqrt(Math.Pow(width, 2D) + Math.Pow(height, 2D));
                 float x = (width - circleDiameter) / 2, y = (height - circleDiameter) / 2;
-                //GetUnderContent内容下层
-                //GetOverContent内容上层
-                content = stamper.GetOverContent(i);
-
+                //GetUnderContent内容下层,GetOverContent内容上层
+                PdfContentByte content = stamper.GetOverContent(i);
                 content.SetGState(gs);
                 //开始写入文本
                 content.BeginText();
                 //设置颜色
-                //if (waterMarkFontIsGradient) {
-                //    // 渐变色，这个功能不符合预期 
-                //    GradientColorUtils.GetPdfColor(waterMarkFontGradientColor, waterMarkOpacity * 255 / 100, out PdfDeviceNColor ncolor, out float[] tints);
-                //    content.SetColorFill(ncolor, tints);
-                //} else {
-                content.SetColorFill(baseColor);
-                //}
+                if (isGradient) {
+                    // 渐变色，这个功能不符合预期 
+                    GradientColorUtils.GetPdfColor(gradientColor, out PdfSpotColor[] ncolor, out float[] tints);
+                    for (int j = 0; j < tints.Length; j++) {
+                        content.SetColorFill(ncolor[j], tints[j]);
+                    }
+                } else {
+                    content.SetColorFill(baseColor);
+                }
                 //字体大小
                 content.SetFontAndSize(baseFont, font.Size);
                 //设置文本矩阵
                 content.SetTextMatrix(0, 0);
                 //水印文本位置
-                int xcount = circleDiameter / waterMarkHorizontalDis + 1;
-                int ycount = circleDiameter / waterMarkVerticalDis + 1;
+                int xcount = circleDiameter / horizontalDis + 1;
+                int ycount = circleDiameter / verticalDis + 1;
                 float ox = x;
                 for (int k = 0; k < ycount; k++) {
                     for (int l = 0; l < xcount; l++) {
-                        content.ShowTextAligned(iTextSharp.text.Element.ALIGN_LEFT, addText, x, y, waterMarkRotate);
-                        x += waterMarkHorizontalDis;
+                        content.ShowTextAligned(iTextSharp.text.Element.ALIGN_LEFT, addText, x, y, rotate);
+                        x += horizontalDis;
                     }
                     x = ox;
-                    y += waterMarkVerticalDis;
+                    y += verticalDis;
                 }
                 content.EndText();
             }
@@ -786,7 +784,7 @@ namespace AddWaterMark.ViewModels {
                     ImgWaterMarkTaskTimer.Start();
                     SetOperateMsg(Lang.Find("WatermarkTaskStartedMsg"));
                 } else {
-                    AddWaterMarkLog(Lang.Find("WatermarkTaskStoped"));
+                    AddWaterMarkLog(Colors.Red, Lang.Find("WatermarkTaskStoped"));
                     SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
                     stop = true;
                     ImgWaterMarkExecuteTimer.Stop();
@@ -804,7 +802,7 @@ namespace AddWaterMark.ViewModels {
                 if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("WatermarkFilesResume"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel, MessageBoxImage.Warning)) {
                     Task.Factory.StartNew(delegate {
                         ImgWaterMarkTimerCanRun = false;
-                        AddWaterMarkLog(Lang.Find("StartResume"));
+                        AddWaterMarkLog(Colors.Orange, Lang.Find("StartResume"));
                         foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
                             if (stop) {
                                 break;
@@ -838,11 +836,11 @@ namespace AddWaterMark.ViewModels {
                     // 水印文件删除
                     if (File.Exists(waterMarkFilePath)) {
                         File.Delete(waterMarkFilePath);
-                        AddWaterMarkLog($"{Lang.Find("LogWatermark")}{ waterMarkFilePath}{ Lang.Find("LogWatermarkDelSuccess")}");
+                        AddWaterMarkLog($"{Lang.Find("LogWatermark")}{waterMarkFilePath}{Lang.Find("LogWatermarkDelSuccess")}");
                     }
                     // 原文件恢复原名
                     File.Move(path, waterMarkFilePath);
-                    AddWaterMarkLog($"{Lang.Find("PriFile")}{path}{ Lang.Find("ResumeNameSuccess")}");
+                    AddWaterMarkLog($"{Lang.Find("PriFile")}{path}{Lang.Find("ResumeNameSuccess")}");
                 }
             }
         }
@@ -884,7 +882,7 @@ namespace AddWaterMark.ViewModels {
         private static bool handExecute = false;
         private void ImgWaterMarkExecute() {
             if (ImgFilePaths.Count == 0 || ImgFilePaths.Where(a => a.IsSelect).ToList().Count == 0) {
-                AddWaterMarkLog(Lang.Find("UnselectedPath"));
+                AddWaterMarkLog(Colors.Red, Lang.Find("UnselectedPath"));
             } else {
                 // 获取目录下所有图片文件
                 foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
@@ -1020,20 +1018,28 @@ namespace AddWaterMark.ViewModels {
                 SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Application.Current.Dispatcher));
                 SynchronizationContext.Current.Post(pl => {
                     //里面写真正的业务内容
-                    TaskLogs.Add(new Log { ColorBrush = new SolidColorBrush(color), Msg = $"{DateTime.Now:yy-M-d HH:mm:ss}-{log}" });
+                    AddLog($"{DateTime.Now:yy-M-d HH:mm:ss}-{log}", color);
                     if (ScrollEnd) {
                         TaskLog_RichTextBox.ScrollToEnd();
                     }
-                    if (TaskLogs.Count > Constants.LOG_LIMIT) {
+                    if (TaskLog_RichTextBox.Document.Blocks.Count > Constants.LOG_LIMIT) {
                         for (int i = Constants.LOG_CACHE; i >= 0; i--) {
-                            TaskLogs.RemoveAt(i);
+                            TaskLog_RichTextBox.Document.Blocks.Remove(TaskLog_RichTextBox.Document.Blocks.FirstBlock);
                         }
                     }
                     WaterMarkLogChanged();
                 }, null);
             });
+        }
 
-
+        private void AddLog(string msg, Color color) {
+            Paragraph para = new Paragraph();
+            Run run = new Run(msg);
+            SolidColorBrush logColor = new SolidColorBrush(color);
+            logColor.Freeze();
+            run.Foreground = logColor;
+            para.Inlines.Add(run);
+            TaskLog_RichTextBox.Document.Blocks.Add(para);
         }
         /// <summary>
         /// 清空日志
@@ -1041,7 +1047,7 @@ namespace AddWaterMark.ViewModels {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ClearWaterMarkLog(object _) {
-            TaskLogs.Clear();
+            TaskLog_RichTextBox.Document.Blocks.Clear();
             SetOperateMsg(Lang.Find("LogClearSuccess"));
             WaterMarkLogChanged();
         }
