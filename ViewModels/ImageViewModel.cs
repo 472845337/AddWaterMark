@@ -1,8 +1,7 @@
-﻿using PropertyChanged;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media.Imaging;
 
 namespace AddWaterMark.ViewModels {
-    class ImageViewModel : AbstractViewModel{
+    class ImageViewModel : AbstractViewModel {
         public double ImageHeight { get; set; }
         public double ImageWidth { get; set; }
         public BitmapImage WaterMarkImage { get; set; }

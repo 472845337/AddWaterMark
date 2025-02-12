@@ -22,7 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace AddWaterMark.ViewModels {
-    class MainViewModel : AbstractViewModel{
+    class MainViewModel : AbstractViewModel {
         public MainViewModel() {
             SystemFonts = new ObservableCollection<string>(FontsUtils.GetSystemFonts());// 系统字体
             LangList = new ObservableCollection<Lang>(Lang.FindLangList());// 语言
@@ -211,28 +211,29 @@ namespace AddWaterMark.ViewModels {
         /// 取消和保存按钮可用刷新（OnChangedMethod调用）
         /// </summary>
         void CancelOrSaveCommandChanged() {
-            CancelConfigCommand.RaiseCanExecuteChanged();
-            SaveConfigCommand.RaiseCanExecuteChanged();
+            RelayCommand.Raise(CancelConfigCommand, SaveConfigCommand);
         }
         // 刷新控件可用状态（OnChangedMethod调用）
         void CanTestChanged() {
-            CreateWaterMarkCommand.RaiseCanExecuteChanged();
-            CreateImgWaterMarkCommand.RaiseCanExecuteChanged();
-            RefreshWaterMarkCommand.RaiseCanExecuteChanged();
+            RelayCommand.Raise(
+                CreateWaterMarkCommand,
+                CreateImgWaterMarkCommand,
+                RefreshWaterMarkCommand);
         }
         /// <summary>
         /// 图片目录选中后相关命令变更可执行状态
         /// </summary>
         public void ImgFilePathSelectedChanged() {
-            UpdateImgFilePathCommand.RaiseCanExecuteChanged();
-            DeleteImgFilePathCommand.RaiseCanExecuteChanged();
-            OpenImgFilePathCommand.RaiseCanExecuteChanged();
+            RelayCommand.Raise(
+            UpdateImgFilePathCommand,
+            DeleteImgFilePathCommand,
+            OpenImgFilePathCommand);
         }
         private void ImgFilePathsChanged() {
-            ClearImgFilePathCommand.RaiseCanExecuteChanged();
+            RelayCommand.Raise(ClearImgFilePathCommand);
         }
         private void WaterMarkLogChanged() {
-            ClearWaterMarkLogCommand.RaiseCanExecuteChanged();
+            RelayCommand.Raise(ClearWaterMarkLogCommand);
         }
 
         /// <summary>
@@ -614,7 +615,7 @@ namespace AddWaterMark.ViewModels {
             int pdfTotalPage = reader.NumberOfPages;//总页数
 
             // 透明度
-            PdfGState gs = new PdfGState() { FillOpacity = WaterMarkOpacity/100F };
+            PdfGState gs = new PdfGState() { FillOpacity = WaterMarkOpacity / 100F };
             // 字体
             System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(fontColor);
             iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);

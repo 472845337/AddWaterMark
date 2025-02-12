@@ -168,10 +168,13 @@
                             <ListView x:Name="ImgFilePath_ListView" ItemsSource="{Binding ImgFilePaths}" SelectionChanged="ImgFilePath_Selected" MouseLeftButtonDown="ImgFilePath_ListView_MouseLeftButtonDown" MouseDoubleClick="ImgFilePath_ListView_MouseDoubleClick">
                                 <ListView.ContextMenu>
                                     <ContextMenu>
+                                        <MenuItem Header="{DynamicResource Add}" Command="{Binding AddImgFilePathCommand}"/>
                                         <MenuItem Header="{DynamicResource Update}" Command="{Binding UpdateImgFilePathCommand}"/>
                                         <MenuItem Header="{DynamicResource Delete}" Command="{Binding DeleteImgFilePathCommand}"/>
                                         <Separator/>
                                         <MenuItem Header="{DynamicResource OpenDic}" Command="{Binding OpenImgFilePathCommand}"/>
+                                        <Separator/>
+                                        <MenuItem Header="{DynamicResource Clear}" Command="{Binding ClearImgFilePathCommand}"/>
                                     </ContextMenu>
                                 </ListView.ContextMenu>
                                 <ListView.View>

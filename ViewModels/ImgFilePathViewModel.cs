@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AddWaterMark.ViewModels {
 
-    public class ImgFilePathViewModel: AbstractViewModel{
+    public class ImgFilePathViewModel : AbstractViewModel {
         [DoNotNotify]
         public List<ImgFilePath> CurImgFilePaths { get; set; }
         public long? Id { get; set; }

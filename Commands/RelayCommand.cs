@@ -24,9 +24,10 @@ namespace AddWaterMark.Commands {
         public void Execute(object parameter) {
             _action?.Invoke(parameter);
         }
-
-        public static void Raise<C>(C c) where C : RelayCommand {
-            c?.RaiseCanExecuteChanged();
+        public static void Raise<C>(params C[] cs) where C : RelayCommand {
+            foreach (C c in cs) {
+                c?.RaiseCanExecuteChanged();
+            }
         }
     }
 }

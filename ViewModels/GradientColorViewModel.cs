@@ -1,10 +1,9 @@
 ﻿using AddWaterMark.Beans;
 using AddWaterMark.Utils;
-using PropertyChanged;
 using System.Collections.ObjectModel;
 
 namespace AddWaterMark.ViewModels {
-    class GradientColorViewModel : AbstractViewModel{
+    class GradientColorViewModel : AbstractViewModel {
 
         public string WaterMarkFontGradientColor { get; set; }// 渐变色
 

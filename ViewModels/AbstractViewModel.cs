@@ -11,8 +11,9 @@ namespace AddWaterMark.ViewModels {
 
         public static void Cancel(object obj) {
             var window = (Window)obj;
-            window.DialogResult = false;
+            if (null != window) {
+                window.DialogResult = false;
+            }
         }
-
     }
 }
