@@ -6,6 +6,7 @@
         public const string INI_SECTION_WATER_MARK = "WaterMark";
         public const string INI_SECTION_PAGE = "Page";
         public const string INI_SECTION_TASK = "Task";
+        public const string INI_SECTION_LANG = "LANGS";
 
         public const string INI_KEY_LEFT = "Left";
         public const string INI_KEY_TOP = "Top";

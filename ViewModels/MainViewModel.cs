@@ -25,7 +25,11 @@ namespace AddWaterMark.ViewModels {
     class MainViewModel : AbstractViewModel {
         public MainViewModel() {
             SystemFonts = new ObservableCollection<string>(FontsUtils.GetSystemFonts());// 系统字体
-            LangList = new ObservableCollection<Lang>(Lang.FindLangList());// 语言
+            LangList = new ObservableCollection<Lang>(){
+                new Lang { Value = "zh_cn", Name = "简体中文" }
+                , new Lang { Value = "zh_tw", Name = "繁體中文" }
+                , new Lang{Value="en", Name="English" }
+            };// 语言
             #region 水印配置项命令
             DefaultConfigCommand = new RelayCommand(SetDefaultConfig);
             CancelConfigCommand = new RelayCommand(CancelSaveConfig, CanCancelOrSave);

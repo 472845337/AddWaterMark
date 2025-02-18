@@ -49,16 +49,23 @@ namespace AddWaterMark {
             string mainHeightStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_HEIGHT];
             string mainWidthStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_WIDTH];
             string language = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_LANGUAGE];
+            // 扩展语言项
+            var langs = iniData[Constants.INI_SECTION_LANG];
+            foreach (var lang in langs) {
+                vm.LangList.Add(new Lang { Name = lang.Value, Value = lang.KeyName });
+            }
+
             Configs.mainHeight = NumberUtils.IsNumeric(mainHeightStr, out double mainHeight) ? mainHeight : Constants.MAIN_HEIGHT;
             Configs.mainWidth = NumberUtils.IsNumeric(mainWidthStr, out double mainWidth) ? mainWidth : Constants.MAIN_WIDTH;
             Configs.mainLeft = NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? mainLeft : Constants.MAIN_LEFT;
             Configs.mainTop = NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? mainTop : Constants.MAIN_TOP;
-            Configs.language = string.IsNullOrEmpty(language) || !Lang.LangNameDic().ContainsKey(language) ? Constants.LANGUAGE : language;
+            Configs.language = string.IsNullOrEmpty(language) || !Lang.ExistLang(vm.LangList, language) ? Constants.LANGUAGE : language;
             vm.MainHeight = Configs.mainHeight;
             vm.MainWidth = Configs.mainWidth;
             vm.MainLeft = Configs.mainLeft;
             vm.MainTop = Configs.mainTop;
             vm.Language = Configs.language;
+            
             #endregion
             #region 水印设置项
             string text = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_TEXT];
@@ -317,20 +324,27 @@ namespace AddWaterMark {
             vm.UpdateImgFilePathCommand.Execute(null);
         }
 
+        private int lastLangIndex = -1;// 上次语言项
+        private bool loadLang = true;// 是否加载语言项
         private void Lang_ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+            Console.WriteLine("切换语言"+ loadLang);
+            if (!loadLang) {
+                loadLang = true;
+                return;
+            }
             Lang lang = Lang_ComboBox.SelectedItem as Lang;
             ResourceDictionary langRd = null;
-            System.IO.FileStream fs = null;
+            string langPath = "/Langs/" + lang.Value + ".xaml";
             try {
                 //根据名字载入语言文件,将语言解析成字典（和default.xaml不同，这里不包含source）
-                fs = new System.IO.FileStream(Configs.AppStartPath + "/Langs/" + lang.Value + ".xaml", System.IO.FileMode.Open);
+                using System.IO.FileStream fs = new System.IO.FileStream(Configs.AppStartPath + langPath, System.IO.FileMode.Open);
                 langRd = System.Windows.Markup.XamlReader.Load(fs) as ResourceDictionary;
+                lastLangIndex = Lang_ComboBox.SelectedIndex;
             } catch (Exception e2) {
-                MessageBox.Show(e2.Message);
-            } finally {
-                if (fs != null) {
-                    fs.Close();
-                }
+                MessageBox.Show($"{Lang.Find("LangFileUnfind") + langPath}");
+                loadLang = false;// 该语言项不可选，无需重新加载语言项
+                Lang_ComboBox.SelectedIndex = lastLangIndex;// 变更为上次语言项后，会再次执行SelectionChanged
+                return;
             }
 
             if (langRd != null) {
@@ -357,11 +371,6 @@ namespace AddWaterMark {
                 }
                 Application.Current.Resources.MergedDictionaries.Add(langRd);
                 #region 部分已经加载的刷新一下
-                // 语言显示
-                Dictionary<string, string> langNameDic = Lang.LangNameDic();
-                foreach (Lang l in vm.LangList) {
-                    l.Name = langNameDic[l.Value];
-                }
                 // 状态
                 if (vm.ImgWaterMarkTaskTimer.IsEnabled) {
                     vm.SetTaskStatus(Colors.Green, Lang.Find("WatermarkTaskRunning"));
