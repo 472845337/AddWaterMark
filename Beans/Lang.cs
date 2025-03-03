@@ -14,7 +14,7 @@ namespace AddWaterMark.Beans {
 
         public static bool ExistLang(ICollection<Lang> langs, string langValue) {
             bool result = false;
-            foreach(Lang lang in langs) {
+            foreach (Lang lang in langs) {
                 if (lang.Value.Equals(langValue)) {
                     result = true;
                     break;

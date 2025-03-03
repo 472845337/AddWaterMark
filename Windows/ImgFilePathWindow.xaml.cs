@@ -20,6 +20,9 @@ namespace AddWaterMark.Windows {
                 vm.Id = imgFilePath.Id;
                 vm.FilePath = imgFilePath.FilePath;
                 vm.WaterMark = imgFilePath.WaterMark;
+                vm.IsChild = imgFilePath.IsChild;
+                vm.IncludeExt = imgFilePath.IncludeExt;
+                vm.ExcludeExt = imgFilePath.ExcludeExt;
             }
             vm.CurImgFilePaths = new List<ImgFilePath>(imgFilePaths);
             Loaded += Window_Loaded;
@@ -63,6 +66,8 @@ namespace AddWaterMark.Windows {
             }
             DialogResult = true;
         }
+
+
 
         /// <summary>
         /// 匹配到相同的目录

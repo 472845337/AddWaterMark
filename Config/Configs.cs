@@ -29,6 +29,9 @@ namespace AddWaterMark.Config {
         public static int lastOpenTab;
         public static double pathsViewColumn1;
         public static double pathsViewColumn2;
+        public static double pathsViewColumn3;
+        public static double pathsViewColumn4;
+        public static double pathsViewColumn5;
         public static double tab2SplitDistance;
 
         public static bool scrollEnd;

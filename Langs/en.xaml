@@ -49,6 +49,12 @@
 
     <sys:String x:Key="Text">Text</sys:String>
     <sys:String x:Key="Path">Path</sys:String>
+    <sys:String x:Key="IsChild">Child Path</sys:String>
+    <sys:String x:Key="IncludeExt">Include Ext</sys:String>
+    <sys:String x:Key="ExcludeExt">Exclude Ext</sys:String>
+
+    <sys:String x:Key="IncludeChild">Include</sys:String>
+    <sys:String x:Key="ExcludeChild">Exclude</sys:String>
 
     <sys:String x:Key="Add">Add</sys:String>
     <sys:String x:Key="Update">Update</sys:String>

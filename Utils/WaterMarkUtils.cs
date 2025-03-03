@@ -2,43 +2,42 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Media;
 
 namespace AddWaterMark.Utils {
     class WaterMarkUtils {
 
 
-        internal static Brush GetWaterMarkBrush(bool isGradient, string fontColorStr, string gradientColor, byte opacity) {
-            Brush brush;
+        internal static System.Windows.Media.Brush GetWaterMarkBrush(bool isGradient, string fontColorStr, string gradientColor, byte opacity) {
+            System.Windows.Media.Brush brush;
             // 不透明度按100转成byte 255的数值范围
             opacity = (byte)(opacity * 255 / 100);
             if (isGradient) {
                 // 渐变色
-                GradientStopCollection gradients = new GradientStopCollection();
+                System.Windows.Media.GradientStopCollection gradients = new System.Windows.Media.GradientStopCollection();
                 if (!string.IsNullOrEmpty(gradientColor)) {
                     string[] gradientColorsArray = gradientColor.Split(';');
                     foreach (string gradientColorStr in gradientColorsArray) {
                         string[] gradientColorArray = gradientColorStr.Split(':');
                         float point = Convert.ToSingle(gradientColorArray[0]);
                         string colorHtml = gradientColorArray[1];
-                        Color pointColor = (Color)ColorConverter.ConvertFromString(colorHtml);
-                        Color pointOpacityColor = Color.FromArgb(opacity, pointColor.R, pointColor.G, pointColor.B);
-                        gradients.Add(new GradientStop(pointOpacityColor, point));
+                        System.Windows.Media.Color pointColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(colorHtml);
+                        System.Windows.Media.Color pointOpacityColor = System.Windows.Media.Color.FromArgb(opacity, pointColor.R, pointColor.G, pointColor.B);
+                        gradients.Add(new System.Windows.Media.GradientStop(pointOpacityColor, point));
                     }
                 }
-                brush = new LinearGradientBrush(gradients, 0D);
+                brush = new System.Windows.Media.LinearGradientBrush(gradients, 0D);
             } else {
                 // 纯色
-                Color fontColor = (Color)ColorConverter.ConvertFromString(fontColorStr);
-                Color waterMarkColor = Color.FromArgb(opacity, fontColor.R, fontColor.G, fontColor.B);
-                brush = new SolidColorBrush(waterMarkColor);
+                System.Windows.Media.Color fontColor = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(fontColorStr);
+                System.Windows.Media.Color waterMarkColor = System.Windows.Media.Color.FromArgb(opacity, fontColor.R, fontColor.G, fontColor.B);
+                brush = new System.Windows.Media.SolidColorBrush(waterMarkColor);
             }
             return brush;
         }
 
-        internal static FormattedText GetFormattedText(string waterMark, string fontFamilyStr, bool isItalic, bool isBold, double fontSize, Brush brush) {
+        internal static System.Windows.Media.FormattedText GetFormattedText(string waterMark, string fontFamilyStr, bool isItalic, bool isBold, double fontSize, System.Windows.Media.Brush brush) {
             // 字体
-            FontFamily fontFamily = new FontFamily(fontFamilyStr);
+            System.Windows.Media.FontFamily fontFamily = new System.Windows.Media.FontFamily(fontFamilyStr);
             FontWeight fontWeight = FontWeights.Normal;
             if (isBold) {
                 fontWeight = FontWeights.Bold;
@@ -47,8 +46,8 @@ namespace AddWaterMark.Utils {
             if (isItalic) {
                 fontStyle = FontStyles.Italic;
             }
-            Typeface typeface = new Typeface(fontFamily, fontStyle, fontWeight, FontStretches.Normal);
-            return new FormattedText(
+            System.Windows.Media.Typeface typeface = new System.Windows.Media.Typeface(fontFamily, fontStyle, fontWeight, FontStretches.Normal);
+            return new System.Windows.Media.FormattedText(
                 waterMark,
                 System.Globalization.CultureInfo.CurrentCulture,
                 FlowDirection.LeftToRight,

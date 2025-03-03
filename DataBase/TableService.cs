@@ -132,6 +132,13 @@ namespace AddWaterMark.DataBase {
                         }
                         object obj = reader[tableParam.param];
                         if (null != obj && DBNull.Value != obj) {
+                            if (info.GetMethod.ReturnParameter.ParameterType.Name == "Int32") {
+                                obj = Convert.ToInt32(obj);
+                            } else if (info.PropertyType == typeof(DateTime?) || info.PropertyType == typeof(DateTime)) {
+                                obj = DateTime.Parse(obj.ToString());
+                            } else if (info.PropertyType == typeof(bool?) || info.PropertyType == typeof(bool)) {
+                                obj = Convert.ToBoolean(obj);
+                            }
                             info.SetValue(t, obj);
                         }
                     }

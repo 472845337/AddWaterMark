@@ -110,7 +110,7 @@
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Content="{DynamicResource Set_Vertical_Dis}"/>
                     <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
-                    <StackPanel Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Style="{StaticResource ButtonPurple_Style}" Content="{DynamicResource Set_Default}" ToolTip="{DynamicResource Set_Default_ToolTip}" Command="{Binding DefaultConfigCommand}"/>
                         <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Save}" ToolTip="{DynamicResource Set_Save_ToolTip}" Command="{Binding SaveConfigCommand}"/>
                         <Button Style="{StaticResource ButtonWarning_Style}" Content="{DynamicResource Cancel}" ToolTip="{DynamicResource Set_Cancel_ToolTip}" Command="{Binding CancelConfigCommand}"/>
@@ -191,6 +191,9 @@
                                         </GridViewColumn>
                                         <GridViewColumn Header="{DynamicResource Text}" Width="{Binding PathsViewColumn1, Mode=TwoWay}" DisplayMemberBinding="{Binding WaterMark}"/>
                                         <GridViewColumn Header="{DynamicResource Path}" Width="{Binding PathsViewColumn2, Mode=TwoWay}" DisplayMemberBinding="{Binding FilePath}"/>
+                                        <GridViewColumn Header="{DynamicResource IsChild}" Width="{Binding PathsViewColumn3, Mode=TwoWay}" DisplayMemberBinding="{Binding IsChild, Converter={StaticResource IsChildConverter}}"/>
+                                        <GridViewColumn Header="{DynamicResource IncludeExt}" Width="{Binding PathsViewColumn4, Mode=TwoWay}" DisplayMemberBinding="{Binding IncludeExt}"/>
+                                        <GridViewColumn Header="{DynamicResource ExcludeExt}" Width="{Binding PathsViewColumn5, Mode=TwoWay}" DisplayMemberBinding="{Binding ExcludeExt}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
@@ -237,7 +240,6 @@
                     </ScrollViewer.Content>
                 </ScrollViewer>
             </TabItem>
-
         </TabControl>
         <StatusBar Grid.Row="1" >
             <StatusBarItem HorizontalAlignment="Left" Margin="10 0 0 0">

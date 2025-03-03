@@ -1,4 +1,7 @@
 ﻿using AddWaterMark.Config;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -18,9 +21,9 @@ namespace AddWaterMark.Utils {
                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                 bitmapImage.EndInit();
                 bitmapImage.Freeze();
-                System.GC.Collect();
-                System.GC.WaitForPendingFinalizers();
-                System.GC.Collect();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
             }
             return bitmapImage;
         }
@@ -58,6 +61,16 @@ namespace AddWaterMark.Utils {
                 encoder = new JpegBitmapEncoder();
             }
             return encoder;
+        }
+
+        public static int[] GetFrameDelays(Image gifImage) {
+            // 获取GIF帧延迟
+            PropertyItem frameDelayItem = gifImage.GetPropertyItem(0x5100); // 0x5100 is the PropertyTagFrameDelay
+            int[] frameDelays = new int[gifImage.GetFrameCount(new FrameDimension(gifImage.FrameDimensionsList[0]))];
+            for (int i = 0; i < frameDelays.Length; i++) {
+                frameDelays[i] = BitConverter.ToInt32(frameDelayItem.Value, i * 4); // Convert to milliseconds
+            }
+            return frameDelays;
         }
     }
 }

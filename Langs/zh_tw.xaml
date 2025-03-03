@@ -49,6 +49,12 @@
 
     <sys:String x:Key="Text">水印</sys:String>
     <sys:String x:Key="Path">目録</sys:String>
+    <sys:String x:Key="IsChild">子目録</sys:String>
+    <sys:String x:Key="IncludeExt">包含擴展</sys:String>
+    <sys:String x:Key="ExcludeExt">排除擴展</sys:String>
+
+    <sys:String x:Key="IncludeChild">包含</sys:String>
+    <sys:String x:Key="ExcludeChild">不包含</sys:String>
 
     <sys:String x:Key="Add">添加</sys:String>
     <sys:String x:Key="Update">修改</sys:String>

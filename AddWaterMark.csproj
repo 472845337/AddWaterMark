@@ -88,6 +88,9 @@
     <Compile Include="Converters\Boolean2CollapsedConverter.cs" />
     <Compile Include="Converters\Boolean2VisibleConverter.cs" />
     <Compile Include="Converters\GradientColorConverter.cs" />
+    <Compile Include="Converters\IsChildExcludeConverter.cs" />
+    <Compile Include="Converters\IsChildIncludeConverter.cs" />
+    <Compile Include="Converters\IsChildConverter.cs" />
     <Compile Include="Converters\PointConverter.cs" />
     <Compile Include="DataBase\Beans\ImgFilePath.cs" />
     <Compile Include="DataBase\Services\ImgFilePathService.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="DataBase\TableService.cs" />
     <Compile Include="Utils\DllUtils.cs" />
     <Compile Include="Utils\FontsUtils.cs" />
+    <Compile Include="Utils\GifEncoder.cs" />
     <Compile Include="Utils\GradientColorUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\IniParserUtils.cs" />

@@ -122,6 +122,10 @@ namespace AddWaterMark.ViewModels {
         public double Tab2SplitDistance { get; set; }// Tab2页 GridSplitter距离
         public double PathsViewColumn1 { get; set; }// 水印目录视图第一栏宽度
         public double PathsViewColumn2 { get; set; }// 水印目录视图第﻿二栏宽度
+        public double PathsViewColumn3 { get; set; }
+        public double PathsViewColumn4 { get; set; }
+        public double PathsViewColumn5 { get; set; }
+
         public bool AllSelect { get; set; }
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
         public bool ImgWaterMarkTimerCanRun { get; set; } = true;// 自动水印定时器是否可执行
@@ -363,7 +367,7 @@ namespace AddWaterMark.ViewModels {
                     WaterMarkBitmap = null;
                 }
             }
-            string ext = string.IsNullOrEmpty(filePath) ? ".jpg" : Path.GetExtension(filePath).ToLower();
+            string ext = string.IsNullOrEmpty(filePath) ? Constants.IMG_EXT_JPG : Path.GetExtension(filePath);
             BitmapSource backPhoto;
             double photoWidth, photoHeight;
             double backDpiX = 72, backDpiY = 72;
@@ -569,6 +573,8 @@ namespace AddWaterMark.ViewModels {
                     bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 } else if (Constants.IMG_EXT_BMP.Equals(ext)) {
                     bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Bmp);
+                } else if (Constants.IMG_EXT_TIFF.Equals(ext)) {
+                    bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Tiff);
                 } else {
                     bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
@@ -619,7 +625,7 @@ namespace AddWaterMark.ViewModels {
             int pdfTotalPage = reader.NumberOfPages;//总页数
 
             // 透明度
-            PdfGState gs = new PdfGState() { FillOpacity = WaterMarkOpacity / 100F };
+            PdfGState gs = new PdfGState() { FillOpacity = opacity / 100F };
             // 字体
             System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(fontColor);
             iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);
@@ -669,6 +675,85 @@ namespace AddWaterMark.ViewModels {
             reader.Close();
         }
 
+        /// <summary>
+        /// 添加文本水印
+        /// </summary>
+        /// <param name="isTest">是否测试</param>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="waterMarkText">水印文字</param>
+        /// <param name="font">字体</param>
+        private void GifAddWatermark(bool isTest, string filePath, string waterMarkText, System.Drawing.Font font) {
+            int rotate = Configs.waterMarkRotate;// 为了保证和图片的旋转一致取反
+            int horizontalDis = Configs.waterMarkHorizontalDis;
+            int verticalDis = Configs.waterMarkVerticalDis;
+            byte opacity = Configs.waterMarkOpacity;
+            bool isGradient = Configs.waterMarkFontIsGradient;
+            string fontColor = Configs.waterMarkFontColor;
+            string gradientColor = Configs.waterMarkFontGradientColor;
+            if (isTest) {
+                rotate = WaterMarkRotate;// 为了保证和图片的旋转一致取反
+                horizontalDis = WaterMarkHorizontalDis;
+                verticalDis = WaterMarkVerticalDis;
+                opacity = WaterMarkOpacity;
+                isGradient = WaterMarkFontIsGradient;
+                fontColor = WaterMarkFontColor;
+                gradientColor = WaterMarkFontGradientColor;
+                if (null != WaterMarkBitmap) {
+                    WaterMarkBitmap = null;
+                }
+            }
+            string ext = Path.GetExtension(filePath);
+            // 水印任务处理，原文件改名
+            string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + Constants.PRI_FILE_SUFFIX + ext;
+            File.Move(filePath, newpath);
+
+            // 加载GIF图像
+            using System.Drawing.Image gifImage = System.Drawing.Image.FromFile(newpath);
+            // 获取GIF帧数和帧延迟
+            System.Drawing.Imaging.FrameDimension dimension = new System.Drawing.Imaging.FrameDimension(gifImage.FrameDimensionsList[0]);
+            int frameCount = gifImage.GetFrameCount(dimension);
+            int[] frameDelays = ImageUtils.GetFrameDelays(gifImage);
+            int photoWidth = gifImage.Width;
+            int photoHeight = gifImage.Height;
+            // 创建一个新的GIF图像
+            using var gifEncoder = new GifEncoder(filePath, photoWidth, photoHeight);
+            for (int i = 0; i < frameCount; i++) {
+                // 选择当前帧
+                gifImage.SelectActiveFrame(dimension, i);
+
+                // 复制当前帧到一个新的Bitmap对象
+                using System.Drawing.Bitmap frame = new System.Drawing.Bitmap(gifImage);
+                // 水印图层
+                int circleDiameter = (int)Math.Sqrt(Math.Pow(photoWidth, 2D) + Math.Pow(photoHeight, 2D));
+                using System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(photoWidth, photoHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                bmPhoto.SetResolution(72, 72);
+                using System.Drawing.Graphics bmPhotoGraphics = System.Drawing.Graphics.FromImage(frame);
+                bmPhotoGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+                bmPhotoGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                float x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
+                // 设置旋转
+                using System.Drawing.Drawing2D.Matrix matrix = bmPhotoGraphics.Transform;
+                matrix.RotateAt(rotate, new System.Drawing.Point(photoWidth / 2, photoHeight / 2));
+                bmPhotoGraphics.Transform = matrix;
+                // 画刷
+                System.Drawing.SizeF crSize = bmPhotoGraphics.MeasureString(waterMarkText, font);
+                using System.Drawing.Brush brush = WaterMarkUtils.GetDrawingBrush(opacity, isGradient, fontColor, gradientColor, (int)crSize.Width, (int)crSize.Height);
+
+                int xcount = circleDiameter / horizontalDis + 1;
+                int ycount = circleDiameter / verticalDis + 1;
+                float ox = x;
+                for (int k = 0; k < ycount; k++) {
+                    for (int m = 0; m < xcount; m++) {
+                        bmPhotoGraphics.DrawString(waterMarkText, font, brush, x, y);
+                        x += horizontalDis;
+                    }
+                    x = ox;
+                    y += verticalDis;
+                }
+                // 将帧添加到GIF编码器
+                gifEncoder.AddFrame(frame, 0, 0, frameDelays[i]);
+            }
+        }
 
         private FormattedText GetTestFormattedText(Brush brush) {
             return WaterMarkUtils.GetFormattedText(WaterMarkText, WaterMarkFontFamily, WaterMarkFontItalic, WaterMarkFontBold
@@ -686,7 +771,10 @@ namespace AddWaterMark.ViewModels {
             if (true == imgFilePathWindow.ShowDialog()) {
                 ImgFilePath imgFilePath = new ImgFilePath {
                     FilePath = imgFilePathWindow.vm.FilePath,
-                    WaterMark = imgFilePathWindow.vm.WaterMark
+                    WaterMark = imgFilePathWindow.vm.WaterMark,
+                    IsChild = imgFilePathWindow.vm.IsChild,
+                    IncludeExt = imgFilePathWindow.vm.IncludeExt,
+                    ExcludeExt = imgFilePathWindow.vm.ExcludeExt
                 };
                 ServiceFactory.GetImgFilePathService().Insert(imgFilePath);
                 ImgFilePaths.Add(imgFilePath);
@@ -706,6 +794,9 @@ namespace AddWaterMark.ViewModels {
                 if (true == imgFilePathWindow.ShowDialog()) {
                     imgFilePath.FilePath = imgFilePathWindow.vm.FilePath;
                     imgFilePath.WaterMark = imgFilePathWindow.vm.WaterMark;
+                    imgFilePath.IsChild = imgFilePathWindow.vm.IsChild;
+                    imgFilePath.IncludeExt = imgFilePathWindow.vm.IncludeExt;
+                    imgFilePath.ExcludeExt = imgFilePathWindow.vm.ExcludeExt;
                     ServiceFactory.GetImgFilePathService().Update(imgFilePath);
                     SetOperateMsg(Lang.Find("UpdatePathSuccess"));
                 }
@@ -835,9 +926,10 @@ namespace AddWaterMark.ViewModels {
             } else {
                 string fileName = Path.GetFileName(path);
                 // 水印对应的原文件是以"_原文件"重命名的
-                if (fileName.Contains(Constants.PRI_FILE_SUFFIX)) {
+                if (fileName.Contains(Constants.PRI_FILE_SUFFIX) || fileName.Contains(Constants.PRI_FILE_SUFFIX_2)) {
+                    string priNameSuffix = fileName.Contains(Constants.PRI_FILE_SUFFIX) ? Constants.PRI_FILE_SUFFIX : Constants.PRI_FILE_SUFFIX_2;
                     // 对应水印文件名
-                    string waterMarkFilePath = Path.GetDirectoryName(path) + "\\" + fileName.Replace(Constants.PRI_FILE_SUFFIX, string.Empty);
+                    string waterMarkFilePath = Path.GetDirectoryName(path) + "\\" + fileName.Replace(priNameSuffix, string.Empty);
                     // 水印文件删除
                     if (File.Exists(waterMarkFilePath)) {
                         File.Delete(waterMarkFilePath);
@@ -891,7 +983,7 @@ namespace AddWaterMark.ViewModels {
             } else {
                 // 获取目录下所有图片文件
                 foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
-                    AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark);
+                    AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark, imgFilePath.IsChild, imgFilePath.IncludeExt, imgFilePath.ExcludeExt);
                 }
                 if (fileListDic.Count > 0) {
                     Dictionary<string, List<string>> processListDic = new Dictionary<string, List<string>>();
@@ -942,6 +1034,8 @@ namespace AddWaterMark.ViewModels {
                                     } catch (Exception e) {
                                         Console.WriteLine(e.Message);
                                     }
+                                } else if (".gif".Equals(ext)) {
+                                    GifAddWatermark(false, filePath, waterMarkText, font);
                                 } else {
                                     // 图片加水印
                                     // media
@@ -968,34 +1062,47 @@ namespace AddWaterMark.ViewModels {
         /// </summary>
         /// <param name="filepath">目录</param>
         /// <param name="waterMark">水印文本</param>
-        private void AddImgFileList(string filepath, string waterMark) {
+        private void AddImgFileList(string filepath, string waterMark, bool? isChild, string includeExt, string excludeExt) {
             bool hasList = fileListDic.TryGetValue(waterMark, out List<string> list);
             if (!hasList) {
                 list = new List<string>();
                 fileListDic.Add(waterMark, list);
             }
+            List<string> includeArray = ImgFilePath.GetExtList(includeExt);
+            List<string> excludeArray = ImgFilePath.GetExtList(excludeExt);
             if (Directory.Exists(filepath)) {
                 // 列出指定路径下的所有文件
-                foreach (string file in Directory.GetFiles(filepath, "*.jpg")) {
-                    list.Add(file);
+                string[] imageExtArray = new string[] {
+                    Constants.IMG_EXT_JPG,
+                    Constants.IMG_EXT_JPEG,
+                    Constants.IMG_EXT_PNG,
+                    Constants.IMG_EXT_BMP,
+                    Constants.FILE_EXT_PDF,
+                    Constants.IMG_EXT_WEBP,
+                    Constants.IMG_EXT_TIF,
+                    Constants.IMG_EXT_TIFF,
+                    Constants.IMG_EXT_GIF };
+                foreach (string imageExt in imageExtArray) {
+                    list.AddRange(GetExtList(filepath, imageExt, includeArray, excludeArray));
                 }
-                foreach (string file in Directory.GetFiles(filepath, "*.jpeg")) {
-                    list.Add(file);
-                }
-                foreach (string file in Directory.GetFiles(filepath, "*.png")) {
-                    list.Add(file);
-                }
-                foreach (string file in Directory.GetFiles(filepath, "*.bmp")) {
-                    list.Add(file);
-                }
-                foreach (string file in Directory.GetFiles(filepath, "*.pdf")) {
-                    list.Add(file);
-                }
-                // 递归列出所有子文件夹
-                foreach (string directory in Directory.GetDirectories(filepath)) {
-                    AddImgFileList(directory, waterMark);
+
+                if (null == isChild || true == isChild) {
+                    // 递归列出所有子文件夹
+                    foreach (string directory in Directory.GetDirectories(filepath)) {
+                        AddImgFileList(directory, waterMark, isChild, includeExt, excludeExt);
+                    }
                 }
             }
+        }
+
+        private List<string> GetExtList(string dicPath, string ext, List<string> include, List<string> exclude) {
+            List<string> extFileList = new List<string>();
+            if ((null == include || include.Count == 0 || include.Contains(ext)) && (null == exclude || exclude.Count == 0 || !exclude.Contains(ext))) {
+                foreach (string file in Directory.GetFiles(dicPath, "*" + ext)) {
+                    extFileList.Add(file);
+                }
+            }
+            return extFileList;
         }
 
         private void OperateMessageTimer_Tick(object sender, EventArgs e) {

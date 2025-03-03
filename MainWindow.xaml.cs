@@ -65,7 +65,7 @@ namespace AddWaterMark {
             vm.MainLeft = Configs.mainLeft;
             vm.MainTop = Configs.mainTop;
             vm.Language = Configs.language;
-            
+
             #endregion
             #region 水印设置项
             string text = iniData[Constants.INI_SECTION_WATER_MARK][Constants.INI_KEY_WATER_MARK_TEXT];
@@ -128,10 +128,19 @@ namespace AddWaterMark {
             // 配置目录列表的GridView栏目宽度
             string pathsViewColumn1Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_1];
             string pathsViewColumn2Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_2];
+            string pathsViewColumn3Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_3];
+            string pathsViewColumn4Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_4];
+            string pathsViewColumn5Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_5];
             Configs.pathsViewColumn1 = NumberUtils.IsNumeric(pathsViewColumn1Str, out double pathsViewColumn1) ? pathsViewColumn1 : -1;
             Configs.pathsViewColumn2 = NumberUtils.IsNumeric(pathsViewColumn2Str, out double pathsViewColumn2) ? pathsViewColumn2 : -1;
+            Configs.pathsViewColumn3 = NumberUtils.IsNumeric(pathsViewColumn3Str, out double pathsViewColumn3) ? pathsViewColumn3 : -1;
+            Configs.pathsViewColumn4 = NumberUtils.IsNumeric(pathsViewColumn4Str, out double pathsViewColumn4) ? pathsViewColumn4 : -1;
+            Configs.pathsViewColumn5 = NumberUtils.IsNumeric(pathsViewColumn5Str, out double pathsViewColumn5) ? pathsViewColumn5 : -1;
             vm.PathsViewColumn1 = Configs.pathsViewColumn1;
             vm.PathsViewColumn2 = Configs.pathsViewColumn2;
+            vm.PathsViewColumn3 = Configs.pathsViewColumn3;
+            vm.PathsViewColumn4 = Configs.pathsViewColumn4;
+            vm.PathsViewColumn5 = Configs.pathsViewColumn5;
             // 任务频率
             string scrollEndStr = iniData[Constants.INI_SECTION_TASK][Constants.INI_KEY_SCROLL_END];
             string taskIntervalStr = iniData[Constants.INI_SECTION_TASK][Constants.INI_KEY_INTERVAL];
@@ -265,6 +274,9 @@ namespace AddWaterMark {
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_LAST_OPEN_TAB, ref Configs.lastOpenTab, vm.LastOpenTab);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_1, ref Configs.pathsViewColumn1, vm.PathsViewColumn1);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_2, ref Configs.pathsViewColumn2, vm.PathsViewColumn2);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_3, ref Configs.pathsViewColumn3, vm.PathsViewColumn3);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_4, ref Configs.pathsViewColumn4, vm.PathsViewColumn4);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_5, ref Configs.pathsViewColumn5, vm.PathsViewColumn5);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_TAB2_SPLIT_DISTANCE, ref Configs.tab2SplitDistance, vm.Tab2SplitDistance);
 
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_TASK, Constants.INI_KEY_SCROLL_END, ref Configs.scrollEnd, vm.ScrollEnd);
@@ -327,7 +339,7 @@ namespace AddWaterMark {
         private int lastLangIndex = -1;// 上次语言项
         private bool loadLang = true;// 是否加载语言项
         private void Lang_ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
-            Console.WriteLine("切换语言"+ loadLang);
+            Console.WriteLine("切换语言" + loadLang);
             if (!loadLang) {
                 loadLang = true;
                 return;
@@ -340,7 +352,7 @@ namespace AddWaterMark {
                 using System.IO.FileStream fs = new System.IO.FileStream(Configs.AppStartPath + langPath, System.IO.FileMode.Open);
                 langRd = System.Windows.Markup.XamlReader.Load(fs) as ResourceDictionary;
                 lastLangIndex = Lang_ComboBox.SelectedIndex;
-            } catch (Exception e2) {
+            } catch (Exception) {
                 MessageBox.Show($"{Lang.Find("LangFileUnfind") + langPath}");
                 loadLang = false;// 该语言项不可选，无需重新加载语言项
                 Lang_ComboBox.SelectedIndex = lastLangIndex;// 变更为上次语言项后，会再次执行SelectionChanged

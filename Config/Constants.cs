@@ -33,6 +33,9 @@
         public const string INI_KEY_LAST_OPEN_TAB = "LastOpenTab";
         public const string INI_KEY_PATHS_VIEW_COLUMN_1 = "Column1";
         public const string INI_KEY_PATHS_VIEW_COLUMN_2 = "Column2";
+        public const string INI_KEY_PATHS_VIEW_COLUMN_3 = "Column3";
+        public const string INI_KEY_PATHS_VIEW_COLUMN_4 = "Column4";
+        public const string INI_KEY_PATHS_VIEW_COLUMN_5 = "Column5";
         public const string INI_KEY_TAB2_SPLIT_DISTANCE = "SplitDistance";
 
         public const string INI_KEY_SCROLL_END = "ScrollEnd";
@@ -70,8 +73,12 @@
         public const string IMG_EXT_JPG = ".jpg";
         public const string IMG_EXT_JPEG = ".jpeg";
         public const string IMG_EXT_TIFF = ".tiff";
+        public const string IMG_EXT_TIF = ".tif";
         public const string IMG_EXT_WMP = ".wmp";
+        public const string IMG_EXT_WEBP = ".webp";
+        public const string FILE_EXT_PDF = ".pdf";
 
         public const string PRI_FILE_SUFFIX = "_pri";
+        public const string PRI_FILE_SUFFIX_2 = "_原文件";
     }
 }
