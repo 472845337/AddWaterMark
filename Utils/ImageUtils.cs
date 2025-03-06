@@ -1,8 +1,8 @@
 ﻿using AddWaterMark.Config;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Interop;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace AddWaterMark.Utils {
@@ -63,14 +63,48 @@ namespace AddWaterMark.Utils {
             return encoder;
         }
 
-        public static int[] GetFrameDelays(Image gifImage) {
+        public static int[] GetFrameDelays(System.Drawing.Image gifImage) {
             // 获取GIF帧延迟
-            PropertyItem frameDelayItem = gifImage.GetPropertyItem(0x5100); // 0x5100 is the PropertyTagFrameDelay
-            int[] frameDelays = new int[gifImage.GetFrameCount(new FrameDimension(gifImage.FrameDimensionsList[0]))];
+            System.Drawing.Imaging.PropertyItem frameDelayItem = gifImage.GetPropertyItem(0x5100); // 0x5100 is the PropertyTagFrameDelay
+            int[] frameDelays = new int[gifImage.GetFrameCount(new System.Drawing.Imaging.FrameDimension(gifImage.FrameDimensionsList[0]))];
             for (int i = 0; i < frameDelays.Length; i++) {
                 frameDelays[i] = BitConverter.ToInt32(frameDelayItem.Value, i * 4); // Convert to milliseconds
             }
             return frameDelays;
+        }
+
+        public static BitmapSource ImageToImageSource(System.Drawing.Image image) {
+            using var bitmap = new System.Drawing.Bitmap(image);
+            // 获取 Bitmap 的句柄
+            var hBitmap = bitmap.GetHbitmap();
+
+            try {
+                // 使用 Imaging 创建 BitmapSource
+                var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+
+                return bitmapSource;
+            } finally {
+                // 释放 GDI 对象
+                DllUtils.DeleteObject(hBitmap);
+            }
+        }
+
+        public static System.Drawing.Image ConvertToImage(RenderTargetBitmap renderTargetBitmap) {
+            // 创建一个 BitmapEncoder（例如 PngBitmapEncoder）
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+
+            // 将 BitmapEncoder 编码到内存流
+            using var memoryStream = new MemoryStream();
+            encoder.Save(memoryStream);
+
+            // 从内存流加载 System.Drawing.Image
+            memoryStream.Seek(0, SeekOrigin.Begin); // 重置流位置
+            return System.Drawing.Image.FromStream(memoryStream);
         }
     }
 }

@@ -389,6 +389,12 @@ namespace AddWaterMark {
                 } else {
                     vm.SetTaskStatus(Colors.Red, Lang.Find("WatermarkTaskUnrun"));
                 }
+                // 包含子目录显示刷新
+                if (vm.ImgFilePaths.Count > 0) {
+                    foreach (ImgFilePath imgFilePath in vm.ImgFilePaths) {
+                        imgFilePath.IsChildShow = ImgFilePath.GetIsChildShow(imgFilePath.IsChild);
+                    }
+                }
                 #endregion
             }
         }

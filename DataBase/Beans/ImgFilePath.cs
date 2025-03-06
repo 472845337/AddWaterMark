@@ -1,4 +1,6 @@
 ﻿
+using AddWaterMark.Beans;
+using PropertyChanged;
 using System.Collections.Generic;
 
 namespace AddWaterMark.DataBase.Beans {
@@ -12,7 +14,9 @@ namespace AddWaterMark.DataBase.Beans {
         public string WaterMark { get; set; }
         // 包含子目录
         [TableParam("is_child", "BIT")]
+        [OnChangedMethod(nameof(IsChildChange))]
         public bool? IsChild { get; set; }
+        public string IsChildShow {  get; set; }
         // 包含扩展名
         [TableParam("include_ext", "VARCHAR")]
         public string IncludeExt { get; set; }
@@ -21,6 +25,18 @@ namespace AddWaterMark.DataBase.Beans {
         public string ExcludeExt { get; set; }
         // 是否选中
         public bool IsSelect { get; set; } = true;
+
+        private void IsChildChange() {
+            IsChildShow = GetIsChildShow(IsChild);
+        }
+
+        public static string GetIsChildShow(bool? isChild) {
+            if (null == isChild || true == isChild) {
+                return Lang.Find("IncludeChild");
+            } else {
+                return Lang.Find("ExcludeChild");
+            }
+        }
 
         public static List<string> GetExtList(string ext) {
             string[] extArray = ext.Split(new char[] { ',', ';', '\\', '/', '|' });

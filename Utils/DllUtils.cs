@@ -5,7 +5,8 @@ namespace AddWaterMark.Utils {
     class DllUtils {
         public const string
             User32 = "user32.dll",
-            Kernel32 = "kernel32.dll";
+            Kernel32 = "kernel32.dll",
+            GDI = "gdi32.dll";
 
         /** 强制GC API函数**/
         [DllImport(Kernel32)]
@@ -26,5 +27,8 @@ namespace AddWaterMark.Utils {
         /// <returns></returns>
         [DllImport(User32, EntryPoint = "ShowWindow", SetLastError = true)]
         public static extern bool ShowWindow(IntPtr hWnd, ushort nCmdShow);
+
+        [DllImport(GDI)]
+        public static extern bool DeleteObject(IntPtr hObject);
     }
 }

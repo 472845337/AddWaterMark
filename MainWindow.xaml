@@ -191,7 +191,7 @@
                                         </GridViewColumn>
                                         <GridViewColumn Header="{DynamicResource Text}" Width="{Binding PathsViewColumn1, Mode=TwoWay}" DisplayMemberBinding="{Binding WaterMark}"/>
                                         <GridViewColumn Header="{DynamicResource Path}" Width="{Binding PathsViewColumn2, Mode=TwoWay}" DisplayMemberBinding="{Binding FilePath}"/>
-                                        <GridViewColumn Header="{DynamicResource IsChild}" Width="{Binding PathsViewColumn3, Mode=TwoWay}" DisplayMemberBinding="{Binding IsChild, Converter={StaticResource IsChildConverter}}"/>
+                                        <GridViewColumn Header="{DynamicResource IsChild}" Width="{Binding PathsViewColumn3, Mode=TwoWay}" DisplayMemberBinding="{Binding IsChildShow}"/>
                                         <GridViewColumn Header="{DynamicResource IncludeExt}" Width="{Binding PathsViewColumn4, Mode=TwoWay}" DisplayMemberBinding="{Binding IncludeExt}"/>
                                         <GridViewColumn Header="{DynamicResource ExcludeExt}" Width="{Binding PathsViewColumn5, Mode=TwoWay}" DisplayMemberBinding="{Binding ExcludeExt}"/>
                                     </GridView>

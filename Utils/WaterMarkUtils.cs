@@ -56,9 +56,8 @@ namespace AddWaterMark.Utils {
                 brush);
         }
 
-        internal static System.Drawing.Brush GetDrawingBrush(int opacity, bool isGradient, string fontColor, string fontGradientColor, int width, int height) {
-            // 不透明度按100转成byte 255的数值范围
-            opacity = opacity * 255 / 100;
+        [Obsolete("drawing里的渐变色不支持不透明度")]
+        internal static System.Drawing.Brush GetDrawingBrush(bool isGradient, string fontColor, string fontGradientColor, int width, int height) {
             // 画刷
             System.Drawing.Brush brush;
             if (isGradient) {
@@ -81,7 +80,7 @@ namespace AddWaterMark.Utils {
                 float[] positions = new float[gradientColors.Count];
                 for (int i = 0; i < gradientColors.Count; i++) {
                     GradientColor gradientColor = gradientColors[i];
-                    colors[i] = System.Drawing.Color.FromArgb(opacity, System.Drawing.ColorTranslator.FromHtml(gradientColor.Color));
+                    colors[i] = System.Drawing.Color.FromArgb(255, System.Drawing.ColorTranslator.FromHtml(gradientColor.Color));
                     positions[i] = gradientColor.Point;
                 }
                 blend.Colors = colors;
@@ -90,7 +89,7 @@ namespace AddWaterMark.Utils {
                 brush = gradientBrush;
             } else {
                 // 设置颜色和透明度
-                System.Drawing.Color waterMarkColor = System.Drawing.Color.FromArgb(opacity, System.Drawing.ColorTranslator.FromHtml(fontColor));
+                System.Drawing.Color waterMarkColor = System.Drawing.Color.FromArgb(255, System.Drawing.ColorTranslator.FromHtml(fontColor));
                 brush = new System.Drawing.SolidBrush(waterMarkColor);
             }
 

@@ -275,7 +275,7 @@ namespace AddWaterMark.ViewModels {
             CanTestWaterMark = false;
             // media
             Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
-            CreateWaterMarkImage(true, null, GetTestFormattedText(brush), WaterMarkFontSize, brush);
+            CreateWaterMarkImage(true, null, GetTestFormattedText(brush), brush);
             // drawing
             //CreateWaterMarkImage(true, null, WaterMarkText,
             //    FontsUtils.GetDrawingFont(WaterMarkFontFamily, WaterMarkFontSize, WaterMarkFontBold, WaterMarkFontItalic, WaterMarkFontUnderline, WaterMarkFontStrikeout)
@@ -289,7 +289,7 @@ namespace AddWaterMark.ViewModels {
             CanTestWaterMark = false;
             // media
             Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
-            CreateWaterMarkImage(true, testImgPath, GetTestFormattedText(brush), WaterMarkFontSize, brush);
+            CreateWaterMarkImage(true, testImgPath, GetTestFormattedText(brush), brush);
             brush.Freeze();
             // drawing
             //CreateWaterMarkImage(true, testImgPath, WaterMarkText,
@@ -308,7 +308,7 @@ namespace AddWaterMark.ViewModels {
             if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog()) {
                 // media
                 Brush brush = WaterMarkUtils.GetWaterMarkBrush(WaterMarkFontIsGradient, WaterMarkFontColor, WaterMarkFontGradientColor, WaterMarkOpacity);
-                CreateWaterMarkImage(true, openFileDialog.FileName, GetTestFormattedText(brush), WaterMarkFontSize, brush);
+                CreateWaterMarkImage(true, openFileDialog.FileName, GetTestFormattedText(brush), brush);
                 brush.Freeze();
                 // drawing
                 //CreateWaterMarkImage(true, openFileDialog.FileName, WaterMarkText,
@@ -351,18 +351,20 @@ namespace AddWaterMark.ViewModels {
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
         /// <param name="formattedText">水印文本样式（包含水印文本）</param>
-        private void CreateWaterMarkImage(bool isTest, string filePath, FormattedText formattedText, int fontSize, Brush brush) {
-            int waterMarkRotate = Configs.waterMarkRotate;
-            int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
-            int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
-            bool waterMarkUnderline = Configs.waterMarkFontUnderline;
-            bool waterMarkStrikeout = Configs.waterMarkFontStrikeout;
+        private void CreateWaterMarkImage(bool isTest, string filePath, FormattedText formattedText, Brush brush) {
+            int rotate = Configs.waterMarkRotate;
+            int horizontalDis = Configs.waterMarkHorizontalDis;
+            int verticalDis = Configs.waterMarkVerticalDis;
+            bool underline = Configs.waterMarkFontUnderline;
+            bool strikeout = Configs.waterMarkFontStrikeout;
+            int fontSize = Configs.waterMarkFontSize;
             if (isTest) {
-                waterMarkRotate = WaterMarkRotate;
-                waterMarkHorizontalDis = WaterMarkHorizontalDis;
-                waterMarkVerticalDis = WaterMarkVerticalDis;
-                waterMarkUnderline = WaterMarkFontUnderline;
-                waterMarkStrikeout = WaterMarkFontStrikeout;
+                rotate = WaterMarkRotate;
+                horizontalDis = WaterMarkHorizontalDis;
+                verticalDis = WaterMarkVerticalDis;
+                underline = WaterMarkFontUnderline;
+                strikeout = WaterMarkFontStrikeout;
+                fontSize = Configs.waterMarkFontSize;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -425,27 +427,27 @@ namespace AddWaterMark.ViewModels {
             // 水印的起始坐标
             double x = (drawWidth - circleDiameter) / 2, y = (drawHeight - circleDiameter) / 2;
             // 设置旋转（水印圆直径的中心点位置）
-            RotateTransform transform = new RotateTransform(waterMarkRotate, drawWidth / 2, drawHeight / 2);
+            RotateTransform transform = new RotateTransform(rotate, drawWidth / 2, drawHeight / 2);
             drawingContext.PushTransform(transform);
 
-            double xcount = circleDiameter / waterMarkHorizontalDis / scaleX + 1;
-            double ycount = circleDiameter / waterMarkVerticalDis / scaleY + 1;
+            double xcount = circleDiameter / horizontalDis / scaleX + 1;
+            double ycount = circleDiameter / verticalDis / scaleY + 1;
             double ox = x;
             for (int k = 0; k < ycount; k++) {
                 for (int i = 0; i < xcount; i++) {
                     drawingContext.DrawText(formattedText, new Point(x, y));
-                    if (waterMarkUnderline) {
+                    if (underline) {
                         // 下划线
                         drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height), new Point(x + formattedText.Width, y + formattedText.Height));
                     }
-                    if (waterMarkStrikeout) {
+                    if (strikeout) {
                         // 中划线
                         drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height / 2), new Point(x + formattedText.Width, y + formattedText.Height / 2));
                     }
-                    x += waterMarkHorizontalDis * scaleX;
+                    x += horizontalDis * scaleX;
                 }
                 x = ox;
-                y += waterMarkVerticalDis * scaleY;
+                y += verticalDis * scaleY;
             }
             drawingContext.Close();
             composeImage.Render(drawingVisual);
@@ -476,6 +478,7 @@ namespace AddWaterMark.ViewModels {
 
         /// <summary>
         /// Graphics Drawing方式创建水印图
+        /// drawing方式的渐变色不透明度是有bug的
         /// </summary>
         /// <param name="isTest">测试水印</param>
         /// <param name="filePath">文件路径</param>
@@ -547,7 +550,7 @@ namespace AddWaterMark.ViewModels {
             bmPhotoGraphics.Transform = matrix;
             // 画刷
             System.Drawing.SizeF crSize = bmPhotoGraphics.MeasureString(waterMark, font);
-            System.Drawing.Brush brush = WaterMarkUtils.GetDrawingBrush(waterMarkOpacity, waterMarkFontIsGradient, waterMarkFontColor, waterMarkFontGradientColor, (int)crSize.Width, (int)crSize.Height);
+            System.Drawing.Brush brush = WaterMarkUtils.GetDrawingBrush(waterMarkFontIsGradient, waterMarkFontColor, waterMarkFontGradientColor, (int)crSize.Width, (int)crSize.Height);
 
             int xcount = circleDiameter / waterMarkHorizontalDis + 1;
             int ycount = circleDiameter / waterMarkVerticalDis + 1;
@@ -676,28 +679,26 @@ namespace AddWaterMark.ViewModels {
         }
 
         /// <summary>
-        /// 添加文本水印
+        /// GIF添加文本水印
         /// </summary>
         /// <param name="isTest">是否测试</param>
         /// <param name="filePath">文件路径</param>
-        /// <param name="waterMarkText">水印文字</param>
-        /// <param name="font">字体</param>
-        private void GifAddWatermark(bool isTest, string filePath, string waterMarkText, System.Drawing.Font font) {
-            int rotate = Configs.waterMarkRotate;// 为了保证和图片的旋转一致取反
+        /// <param name="formattedText">格式化文本</param>
+        /// <param name="brush">颜色刷</param>
+        private void GifAddWatermark(bool isTest, string filePath, FormattedText formattedText, Brush brush) {
+            int rotate = Configs.waterMarkRotate;
             int horizontalDis = Configs.waterMarkHorizontalDis;
             int verticalDis = Configs.waterMarkVerticalDis;
-            byte opacity = Configs.waterMarkOpacity;
-            bool isGradient = Configs.waterMarkFontIsGradient;
-            string fontColor = Configs.waterMarkFontColor;
-            string gradientColor = Configs.waterMarkFontGradientColor;
+            bool underline = Configs.waterMarkFontUnderline;
+            bool strikeout = Configs.waterMarkFontStrikeout;
+            int fontSize = Configs.waterMarkFontSize;
             if (isTest) {
-                rotate = WaterMarkRotate;// 为了保证和图片的旋转一致取反
+                rotate = WaterMarkRotate;
                 horizontalDis = WaterMarkHorizontalDis;
                 verticalDis = WaterMarkVerticalDis;
-                opacity = WaterMarkOpacity;
-                isGradient = WaterMarkFontIsGradient;
-                fontColor = WaterMarkFontColor;
-                gradientColor = WaterMarkFontGradientColor;
+                underline = WaterMarkFontUnderline;
+                strikeout = WaterMarkFontStrikeout;
+                fontSize = WaterMarkFontSize;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -715,43 +716,53 @@ namespace AddWaterMark.ViewModels {
             int[] frameDelays = ImageUtils.GetFrameDelays(gifImage);
             int photoWidth = gifImage.Width;
             int photoHeight = gifImage.Height;
+            formattedText.SetFontSize(fontSize);
             // 创建一个新的GIF图像
             using var gifEncoder = new GifEncoder(filePath, photoWidth, photoHeight);
             for (int i = 0; i < frameCount; i++) {
                 // 选择当前帧
                 gifImage.SelectActiveFrame(dimension, i);
-
-                // 复制当前帧到一个新的Bitmap对象
-                using System.Drawing.Bitmap frame = new System.Drawing.Bitmap(gifImage);
-                // 水印图层
+                
+                // 水印图层，图片尺寸依旧是原图的宽高
+                RenderTargetBitmap composeImage = new RenderTargetBitmap(photoWidth, photoHeight, 96, 96, PixelFormats.Pbgra32);
+                // 计算绘制图片的范围圆直径
                 int circleDiameter = (int)Math.Sqrt(Math.Pow(photoWidth, 2D) + Math.Pow(photoHeight, 2D));
-                using System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(photoWidth, photoHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                bmPhoto.SetResolution(72, 72);
-                using System.Drawing.Graphics bmPhotoGraphics = System.Drawing.Graphics.FromImage(frame);
-                bmPhotoGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-                bmPhotoGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                float x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
-                // 设置旋转
-                using System.Drawing.Drawing2D.Matrix matrix = bmPhotoGraphics.Transform;
-                matrix.RotateAt(rotate, new System.Drawing.Point(photoWidth / 2, photoHeight / 2));
-                bmPhotoGraphics.Transform = matrix;
-                // 画刷
-                System.Drawing.SizeF crSize = bmPhotoGraphics.MeasureString(waterMarkText, font);
-                using System.Drawing.Brush brush = WaterMarkUtils.GetDrawingBrush(opacity, isGradient, fontColor, gradientColor, (int)crSize.Width, (int)crSize.Height);
 
-                int xcount = circleDiameter / horizontalDis + 1;
-                int ycount = circleDiameter / verticalDis + 1;
-                float ox = x;
-                for (int k = 0; k < ycount; k++) {
-                    for (int m = 0; m < xcount; m++) {
-                        bmPhotoGraphics.DrawString(waterMarkText, font, brush, x, y);
+                // 定义绘制对象
+                DrawingVisual drawingVisual = new DrawingVisual();
+                // 获取绘制内容
+                DrawingContext drawingContext = drawingVisual.RenderOpen();
+                // 背景图绘制
+                drawingContext.DrawImage(ImageUtils.ImageToImageSource(gifImage), new Rect(0, 0, photoWidth, photoHeight));
+                // 水印的起始坐标
+                double x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
+                // 设置旋转（水印圆直径的中心点位置）
+                RotateTransform transform = new RotateTransform(rotate, photoWidth / 2, photoHeight / 2);
+                drawingContext.PushTransform(transform);
+
+                double xcount = circleDiameter / horizontalDis + 1;
+                double ycount = circleDiameter / verticalDis + 1;
+                double ox = x;
+                for (int m = 0; m < ycount; m++) {
+                    for (int n = 0; n < xcount; n++) {
+                        drawingContext.DrawText(formattedText, new Point(x, y));
+                        if (underline) {
+                            // 下划线
+                            drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height), new Point(x + formattedText.Width, y + formattedText.Height));
+                        }
+                        if (strikeout) {
+                            // 中划线
+                            drawingContext.DrawLine(new Pen(brush, 1), new Point(x, y + formattedText.Height / 2), new Point(x + formattedText.Width, y + formattedText.Height / 2));
+                        }
                         x += horizontalDis;
                     }
                     x = ox;
                     y += verticalDis;
                 }
+                drawingContext.Close();
+                composeImage.Render(drawingVisual);
                 // 将帧添加到GIF编码器
-                gifEncoder.AddFrame(frame, 0, 0, frameDelays[i]);
+                gifEncoder.AddFrame(ImageUtils.ConvertToImage(composeImage), 0, 0, frameDelays[i]);
             }
         }
 
@@ -1035,11 +1046,11 @@ namespace AddWaterMark.ViewModels {
                                         Console.WriteLine(e.Message);
                                     }
                                 } else if (".gif".Equals(ext)) {
-                                    GifAddWatermark(false, filePath, waterMarkText, font);
+                                    GifAddWatermark(false, filePath, formattedText, brush);
                                 } else {
                                     // 图片加水印
                                     // media
-                                    CreateWaterMarkImage(false, filePath, formattedText, Configs.waterMarkFontSize, brush);
+                                    CreateWaterMarkImage(false, filePath, formattedText, brush);
                                     // drawing
                                     // CreateWaterMarkImage(false, filePath, waterMarkText, font);
                                 }

@@ -15,7 +15,6 @@
             <con:Boolean2CollapsedConverter x:Key="Boolean2CollapsedConverter" />
             <con:GradientColorConverter x:Key="GradientColorConverter"/>
             <con:PointConverter x:Key="PointConverter"/>
-            <con:IsChildConverter x:Key="IsChildConverter"/>
             <con:IsChildIncludeConverter x:Key="IsChildIncludeConverter"/>
             <con:IsChildExcludeConverter x:Key="IsChildExcludeConverter"/>
             <Style x:Key="Slider_Style" TargetType="Slider">

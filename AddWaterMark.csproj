@@ -90,7 +90,6 @@
     <Compile Include="Converters\GradientColorConverter.cs" />
     <Compile Include="Converters\IsChildExcludeConverter.cs" />
     <Compile Include="Converters\IsChildIncludeConverter.cs" />
-    <Compile Include="Converters\IsChildConverter.cs" />
     <Compile Include="Converters\PointConverter.cs" />
     <Compile Include="DataBase\Beans\ImgFilePath.cs" />
     <Compile Include="DataBase\Services\ImgFilePathService.cs" />
