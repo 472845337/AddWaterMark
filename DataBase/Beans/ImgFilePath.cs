@@ -16,7 +16,7 @@ namespace AddWaterMark.DataBase.Beans {
         [TableParam("is_child", "BIT")]
         [OnChangedMethod(nameof(IsChildChange))]
         public bool? IsChild { get; set; }
-        public string IsChildShow {  get; set; }
+        public string IsChildShow { get; set; }
         // 包含扩展名
         [TableParam("include_ext", "VARCHAR")]
         public string IncludeExt { get; set; }
@@ -39,16 +39,20 @@ namespace AddWaterMark.DataBase.Beans {
         }
 
         public static List<string> GetExtList(string ext) {
-            string[] extArray = ext.Split(new char[] { ',', ';', '\\', '/', '|' });
-            List<string> result = new List<string>();
-            for (int i = 0; i < extArray.Length; i++) {
-                string extSingle = extArray[i];
-                if (string.IsNullOrEmpty(extSingle)) {
-                    continue;
+            if (string.IsNullOrEmpty(ext)) {
+                return null;
+            } else {
+                string[] extArray = ext.Split(new char[] { ',', ';', '\\', '/', '|' });
+                List<string> result = new List<string>();
+                for (int i = 0; i < extArray.Length; i++) {
+                    string extSingle = extArray[i];
+                    if (string.IsNullOrEmpty(extSingle)) {
+                        continue;
+                    }
+                    result.Add(extSingle.StartsWith(".") ? extSingle : $".{extSingle}");
                 }
-                result.Add(extSingle.StartsWith(".") ? extSingle : $".{extSingle}");
+                return result;
             }
-            return result;
         }
     }
 }

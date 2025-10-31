@@ -364,7 +364,7 @@ namespace AddWaterMark.ViewModels {
                 verticalDis = WaterMarkVerticalDis;
                 underline = WaterMarkFontUnderline;
                 strikeout = WaterMarkFontStrikeout;
-                fontSize = Configs.waterMarkFontSize;
+                fontSize = WaterMarkFontSize;
                 if (null != WaterMarkBitmap) {
                     WaterMarkBitmap = null;
                 }
@@ -679,7 +679,7 @@ namespace AddWaterMark.ViewModels {
         }
 
         /// <summary>
-        /// GIF添加文本水印
+        /// GIF添加文本水印，目前不支持测试输出到窗口
         /// </summary>
         /// <param name="isTest">是否测试</param>
         /// <param name="filePath">文件路径</param>
@@ -722,7 +722,7 @@ namespace AddWaterMark.ViewModels {
             for (int i = 0; i < frameCount; i++) {
                 // 选择当前帧
                 gifImage.SelectActiveFrame(dimension, i);
-                
+
                 // 水印图层，图片尺寸依旧是原图的宽高
                 RenderTargetBitmap composeImage = new RenderTargetBitmap(photoWidth, photoHeight, 96, 96, PixelFormats.Pbgra32);
                 // 计算绘制图片的范围圆直径

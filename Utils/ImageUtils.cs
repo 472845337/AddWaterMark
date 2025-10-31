@@ -1,8 +1,8 @@
 ﻿using AddWaterMark.Config;
 using System;
 using System.IO;
-using System.Windows.Interop;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 namespace AddWaterMark.Utils {
