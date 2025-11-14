@@ -7,6 +7,7 @@ using AddWaterMark.ViewModels;
 using AddWaterMark.Windows;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -22,6 +23,8 @@ namespace AddWaterMark {
         private readonly System.Windows.Threading.DispatcherTimer AutoGcTimer = new System.Windows.Threading.DispatcherTimer() { Interval = TimeSpan.FromMinutes(5) };
         // VM
         readonly MainViewModel vm = new MainViewModel();
+        // 任务栏图标
+        System.Windows.Forms.NotifyIcon notifyIcon;
         public MainWindow() {
             InitializeComponent();
             Configs.Handler = new WindowInteropHelper(this).Handle;
@@ -60,6 +63,19 @@ namespace AddWaterMark {
             Configs.mainLeft = NumberUtils.IsNumeric(mainLeftStr, out double mainLeft) ? mainLeft : Constants.MAIN_LEFT;
             Configs.mainTop = NumberUtils.IsNumeric(mainTopStr, out double mainTop) ? mainTop : Constants.MAIN_TOP;
             Configs.language = string.IsNullOrEmpty(language) || !Lang.ExistLang(vm.LangList, language) ? Constants.LANGUAGE : language;
+            // 窗口超出边界调整
+            if(Configs.mainTop < SystemParameters.VirtualScreenTop) {
+                Configs.mainTop = SystemParameters.VirtualScreenTop;
+            }
+            if (Configs.mainLeft < SystemParameters.VirtualScreenLeft) {
+                Configs.mainLeft = SystemParameters.VirtualScreenLeft;
+            }
+            if(Configs.mainTop + Configs.mainHeight > SystemParameters.VirtualScreenHeight) {
+                Configs.mainTop = SystemParameters.VirtualScreenTop;
+            }
+            if (Configs.mainLeft + Configs.mainWidth > SystemParameters.VirtualScreenWidth) {
+                Configs.mainLeft = SystemParameters.VirtualScreenLeft;
+            }
             vm.MainHeight = Configs.mainHeight;
             vm.MainWidth = Configs.mainWidth;
             vm.MainLeft = Configs.mainLeft;
@@ -153,9 +169,32 @@ namespace AddWaterMark {
             vm.WaterMarkBorder = WaterMarkBorder;
             vm.ImgFilePath_ListView = ImgFilePath_ListView;
             vm.TaskLog_RichTextBox = TaskLog_RichTextBox;
+            // 任务栏图标加载
+            notifyIcon = new System.Windows.Forms.NotifyIcon();
+            using Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Resources/logo/picture.ico")).Stream;
+            notifyIcon.MouseDoubleClick += MainWindow_Show;
+            notifyIcon.Visible = true;
+            notifyIcon.Icon = new System.Drawing.Icon(iconStream);
+            System.Windows.Forms.ContextMenuStrip menu = new System.Windows.Forms.ContextMenuStrip();
+            System.Windows.Forms.ToolStripMenuItem showWindowMenu = new System.Windows.Forms.ToolStripMenuItem(Lang.Find("ShowWindow")) {
+                Image = Properties.Resources.ShowWindow.ToBitmap()
+            };
+            showWindowMenu.Click += MainWindow_Show;
+            System.Windows.Forms.ToolStripMenuItem exitAppMenu = new System.Windows.Forms.ToolStripMenuItem(Lang.Find("ExitApp")) {
+                Image = Properties.Resources.ExitApp.ToBitmap()
+            };
+            exitAppMenu.Click += (obj, e) => { Close(); };
+            menu.Items.Add(showWindowMenu);
+            menu.Items.Add(exitAppMenu);
+            notifyIcon.ContextMenuStrip = menu;
             Configs.inited = true;
+            Configs.Handler = new WindowInteropHelper(this).Handle;
         }
-
+        private void MainWindow_Show(object sender, EventArgs e) {
+            DllUtils.ShowWindow(Configs.Handler, 5);
+            DllUtils.SwitchToThisWindow(Configs.Handler, true);
+            this.Visibility = Visibility.Visible;
+        }
         /// <summary>
         /// 窗口关闭前保存配置
         /// </summary>
@@ -179,6 +218,7 @@ namespace AddWaterMark {
                         return;
                     }
                 }
+                notifyIcon.Dispose();
                 // 窗口设置保存
                 SavePageConfig();
             } else {
@@ -339,7 +379,6 @@ namespace AddWaterMark {
         private int lastLangIndex = -1;// 上次语言项
         private bool loadLang = true;// 是否加载语言项
         private void Lang_ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
-            Console.WriteLine("切换语言" + loadLang);
             if (!loadLang) {
                 loadLang = true;
                 return;
@@ -394,6 +433,15 @@ namespace AddWaterMark {
                     foreach (ImgFilePath imgFilePath in vm.ImgFilePaths) {
                         imgFilePath.IsChildShow = ImgFilePath.GetIsChildShow(imgFilePath.IsChild);
                     }
+                }
+                // 任务栏图标变更
+                string showWindow = Lang.Find("ShowWindow");
+                string exitApp = Lang.Find("ExitApp");
+                if (!string.IsNullOrEmpty(showWindow)) {
+                    notifyIcon.ContextMenuStrip.Items[0].Text = showWindow;
+                }
+                if (!string.IsNullOrEmpty(exitApp)) {
+                    notifyIcon.ContextMenuStrip.Items[1].Text = exitApp;
                 }
                 #endregion
             }

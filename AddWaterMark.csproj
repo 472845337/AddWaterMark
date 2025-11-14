@@ -135,6 +135,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\icon\ShowWindow.ico" />
+    <None Include="Resources\ShowWindowIcon.png" />
+    <Resource Include="Resources\icon\ExitApp.ico" />
     <Page Include="Langs\default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

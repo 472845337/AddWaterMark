@@ -477,117 +477,6 @@ namespace AddWaterMark.ViewModels {
         }
 
         /// <summary>
-        /// Graphics Drawing方式创建水印图
-        /// drawing方式的渐变色不透明度是有bug的
-        /// </summary>
-        /// <param name="isTest">测试水印</param>
-        /// <param name="filePath">文件路径</param>
-        /// <param name="waterMark">水印文本</param>
-        private void CreateWaterMarkImage(bool isTest, string filePath, string waterMark, System.Drawing.Font font) {
-            int waterMarkRotate = Configs.waterMarkRotate;
-            int waterMarkHorizontalDis = Configs.waterMarkHorizontalDis;
-            int waterMarkVerticalDis = Configs.waterMarkVerticalDis;
-            byte waterMarkOpacity = Configs.waterMarkOpacity;
-            bool waterMarkFontIsGradient = Configs.waterMarkFontIsGradient;
-            string waterMarkFontColor = Configs.waterMarkFontColor;
-            string waterMarkFontGradientColor = Configs.waterMarkFontGradientColor;
-            if (isTest) {
-                waterMarkRotate = WaterMarkRotate;
-                waterMarkHorizontalDis = WaterMarkHorizontalDis;
-                waterMarkVerticalDis = WaterMarkVerticalDis;
-                waterMarkOpacity = WaterMarkOpacity;
-                waterMarkFontIsGradient = WaterMarkFontIsGradient;
-                waterMarkFontColor = WaterMarkFontColor;
-                waterMarkFontGradientColor = WaterMarkFontGradientColor;
-                if (null != WaterMarkBitmap) {
-                    WaterMarkBitmap = null;
-                }
-            }
-
-            System.Drawing.Image backPhoto;
-            int photoWidth, photoHeight;
-            if (string.IsNullOrEmpty(filePath)) {
-                // 未指定图片，绘制白色背景图
-                photoWidth = (int)WaterMarkBorder.ActualWidth;
-                photoHeight = (int)WaterMarkBorder.ActualHeight;
-                backPhoto = new System.Drawing.Bitmap(photoWidth, photoHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                System.Drawing.Graphics backPhotoGraphics = System.Drawing.Graphics.FromImage(backPhoto);
-                backPhotoGraphics.Clear(System.Drawing.Color.White);
-                backPhotoGraphics.Dispose();
-            } else {
-                // 图片水印任务处理，原文件改名
-                string ext = Path.GetExtension(filePath);
-                FileStream fs = new FileStream(filePath, FileMode.Open);
-                BinaryReader br = new BinaryReader(fs);
-                byte[] bytes = br.ReadBytes((int)fs.Length);
-                br.Dispose();
-                fs.Dispose();
-                if (!isTest) {
-                    // 图片水印任务处理，原文件改名
-                    string newpath = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + Constants.PRI_FILE_SUFFIX + ext;
-                    File.Move(filePath, newpath);
-                }
-                using MemoryStream ms = new MemoryStream(bytes);
-                using System.Drawing.Image imgPhoto = System.Drawing.Image.FromStream(ms);
-                photoWidth = imgPhoto.Width;
-                photoHeight = imgPhoto.Height;
-                backPhoto = System.Drawing.Image.FromStream(ms);
-            }
-
-            // 水印图层
-            int circleDiameter = (int)Math.Sqrt(Math.Pow(photoWidth, 2D) + Math.Pow(photoHeight, 2D));
-            System.Drawing.Bitmap bmPhoto = new System.Drawing.Bitmap(photoWidth, photoHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            bmPhoto.SetResolution(72, 72);
-            System.Drawing.Graphics bmPhotoGraphics = System.Drawing.Graphics.FromImage(bmPhoto);
-            bmPhotoGraphics.Clear(System.Drawing.Color.White);
-            bmPhotoGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-            bmPhotoGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            bmPhotoGraphics.DrawImage(backPhoto, new System.Drawing.Rectangle(0, 0, photoWidth, photoHeight), 0, 0, photoWidth, photoHeight, System.Drawing.GraphicsUnit.Pixel);
-            float x = (photoWidth - circleDiameter) / 2, y = (photoHeight - circleDiameter) / 2;
-            // 设置旋转
-            System.Drawing.Drawing2D.Matrix matrix = bmPhotoGraphics.Transform;
-            matrix.RotateAt(waterMarkRotate, new System.Drawing.Point(photoWidth / 2, photoHeight / 2));
-            bmPhotoGraphics.Transform = matrix;
-            // 画刷
-            System.Drawing.SizeF crSize = bmPhotoGraphics.MeasureString(waterMark, font);
-            System.Drawing.Brush brush = WaterMarkUtils.GetDrawingBrush(waterMarkFontIsGradient, waterMarkFontColor, waterMarkFontGradientColor, (int)crSize.Width, (int)crSize.Height);
-
-            int xcount = circleDiameter / waterMarkHorizontalDis + 1;
-            int ycount = circleDiameter / waterMarkVerticalDis + 1;
-            float ox = x;
-            for (int k = 0; k < ycount; k++) {
-                for (int i = 0; i < xcount; i++) {
-                    bmPhotoGraphics.DrawString(waterMark, font, brush, x, y);
-                    x += waterMarkHorizontalDis;
-                }
-                x = ox;
-                y += waterMarkVerticalDis;
-            }
-            brush.Dispose();
-            if (isTest) {
-                // 水印测试的，输出到水印图
-                WaterMarkBitmap = ImageUtils.BitmapToBitmapImage(bmPhoto);
-                WaterMarkWidth = photoWidth;
-                WaterMarkHeight = photoHeight;
-            } else {
-                // 水印文件保存
-                string ext = Path.GetExtension(filePath).ToLower();
-                if (Constants.IMG_EXT_PNG.Equals(ext)) {
-                    bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-                } else if (Constants.IMG_EXT_BMP.Equals(ext)) {
-                    bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Bmp);
-                } else if (Constants.IMG_EXT_TIFF.Equals(ext)) {
-                    bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Tiff);
-                } else {
-                    bmPhoto.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                }
-            }
-            bmPhotoGraphics.Dispose();
-            backPhoto.Dispose();
-            bmPhoto.Dispose();
-        }
-
-        /// <summary>
         /// 添加文本水印,渐变色功能未实现
         /// iTextSharp旋转的角度需要转换，不然和图片的旋转角度就反了，赋值时取负
         /// </summary>
@@ -620,62 +509,76 @@ namespace AddWaterMark.ViewModels {
             string newpath = Path.GetDirectoryName(pdfPath) + "\\" + Path.GetFileNameWithoutExtension(pdfPath) + Constants.PRI_FILE_SUFFIX + ext;
             File.Move(pdfPath, newpath);
 
-            //读取pdf
-            PdfReader reader = new PdfReader(newpath);
-            //创建新pdf
-            using Stream outStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
-            PdfStamper stamper = new PdfStamper(reader, outStream);
-            int pdfTotalPage = reader.NumberOfPages;//总页数
+            
+            PdfReader reader = null;
+            FileStream outStream = null;
+            PdfStamper stamper = null;
+            try {
+                //读取pdf
+                reader = new PdfReader(newpath);
+                //创建新pdf
+                outStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                stamper = new PdfStamper(reader, outStream);
+                int pdfTotalPage = reader.NumberOfPages;//总页数
 
-            // 透明度
-            PdfGState gs = new PdfGState() { FillOpacity = opacity / 100F };
-            // 字体
-            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(fontColor);
-            iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);
+                // 透明度
+                PdfGState gs = new PdfGState() { FillOpacity = opacity / 100F };
+                // 字体
+                System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(fontColor);
+                iTextSharp.text.Color baseColor = new iTextSharp.text.Color(color.R, color.G, color.B);
 
-            BaseFont baseFont = FontsUtils.ConvertFont2BaseFont(font);
-            for (int i = 1; i <= pdfTotalPage; i++) {
-                //当前页pdf尺寸
-                iTextSharp.text.Rectangle psize = reader.GetPageSize(i);
-                float width = psize.Width;
-                float height = psize.Height;
-                int circleDiameter = (int)Math.Sqrt(Math.Pow(width, 2D) + Math.Pow(height, 2D));
-                float x = (width - circleDiameter) / 2, y = (height - circleDiameter) / 2;
-                //GetUnderContent内容下层,GetOverContent内容上层
-                PdfContentByte content = stamper.GetOverContent(i);
-                content.SetGState(gs);
-                //开始写入文本
-                content.BeginText();
-                //设置颜色
-                if (isGradient) {
-                    // 渐变色，这个功能不符合预期 
-                    GradientColorUtils.GetPdfColor(gradientColor, out PdfSpotColor[] ncolor, out float[] tints);
-                    for (int j = 0; j < tints.Length; j++) {
-                        content.SetColorFill(ncolor[j], tints[j]);
+                BaseFont baseFont = FontsUtils.ConvertFont2BaseFont(font);
+                for (int i = 1; i <= pdfTotalPage; i++) {
+                    //当前页pdf尺寸
+                    iTextSharp.text.Rectangle psize = reader.GetPageSize(i);
+                    float width = psize.Width;
+                    float height = psize.Height;
+                    int circleDiameter = (int)Math.Sqrt(Math.Pow(width, 2D) + Math.Pow(height, 2D));
+                    float x = (width - circleDiameter) / 2, y = (height - circleDiameter) / 2;
+                    //GetUnderContent内容下层,GetOverContent内容上层
+                    PdfContentByte content = stamper.GetOverContent(i);
+                    content.SetGState(gs);
+                    //开始写入文本
+                    content.BeginText();
+                    //设置颜色
+                    if (isGradient) {
+                        // 渐变色，这个功能不符合预期 
+                        GradientColorUtils.GetPdfColor(gradientColor, out PdfSpotColor[] ncolor, out float[] tints);
+                        for (int j = 0; j < tints.Length; j++) {
+                            content.SetColorFill(ncolor[j], tints[j]);
+                        }
+                    } else {
+                        content.SetColorFill(baseColor);
                     }
-                } else {
-                    content.SetColorFill(baseColor);
-                }
-                //字体大小
-                content.SetFontAndSize(baseFont, font.Size);
-                //设置文本矩阵
-                content.SetTextMatrix(0, 0);
-                //水印文本位置
-                int xcount = circleDiameter / horizontalDis + 1;
-                int ycount = circleDiameter / verticalDis + 1;
-                float ox = x;
-                for (int k = 0; k < ycount; k++) {
-                    for (int l = 0; l < xcount; l++) {
-                        content.ShowTextAligned(iTextSharp.text.Element.ALIGN_LEFT, addText, x, y, rotate);
-                        x += horizontalDis;
+                    //字体大小
+                    content.SetFontAndSize(baseFont, font.Size);
+                    //设置文本矩阵
+                    content.SetTextMatrix(0, 0);
+                    //水印文本位置
+                    int xcount = circleDiameter / horizontalDis + 1;
+                    int ycount = circleDiameter / verticalDis + 1;
+                    float ox = x;
+                    for (int k = 0; k < ycount; k++) {
+                        for (int l = 0; l < xcount; l++) {
+                            content.ShowTextAligned(iTextSharp.text.Element.ALIGN_LEFT, addText, x, y, rotate);
+                            x += horizontalDis;
+                        }
+                        x = ox;
+                        y += verticalDis;
                     }
-                    x = ox;
-                    y += verticalDis;
+                    content.EndText();
                 }
-                content.EndText();
+            } catch (Exception ex) {
+                Console.WriteLine("pdf文件处理异常" + ex.Message);
+            } finally {
+                stamper?.Close();
+                reader?.Close();
+                outStream?.Close();
+                // 如果处理失败，恢复原文件
+                if (File.Exists(newpath) && !File.Exists(pdfPath)) {
+                    File.Move(newpath, pdfPath);
+                }
             }
-            stamper.Close();
-            reader.Close();
         }
 
         /// <summary>
@@ -1043,7 +946,7 @@ namespace AddWaterMark.ViewModels {
                                     try {
                                         PdfAddWatermark(false, filePath, waterMarkText, font);
                                     } catch (Exception e) {
-                                        Console.WriteLine(e.Message);
+                                        Console.WriteLine(e.StackTrace);
                                     }
                                 } else if (".gif".Equals(ext)) {
                                     GifAddWatermark(false, filePath, formattedText, brush);
