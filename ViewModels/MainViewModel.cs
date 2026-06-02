@@ -863,17 +863,20 @@ namespace AddWaterMark.ViewModels {
             }
             isRun = true;
             Task.Factory.StartNew(delegate {
-                if (handExecute) {
-                    AddWaterMarkLog(Lang.Find("StartAddWatermark"));
+                try {
+                    if (handExecute) {
+                        AddWaterMarkLog(Lang.Find("StartAddWatermark"));
+                    }
+                    ImgWaterMarkExecute();
+                    if (handExecute) {
+                        AddWaterMarkLog(Lang.Find("OverAddWatermark"));
+                        ImgWaterMarkTimerCanRun = true;
+                    }
+                } finally {
+                    ImgWaterMarkExecuteTimer.Stop();
+                    isRun = false;
+                    handExecute = false;
                 }
-                ImgWaterMarkExecute();
-                if (handExecute) {
-                    AddWaterMarkLog(Lang.Find("OverAddWatermark"));
-                    ImgWaterMarkTimerCanRun = true;
-                }
-                ImgWaterMarkExecuteTimer.Stop();
-                isRun = false;
-                handExecute = false;
             });
         }
         private void ImgWaterMarkTask_Tick(object sender, EventArgs e) {
@@ -882,8 +885,11 @@ namespace AddWaterMark.ViewModels {
             }
             isRun = true;
             Task.Factory.StartNew(delegate {
-                ImgWaterMarkExecute();
-                isRun = false;
+                try {
+                    ImgWaterMarkExecute();
+                } finally {
+                    isRun = false;
+                }
             });
         }
 
@@ -893,6 +899,7 @@ namespace AddWaterMark.ViewModels {
         private static bool handExecute = false;
         private void ImgWaterMarkExecute() {
             if (ImgFilePaths.Count == 0 || ImgFilePaths.Where(a => a.IsSelect).ToList().Count == 0) {
+                AddLog($"配置目录数:{ImgFilePaths.Count},已选目录数：{ImgFilePaths.Where(a => a.IsSelect).ToList().Count}", Colors.Red);
                 AddWaterMarkLog(Colors.Red, Lang.Find("UnselectedPath"));
             } else {
                 // 获取目录下所有图片文件
