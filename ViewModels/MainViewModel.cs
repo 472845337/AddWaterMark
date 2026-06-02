@@ -382,15 +382,21 @@ namespace AddWaterMark.ViewModels {
                 BitmapPalette myPalette = new BitmapPalette(new List<Color> { Colors.White });
                 backPhoto = BitmapSource.Create((int)photoWidth, (int)photoHeight, backDpiX, backDpiY, PixelFormats.Indexed1, myPalette, pixels, stride);
             } else {
-                FileStream fs = new FileStream(filePath, FileMode.Open);
-                BinaryReader br = new BinaryReader(fs);
-                byte[] bytes = br.ReadBytes((int)fs.Length);
-                br.Close();
-                fs.Close();
+                byte[] bytes;
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    bytes = br.ReadBytes((int)fs.Length);
+                }
                 BitmapImage bmp = new BitmapImage();
                 bmp.BeginInit();
-                bmp.StreamSource = new MemoryStream(bytes);
-                bmp.EndInit();
+                bmp.CacheOption = BitmapCacheOption.OnLoad;
+                using (var memoryStream = new MemoryStream(bytes))
+                {
+                    bmp.StreamSource = memoryStream;
+                    bmp.EndInit();
+                }
+                bmp.Freeze();
                 backPhoto = bmp;
                 if (!isTest) {
                     // 图片水印任务处理，原文件改名
@@ -931,45 +937,50 @@ namespace AddWaterMark.ViewModels {
                         }
                     }
                     if (processListDic.Count > 0) {
-                        System.Drawing.Font font = FontsUtils.GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
+                        System.Drawing.Font font = null;
+                        Brush brush = null;
+                        try {
+                            font = FontsUtils.GetDrawingFont(Configs.waterMarkFontFamily, Configs.waterMarkFontSize, Configs.waterMarkFontBold, Configs.waterMarkFontItalic, Configs.waterMarkFontUnderline, Configs.waterMarkFontStrikeout);
 
-                        Brush brush = WaterMarkUtils.GetWaterMarkBrush(Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
-                        Stopwatch watch = new Stopwatch();
-                        foreach (string waterMarkText in processListDic.Keys) {
-                            if (stop) {
-                                break;
-                            }
-                            FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, brush);
-                            List<string> processList = processListDic[waterMarkText];
-                            foreach (string filePath in processList) {
+                            brush = WaterMarkUtils.GetWaterMarkBrush(Configs.waterMarkFontIsGradient, Configs.waterMarkFontColor, Configs.waterMarkFontGradientColor, Configs.waterMarkOpacity);
+                            Stopwatch watch = new Stopwatch();
+                            foreach (string waterMarkText in processListDic.Keys) {
                                 if (stop) {
                                     break;
                                 }
-                                watch.Restart();
-
-                                string ext = Path.GetExtension(filePath).ToLower();
-                                if (".pdf".Equals(ext)) {
-                                    // PDF文件加水印
-                                    try {
-                                        PdfAddWatermark(false, filePath, waterMarkText, font);
-                                    } catch (Exception e) {
-                                        Console.WriteLine(e.StackTrace);
+                                FormattedText formattedText = WaterMarkUtils.GetFormattedText(waterMarkText, Configs.waterMarkFontFamily, Configs.waterMarkFontItalic, Configs.waterMarkFontBold, Configs.waterMarkFontSize, brush);
+                                List<string> processList = processListDic[waterMarkText];
+                                foreach (string filePath in processList) {
+                                    if (stop) {
+                                        break;
                                     }
-                                } else if (".gif".Equals(ext)) {
-                                    GifAddWatermark(false, filePath, formattedText, brush);
-                                } else {
-                                    // 图片加水印
-                                    // media
-                                    CreateWaterMarkImage(false, filePath, formattedText, brush);
-                                    // drawing
-                                    // CreateWaterMarkImage(false, filePath, waterMarkText, font);
+                                    watch.Restart();
+
+                                    string ext = Path.GetExtension(filePath).ToLower();
+                                    if (".pdf".Equals(ext)) {
+                                        // PDF文件加水印
+                                        try {
+                                            PdfAddWatermark(false, filePath, waterMarkText, font);
+                                        } catch (Exception e) {
+                                            Console.WriteLine(e.StackTrace);
+                                        }
+                                    } else if (".gif".Equals(ext)) {
+                                        GifAddWatermark(false, filePath, formattedText, brush);
+                                    } else {
+                                        // 图片加水印
+                                        // media
+                                        CreateWaterMarkImage(false, filePath, formattedText, brush);
+                                        // drawing
+                                        // CreateWaterMarkImage(false, filePath, waterMarkText, font);
+                                    }
+                                    watch.Stop();
+                                    AddWaterMarkLog($"{filePath}{Lang.Find("WatermarkSpendTime")}{watch.ElapsedMilliseconds}ms");
                                 }
-                                watch.Stop();
-                                AddWaterMarkLog($"{filePath}{Lang.Find("WatermarkSpendTime")}{watch.ElapsedMilliseconds}ms");
                             }
+                        } finally {
+                            font?.Dispose();
+                            brush?.Freeze();
                         }
-                        font.Dispose();
-                        brush.Freeze();
                     }
                     // 执行结束清空集合
                     processListDic.Clear();
