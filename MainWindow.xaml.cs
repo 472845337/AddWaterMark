@@ -157,6 +157,9 @@ namespace AddWaterMark {
             vm.PathsViewColumn3 = Configs.pathsViewColumn3;
             vm.PathsViewColumn4 = Configs.pathsViewColumn4;
             vm.PathsViewColumn5 = Configs.pathsViewColumn5;
+            string pathsViewColumn6Str = iniData[Constants.INI_SECTION_PAGE][Constants.INI_KEY_PATHS_VIEW_COLUMN_6];
+            Configs.pathsViewColumn6 = NumberUtils.IsNumeric(pathsViewColumn6Str, out double pathsViewColumn6) ? pathsViewColumn6 : -1;
+            vm.PathsViewColumn6 = Configs.pathsViewColumn6;
             // 任务频率
             string scrollEndStr = iniData[Constants.INI_SECTION_TASK][Constants.INI_KEY_SCROLL_END];
             string taskIntervalStr = iniData[Constants.INI_SECTION_TASK][Constants.INI_KEY_INTERVAL];
@@ -317,6 +320,7 @@ namespace AddWaterMark {
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_3, ref Configs.pathsViewColumn3, vm.PathsViewColumn3);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_4, ref Configs.pathsViewColumn4, vm.PathsViewColumn4);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_5, ref Configs.pathsViewColumn5, vm.PathsViewColumn5);
+            IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_PATHS_VIEW_COLUMN_6, ref Configs.pathsViewColumn6, vm.PathsViewColumn6);
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_PAGE, Constants.INI_KEY_TAB2_SPLIT_DISTANCE, ref Configs.tab2SplitDistance, vm.Tab2SplitDistance);
 
             IniParserUtils.ConfigIniData(iniData, Constants.INI_SECTION_TASK, Constants.INI_KEY_SCROLL_END, ref Configs.scrollEnd, vm.ScrollEnd);

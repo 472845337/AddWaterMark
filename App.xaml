@@ -19,20 +19,19 @@
             <con:IsChildExcludeConverter x:Key="IsChildExcludeConverter"/>
             <Style x:Key="Slider_Style" TargetType="Slider">
                 <Setter Property="IsSnapToTickEnabled" Value="True"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <Style x:Key="Form_Style" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="5 5 0 0"/>
             </Style>
-            <Style x:Key="Key_Style" BasedOn="{StaticResource Form_Style}" TargetType="Label">
+            <Style x:Key="Key_Style" BasedOn="{StaticResource Form_Style}" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
-            <Style x:Key="Value_Style" BasedOn="{StaticResource Form_Style}" TargetType="FrameworkElement">
-            </Style>
-            <Style x:Key="TextBox_Style" TargetType="TextBox" BasedOn="{StaticResource Form_Style}">
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-            </Style>
-            <Style x:Key="CheckBox_Style" TargetType="CheckBox" BasedOn="{StaticResource Form_Style}">
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="FontFamily" Value="Consolas"/>
+            <Style x:Key="Value_Style" BasedOn="{StaticResource Form_Style}" TargetType="Control">
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Padding" Value="5 0"/>
+                <Setter Property="Height" Value="28"/>
             </Style>
             <Style x:Key="DocTitle1_Style" TargetType="Run">
                 <Setter Property="FontSize" Value="16"/>

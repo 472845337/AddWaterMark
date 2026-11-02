@@ -55,6 +55,8 @@
     <sys:String x:Key="IsChild">子目録</sys:String>
     <sys:String x:Key="IncludeExt">包含擴展</sys:String>
     <sys:String x:Key="ExcludeExt">排除擴展</sys:String>
+    <sys:String x:Key="ExcludeChildDir">排除子目錄</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">排除的子目錄不能是主目錄本身</sys:String>
 
     <sys:String x:Key="IncludeChild">包含</sys:String>
     <sys:String x:Key="ExcludeChild">不包含</sys:String>
@@ -184,6 +186,7 @@
     <sys:String x:Key="PathNotExist">當前配置目録不存在，確認繼續添加嗎？</sys:String>
     <sys:String x:Key="SamePathExist">您已添加相同的目録：</sys:String>
     <sys:String x:Key="ChildPath">您已添加目録存在包含關繫：</sys:String>
+    <sys:String x:Key="ChildPathTip">「{0}」包含「{1}」，兩者會處理同一批檔案。請刪除其中一條目錄設定，或在「{0}」的排除子目錄中加入「{1}」。</sys:String>
 
     <sys:String x:Key="LangFileUnfind">未找到語言配置文件:</sys:String>
 </ResourceDictionary>

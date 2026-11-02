@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">Mostrar ventana</sys:String>
+    <sys:String x:Key="ExitApp">Salir</sys:String>
+
+    <sys:String x:Key="MainTitle">Añadir marca de agua</sys:String>
+    <sys:String x:Key="GradientTitle">Degradado</sys:String>
+    <sys:String x:Key="ImageTitle">Imagen de marca de agua</sys:String>
+    <sys:String x:Key="ImagePathTitle">Carpeta de imágenes</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">Configuración</sys:String>
+    <sys:String x:Key="TabHeaderTask">Tareas</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Ayuda</sys:String>
+    <!--#region Configuración -->
+    <sys:String x:Key="Set_Text">Texto de la marca de agua</sys:String>
+    <sys:String x:Key="Set_Opacity">Opacidad</sys:String>
+    <sys:String x:Key="Set_Rotate">Rotación</sys:String>
+    <sys:String x:Key="Set_Font_Family">Fuente</sys:String>
+    <sys:String x:Key="Set_Font_Size">Tamaño de fuente</sys:String>
+    <sys:String x:Key="Set_Font_Color">Color</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Degradado</sys:String>
+    <sys:String x:Key="Set_Bold">Negrita</sys:String>
+    <sys:String x:Key="Set_Italic">Cursiva</sys:String>
+    <sys:String x:Key="Set_Underline">Subrayado</sys:String>
+    <sys:String x:Key="Set_Strikeout">Tachado</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Espaciado horizontal</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Espaciado vertical</sys:String>
+    <sys:String x:Key="Set_Default">Predeterminado</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">Restaurar valores iniciales</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">Cancelar cambios</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">Guardar cambios, se aplica también a las tareas</sys:String>
+
+    <sys:String x:Key="Test_Refresh">Regenerar</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">Regenera la marca de agua de prueba para ver el nuevo efecto</sys:String>
+    <sys:String x:Key="Test_Img">Elegir imagen</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">Genera una marca de agua de prueba sobre una imagen</sys:String>
+    <sys:String x:Key="Test_Clear">Limpiar</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">Limpia la marca de agua de prueba actual</sys:String>
+    <sys:String x:Key="Test_Save_Local">Guardar localmente</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">Guarda la imagen con marca de agua en una carpeta local</sys:String>
+
+    <sys:String x:Key="Test">Marca de agua de prueba</sys:String>
+    <sys:String x:Key="Test_Blank_Background">Fondo blanco</sys:String>
+    <sys:String x:Key="Test_Img_Background">Fondo de imagen</sys:String>
+    <!--#endregion-->
+
+    <!--#region Página de tareas -->
+    <sys:String x:Key="Path_Group">Carpetas</sys:String>
+
+    <sys:String x:Key="OpenDic">Abrir carpeta</sys:String>
+
+    <sys:String x:Key="Text">Marca de agua</sys:String>
+    <sys:String x:Key="Path">Carpeta</sys:String>
+    <sys:String x:Key="IsChild">Subcarpetas</sys:String>
+    <sys:String x:Key="IncludeExt">Extensiones incluidas</sys:String>
+    <sys:String x:Key="ExcludeExt">Extensiones excluidas</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Subcarpetas excluidas</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">No se puede excluir la carpeta principal en sí misma</sys:String>
+
+    <sys:String x:Key="IncludeChild">Incluir</sys:String>
+    <sys:String x:Key="ExcludeChild">Excluir</sys:String>
+
+    <sys:String x:Key="Add">Añadir</sys:String>
+    <sys:String x:Key="Update">Modificar</sys:String>
+    <sys:String x:Key="Delete">Eliminar</sys:String>
+    <sys:String x:Key="Clear">Vaciar</sys:String>
+    <sys:String x:Key="Save">Guardar</sys:String>
+    <sys:String x:Key="Cancel">Cancelar</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">Elimina los archivos con marca de agua y restaura los nombres originales</sys:String>
+    <sys:String x:Key="HandExecute">Ejecución manual</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">Ejecuta una vez la tarea de marca de agua</sys:String>
+    <sys:String x:Key="Task_Start">Iniciar</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">Inicia la tarea: busca imágenes sin marca de agua y la añade automáticamente</sys:String>
+    <sys:String x:Key="Task_Stop">Detener</sys:String>
+    <sys:String x:Key="Task_Interval">Frecuencia (min)</sys:String>
+
+    <sys:String x:Key="Log_Group">Registro</sys:String>
+    <sys:String x:Key="Log_Scroll_End">Desplazamiento automático</sys:String>
+
+    <sys:String x:Key="Log_Clear">Vaciar registro</sys:String>
+    <!--#endregion-->
+
+    <!--#region Página de ayuda -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Instrucciones de uso</sys:String>
+    <sys:String x:Key="Help_Function">1. Funciones:</sys:String>
+    <sys:String x:Key="Function_1">Probar el efecto de la marca de agua y guardar localmente el procesado de un archivo</sys:String>
+    <sys:String x:Key="Function_2">Tarea de marca de agua sobre las imágenes (PDF incluido) de las carpetas configuradas.</sys:String>
+    <sys:String x:Key="Function_2_Important">Nota: el PDF no admite degradado</sys:String>
+    <sys:String x:Key="Help_Manuals">2. Uso:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). Configurar los parámetros en el panel de configuración</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Opacidad: 100 = totalmente opaco,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">Nota: 0 = totalmente transparente, la marca no se ve</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Ángulo: de -180 a 180 grados, rotación sobre el centro del panel</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">Fuente: puede elegir todas las fuentes del sistema,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">Nota: las marcas chinas se muestran mal con la mayoría de fuentes occidentales</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Tamaño: tamaño del texto de la marca (píxeles), consulte</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">el enlace de equivalencias</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Color del texto: color liso o degradado</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Estilo: negrita, cursiva, subrayado, tachado</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Espaciado horizontal: desplazamiento horizontal entre marcas</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Espaciado vertical: desplazamiento vertical entre marcas</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(espaciado pequeño = marcas superpuestas)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). Configurar carpetas en el panel de tareas</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. Configurar la carpeta de imágenes con marca de agua</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. Manual o por tarea, añadir la marca a las imágenes no procesadas de las carpetas configuradas. Se considera procesada si existe un archivo &quot;_pri.jpg&quot; en la misma carpeta</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. El panel de registro muestra la ejecución de las tareas</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. Código fuente</sys:String>
+    <sys:String x:Key="Resources_Language">Lenguaje: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Herramienta: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Código fuente</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. Informar de un error</sys:String>
+    <sys:String x:Key="Bug_Email">Envíe un correo a 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region Mensajes -->
+    <sys:String x:Key="Msgbox_Info">Información</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Aviso</sys:String>
+    <sys:String x:Key="Msgbox_Error">Error</sys:String>
+    <sys:String x:Key="Exit_Confirm">¿Seguro que desea salir del programa?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Hay cambios sin guardar, ¿guardar la configuración?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">¡Atención: el PDF no admite degradado!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Frecuencia ajustada a:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">¿Restaurar los valores iniciales?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">¡Configuración predeterminada restaurada!</sys:String>
+    <sys:String x:Key="LogClearSuccess">¡Registro vaciado!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">Cambios cancelados</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">Configuración guardada</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">Marca de agua generada</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">Marca de agua regenerada</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">Marca de agua de prueba limpiada</sys:String>
+    <sys:String x:Key="ImageFileFilter">Imágenes|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">TestMarcaDeAgua.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">Imagen con marca guardada</sys:String>
+    <sys:String x:Key="SaveWatemarkError">¡No existe imagen con marca de agua!</sys:String>
+    <sys:String x:Key="AddPathSuccess">Carpeta añadida</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">Carpeta modificada</sys:String>
+    <sys:String x:Key="DeletePathConfirm">¿Eliminar esta carpeta?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">Eliminada</sys:String>
+    <sys:String x:Key="DeletePathError">¡Seleccione primero una carpeta!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">¿Eliminar todas las carpetas?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">Vaciado</sys:String>
+    <sys:String x:Key="ClearPathError">¡No hay carpetas configuradas!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">¡La carpeta no existe!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">¡Seleccione primero una carpeta!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">¡No hay carpetas, añada una carpeta de imágenes!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Tarea de marca de agua iniciada...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Tarea en ejecución</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Temporizador iniciado</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Tarea de marca de agua detenida...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Tarea detenida</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Temporizador detenido</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Se eliminarán todos los archivos con marca y se restaurarán los originales. Acción irreversible, ¿continuar?</sys:String>
+    <sys:String x:Key="StartResume">¡Inicio de la restauración!</sys:String>
+    <sys:String x:Key="OverResume">¡Restauración completada!</sys:String>
+    <sys:String x:Key="TaskingNextTry">Tarea en proceso, inténtelo más tarde</sys:String>
+    <sys:String x:Key="LogWatermark">Archivo con marca: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” eliminado</sys:String>
+    <sys:String x:Key="PriFile">Archivo original: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” nombre restaurado</sys:String>
+    <sys:String x:Key="StartAddWatermark">Iniciando marca de agua...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Marca de agua completada...</sys:String>
+    <sys:String x:Key="UnselectedPath">Lista de carpetas vacía o sin selección...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: completado, tiempo:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Añadir degradado</sys:String>
+    <sys:String x:Key="GradientPointLimit">Introduzca un valor entre 0 y 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">¡El degradado necesita al menos 2 colores!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Mínimo 2 colores</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Eliminar este color</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">Máximo 10 colores</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Añadir color</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Sin colores de degradado</sys:String>
+
+    <sys:String x:Key="PathEmpty">¡La carpeta de imágenes no puede estar vacía!</sys:String>
+    <sys:String x:Key="TextEmpty">¡La marca de agua no puede estar vacía!</sys:String>
+    <sys:String x:Key="PathNotExist">La carpeta no existe, ¿continuar?</sys:String>
+    <sys:String x:Key="SamePathExist">Ya ha añadido esta carpeta:</sys:String>
+    <sys:String x:Key="ChildPath">Relación de inclusión con una carpeta añadida:</sys:String>
+    <sys:String x:Key="ChildPathTip">«{0}» contiene «{1}»: ambas configuraciones procesarían los mismos archivos. Elimine una de ellas o añada «{1}» a las subcarpetas excluidas de «{0}».</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">Archivo de idioma no encontrado:</sys:String>
+</ResourceDictionary>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 
@@ -23,6 +24,14 @@ namespace AddWaterMark.Windows {
                 vm.IsChild = imgFilePath.IsChild;
                 vm.IncludeExt = imgFilePath.IncludeExt;
                 vm.ExcludeExt = imgFilePath.ExcludeExt;
+                vm.ExcludeChild = imgFilePath.ExcludeChild;
+                // 排除子目录解析成多行编辑
+                List<string> excludeChildList = ImgFilePath.GetExcludeChildList(imgFilePath.ExcludeChild);
+                if (null != excludeChildList) {
+                    foreach (string excludeChild in excludeChildList) {
+                        vm.ExcludeChildList.Add(new ExcludeChildItem { Value = excludeChild });
+                    }
+                }
             }
             vm.CurImgFilePaths = new List<ImgFilePath>(imgFilePaths);
             Loaded += Window_Loaded;
@@ -55,17 +64,65 @@ namespace AddWaterMark.Windows {
                     return;
                 }
             }
-            bool isRepeatPath = GetRepeatPath(vm.Id, vm.FilePath, out string repeatPath, out string childPath);
+            // 排除子目录多行拼接成存储形式（重复校验需要用到，先拼接）
+            vm.ExcludeChild = ImgFilePath.JoinExcludeChildList(vm.ExcludeChildList.Select(item => item.Value).ToList());
+            bool isRepeatPath = GetRepeatPath(vm.Id, vm.FilePath, out string repeatPath, out string childPath, out string rootPath);
             if (isRepeatPath) {
                 if (!string.IsNullOrEmpty(repeatPath)) {
                     MessageBox.Show($"{Lang.Find("SamePathExist")}{repeatPath}");
                 } else if (!string.IsNullOrEmpty(childPath)) {
-                    MessageBox.Show($"{Lang.Find("ChildPath")}{childPath}");
+                    // 提示冲突原因和两种解决方法
+                    MessageBox.Show($"{Lang.Find("ChildPath")}{childPath}{Environment.NewLine}{string.Format(Lang.Find("ChildPathTip"), rootPath, childPath)}");
                 }
                 return;
             }
             DialogResult = true;
         }
+
+        #region 排除子目录编辑
+        /// <summary>
+        /// 新增一行排除子目录
+        /// </summary>
+        private void AddExcludeChild_Click(object sender, RoutedEventArgs e) {
+            vm.ExcludeChildList.Add(new ExcludeChildItem());
+        }
+
+        /// <summary>
+        /// 删除一行排除子目录
+        /// </summary>
+        private void DeleteExcludeChild_Click(object sender, RoutedEventArgs e) {
+            FrameworkElement element = sender as FrameworkElement;
+            ExcludeChildItem item = element?.DataContext as ExcludeChildItem;
+            if (null != item) {
+                vm.ExcludeChildList.Remove(item);
+            }
+        }
+
+        /// <summary>
+        /// 选择目录填入当前行：主目录之内取相对路径，主目录之外只取目录名
+        /// </summary>
+        private void SelectExcludeChild_Click(object sender, RoutedEventArgs e) {
+            FrameworkElement element = sender as FrameworkElement;
+            ExcludeChildItem item = element?.DataContext as ExcludeChildItem;
+            if (null == item) {
+                return;
+            }
+            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (System.Windows.Forms.DialogResult.OK == folderBrowserDialog.ShowDialog()) {
+                string picked = folderBrowserDialog.SelectedPath.TrimEnd('\\', '/');
+                string root = null == vm.FilePath ? string.Empty : vm.FilePath.TrimEnd('\\', '/');
+                if (!string.IsNullOrEmpty(root) && string.Equals(picked, root, StringComparison.OrdinalIgnoreCase)) {
+                    MessageBox.Show(Lang.Find("ExcludeChildPickRootError"), Lang.Find("Msgbox_Error"));
+                    return;
+                }
+                if (!string.IsNullOrEmpty(root) && picked.StartsWith(root + "\\", StringComparison.OrdinalIgnoreCase)) {
+                    item.Value = picked.Substring(root.Length + 1);
+                } else {
+                    item.Value = Path.GetFileName(picked);
+                }
+            }
+        }
+        #endregion
 
 
 
@@ -75,10 +132,11 @@ namespace AddWaterMark.Windows {
         /// <param name="id"></param>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private bool GetRepeatPath(long? id, string filePath, out string repeatPath, out string childPath) {
+        private bool GetRepeatPath(long? id, string filePath, out string repeatPath, out string childPath, out string rootPath) {
             bool isRepeat = false;
             repeatPath = string.Empty;
             childPath = string.Empty;
+            rootPath = string.Empty;
 
             foreach (ImgFilePath single in vm.CurImgFilePaths) {
                 if (null != id && id.Equals(single.Id)) {
@@ -113,8 +171,18 @@ namespace AddWaterMark.Windows {
                             }
                         }
                         if (isChild) {
+                            // 长路径是子目录，短路径是主目录
+                            bool singleIsRoot = singlePathLogFilePath.Length < filePathLogFilePath.Length;
+                            string childDir = singleIsRoot ? filePath : single.FilePath;
+                            string rootDir = singleIsRoot ? single.FilePath : filePath;
+                            string rootExcludeChild = singleIsRoot ? single.ExcludeChild : vm.ExcludeChild;
+                            // 子目录已被主目录方的排除名单排除，双方不会重复处理同一批文件，允许添加
+                            if (ImgFilePath.IsExcludedChild(childDir, rootDir, ImgFilePath.GetExcludeChildList(rootExcludeChild))) {
+                                continue;
+                            }
                             isRepeat = true;
-                            childPath = single.FilePath;
+                            childPath = childDir;
+                            rootPath = rootDir;
                             break;
                         }
                     }

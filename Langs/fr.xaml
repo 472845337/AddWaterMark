@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">Afficher la fenêtre</sys:String>
+    <sys:String x:Key="ExitApp">Quitter</sys:String>
+
+    <sys:String x:Key="MainTitle">Ajouter un filigrane</sys:String>
+    <sys:String x:Key="GradientTitle">Dégradé</sys:String>
+    <sys:String x:Key="ImageTitle">Image du filigrane</sys:String>
+    <sys:String x:Key="ImagePathTitle">Dossier d'images</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">Configuration</sys:String>
+    <sys:String x:Key="TabHeaderTask">Tâches</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Aide</sys:String>
+    <!--#region Configuration -->
+    <sys:String x:Key="Set_Text">Texte du filigrane</sys:String>
+    <sys:String x:Key="Set_Opacity">Opacité</sys:String>
+    <sys:String x:Key="Set_Rotate">Rotation</sys:String>
+    <sys:String x:Key="Set_Font_Family">Police</sys:String>
+    <sys:String x:Key="Set_Font_Size">Taille de police</sys:String>
+    <sys:String x:Key="Set_Font_Color">Couleur</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Dégradé</sys:String>
+    <sys:String x:Key="Set_Bold">Gras</sys:String>
+    <sys:String x:Key="Set_Italic">Italique</sys:String>
+    <sys:String x:Key="Set_Underline">Souligné</sys:String>
+    <sys:String x:Key="Set_Strikeout">Barré</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Espacement horizontal</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Espacement vertical</sys:String>
+    <sys:String x:Key="Set_Default">Défaut</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">Restaurer les valeurs initiales</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">Annuler les modifications</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">Enregistrer les modifications, appliqué aussi aux tâches</sys:String>
+
+    <sys:String x:Key="Test_Refresh">Régénérer</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">Régénère le filigrane de test pour visualiser le nouvel effet</sys:String>
+    <sys:String x:Key="Test_Img">Choisir une image</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">Génère un filigrane de test sur une image</sys:String>
+    <sys:String x:Key="Test_Clear">Effacer</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">Efface le filigrane de test actuel</sys:String>
+    <sys:String x:Key="Test_Save_Local">Enregistrer localement</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">Enregistre l'image filigranée dans un dossier local</sys:String>
+
+    <sys:String x:Key="Test">Filigrane de test</sys:String>
+    <sys:String x:Key="Test_Blank_Background">Fond blanc</sys:String>
+    <sys:String x:Key="Test_Img_Background">Fond image</sys:String>
+    <!--#endregion-->
+
+    <!--#region Page des tâches -->
+    <sys:String x:Key="Path_Group">Dossiers</sys:String>
+
+    <sys:String x:Key="OpenDic">Ouvrir le dossier</sys:String>
+
+    <sys:String x:Key="Text">Filigrane</sys:String>
+    <sys:String x:Key="Path">Dossier</sys:String>
+    <sys:String x:Key="IsChild">Sous-dossiers</sys:String>
+    <sys:String x:Key="IncludeExt">Extensions incluses</sys:String>
+    <sys:String x:Key="ExcludeExt">Extensions exclues</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Sous-dossiers exclus</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">Le dossier principal lui-même ne peut pas être exclu</sys:String>
+
+    <sys:String x:Key="IncludeChild">Inclure</sys:String>
+    <sys:String x:Key="ExcludeChild">Exclure</sys:String>
+
+    <sys:String x:Key="Add">Ajouter</sys:String>
+    <sys:String x:Key="Update">Modifier</sys:String>
+    <sys:String x:Key="Delete">Supprimer</sys:String>
+    <sys:String x:Key="Clear">Vider</sys:String>
+    <sys:String x:Key="Save">Enregistrer</sys:String>
+    <sys:String x:Key="Cancel">Annuler</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">Supprime les fichiers filigranés et restaure les noms d'origine</sys:String>
+    <sys:String x:Key="HandExecute">Exécution manuelle</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">Exécute une fois la tâche de filigrane</sys:String>
+    <sys:String x:Key="Task_Start">Démarrer</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">Démarre la tâche : scanne les images sans filigrane et les filigrane automatiquement</sys:String>
+    <sys:String x:Key="Task_Stop">Arrêter</sys:String>
+    <sys:String x:Key="Task_Interval">Fréquence (min)</sys:String>
+
+    <sys:String x:Key="Log_Group">Journal</sys:String>
+    <sys:String x:Key="Log_Scroll_End">Défilement auto</sys:String>
+
+    <sys:String x:Key="Log_Clear">Vider le journal</sys:String>
+    <!--#endregion-->
+
+    <!--#region Page d'aide -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Mode d'emploi</sys:String>
+    <sys:String x:Key="Help_Function">1. Fonctions :</sys:String>
+    <sys:String x:Key="Function_1">Tester l'effet du filigrane et enregistrer localement le traitement d'un fichier unique</sys:String>
+    <sys:String x:Key="Function_2">Tâche de filigrane sur les images (PDF inclus) des dossiers configurés.</sys:String>
+    <sys:String x:Key="Function_2_Important">Remarque : le PDF ne prend pas en charge le dégradé</sys:String>
+    <sys:String x:Key="Help_Manuals">2. Utilisation :</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). Définir les paramètres du filigrane dans le panneau de configuration</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Opacité : 100 = totalement opaque,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">Remarque : 0 = totalement transparent, le filigrane est invisible</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Angle de rotation : -180 à 180 degrés, rotation autour du centre du panneau</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">Police : toutes les polices du système sont disponibles,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">Remarque : les filigranes chinois s'affichent mal avec la plupart des polices occidentales</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Taille de police : taille du texte du filigrane (pixels), voir</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">le lien de correspondance</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Couleur du texte : couleur unie ou dégradé</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Style : gras, italique, souligné, barré</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Espacement horizontal : distance horizontale entre filigranes</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Espacement vertical : distance verticale entre filigranes</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(espacement faible = filigranes superposés)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). Configurer les dossiers dans le panneau des tâches</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. Configurer le dossier d'images à filigraner</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. Manuellement ou par tâche, filigrer les images non traitées des dossiers configurés. Une image est considérée traitée si un fichier &quot;_pri.jpg&quot; existe dans le même dossier</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. Le journal affiche l'état d'exécution des tâches</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. Code source</sys:String>
+    <sys:String x:Key="Resources_Language">Langage : C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Outil : VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub :</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Code source</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. Signaler un bug</sys:String>
+    <sys:String x:Key="Bug_Email">Envoyer un courriel à 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region Messages -->
+    <sys:String x:Key="Msgbox_Info">Information</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Avertissement</sys:String>
+    <sys:String x:Key="Msgbox_Error">Erreur</sys:String>
+    <sys:String x:Key="Exit_Confirm">Voulez-vous vraiment quitter ?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Des modifications existent, les enregistrer ?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">Remarque : dégradé non pris en charge pour le PDF !</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Fréquence modifiée :</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">Restaurer les valeurs initiales ?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">Configuration par défaut restaurée !</sys:String>
+    <sys:String x:Key="LogClearSuccess">Journal vidé !</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">Modifications annulées</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">Configuration enregistrée</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">Filigrane généré</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">Filigrane régénéré</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">Filigrane de test effacé</sys:String>
+    <sys:String x:Key="ImageFileFilter">Images|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">FiligraneTest.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">Image filigranée enregistrée</sys:String>
+    <sys:String x:Key="SaveWatemarkError">Aucune image filigranée !</sys:String>
+    <sys:String x:Key="AddPathSuccess">Dossier ajouté</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">Dossier modifié</sys:String>
+    <sys:String x:Key="DeletePathConfirm">Supprimer ce dossier ?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">Supprimé</sys:String>
+    <sys:String x:Key="DeletePathError">Sélectionnez d'abord un élément !</sys:String>
+    <sys:String x:Key="ClearPathConfirm">Supprimer tous les dossiers ?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">Vidé</sys:String>
+    <sys:String x:Key="ClearPathError">Aucun dossier configuré, rien à vider !</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">Le dossier n'existe pas !</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">Sélectionnez d'abord un élément !</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">Aucun dossier configuré, ajoutez un dossier d'images !</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Tâche de filigrane démarrée...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Tâche en cours</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Minuterie du filigrane démarrée</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Tâche de filigrane arrêtée...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Tâche à l'arrêt</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Minuterie du filigrane arrêtée</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Tous les fichiers filigranés seront supprimés et les fichiers d'origine restaurés. Action irréversible, confirmer ?</sys:String>
+    <sys:String x:Key="StartResume">Début de la restauration !</sys:String>
+    <sys:String x:Key="OverResume">Restauration terminée !</sys:String>
+    <sys:String x:Key="TaskingNextTry">Tâche en cours, réessayez plus tard !</sys:String>
+    <sys:String x:Key="LogWatermark">Fichier filigrané : “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” supprimé</sys:String>
+    <sys:String x:Key="PriFile">Fichier d'origine : “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” nom restauré</sys:String>
+    <sys:String x:Key="StartAddWatermark">Début du filigranage...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Filigranage terminé...</sys:String>
+    <sys:String x:Key="UnselectedPath">Liste de dossiers vide ou aucun dossier sélectionné...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime"> : terminé, durée :</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Ajouter un dégradé</sys:String>
+    <sys:String x:Key="GradientPointLimit">Saisissez une valeur entre 0 et 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">Au moins 2 couleurs de dégradé !</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Minimum 2 couleurs</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Supprimer cette couleur</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">10 couleurs maximum</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Ajouter une couleur</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Dégradé vide</sys:String>
+
+    <sys:String x:Key="PathEmpty">Le dossier d'images est obligatoire !</sys:String>
+    <sys:String x:Key="TextEmpty">Le texte du filigrane est obligatoire !</sys:String>
+    <sys:String x:Key="PathNotExist">Ce dossier n'existe pas, continuer ?</sys:String>
+    <sys:String x:Key="SamePathExist">Ce dossier a déjà été ajouté :</sys:String>
+    <sys:String x:Key="ChildPath">Relation d'inclusion avec un dossier déjà ajouté :</sys:String>
+    <sys:String x:Key="ChildPathTip">« {0} » contient « {1} » : les deux traiteraient les mêmes fichiers. Supprimez l'une des configurations ou ajoutez « {1} » aux sous-dossiers exclus de « {0} ».</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">Fichier de langue introuvable :</sys:String>
+</ResourceDictionary>

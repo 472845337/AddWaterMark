@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">창 표시</sys:String>
+    <sys:String x:Key="ExitApp">종료</sys:String>
+
+    <sys:String x:Key="MainTitle">워터마크 추가</sys:String>
+    <sys:String x:Key="GradientTitle">그라데이션</sys:String>
+    <sys:String x:Key="ImageTitle">워터마크 이미지</sys:String>
+    <sys:String x:Key="ImagePathTitle">이미지 폴더</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">설정</sys:String>
+    <sys:String x:Key="TabHeaderTask">작업</sys:String>
+    <sys:String x:Key="TabHeaderHelp">도움말</sys:String>
+    <!--#region 설정 항목 -->
+    <sys:String x:Key="Set_Text">워터마크 텍스트</sys:String>
+    <sys:String x:Key="Set_Opacity">불투명도</sys:String>
+    <sys:String x:Key="Set_Rotate">회전</sys:String>
+    <sys:String x:Key="Set_Font_Family">글꼴</sys:String>
+    <sys:String x:Key="Set_Font_Size">글자 크기</sys:String>
+    <sys:String x:Key="Set_Font_Color">색상</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">그라데이션</sys:String>
+    <sys:String x:Key="Set_Bold">굵게</sys:String>
+    <sys:String x:Key="Set_Italic">기울임꼴</sys:String>
+    <sys:String x:Key="Set_Underline">밑줄</sys:String>
+    <sys:String x:Key="Set_Strikeout">취소선</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">수평 간격</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">수직 간격</sys:String>
+    <sys:String x:Key="Set_Default">기본값</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">초기값으로 되돌립니다</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">현재 수정을 취소합니다</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">수정을 저장하면 워터마크 작업에도 반영됩니다</sys:String>
+
+    <sys:String x:Key="Test_Refresh">다시 생성</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">새 설정의 효과를 확인하도록 테스트 워터마크를 다시 생성합니다</sys:String>
+    <sys:String x:Key="Test_Img">이미지 선택</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">지정한 이미지로 테스트 워터마크를 생성합니다</sys:String>
+    <sys:String x:Key="Test_Clear">지우기</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">생성된 테스트 워터마크를 지웁니다</sys:String>
+    <sys:String x:Key="Test_Save_Local">로컬 저장</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">워터마크 이미지를 로컬 폴더에 저장합니다</sys:String>
+
+    <sys:String x:Key="Test">테스트 워터마크</sys:String>
+    <sys:String x:Key="Test_Blank_Background">흰 배경</sys:String>
+    <sys:String x:Key="Test_Img_Background">이미지 배경</sys:String>
+    <!--#endregion-->
+
+    <!--#region 작업 페이지 -->
+    <sys:String x:Key="Path_Group">폴더</sys:String>
+
+    <sys:String x:Key="OpenDic">폴더 열기</sys:String>
+
+    <sys:String x:Key="Text">워터마크</sys:String>
+    <sys:String x:Key="Path">폴더</sys:String>
+    <sys:String x:Key="IsChild">하위 폴더</sys:String>
+    <sys:String x:Key="IncludeExt">포함 확장자</sys:String>
+    <sys:String x:Key="ExcludeExt">제외 확장자</sys:String>
+    <sys:String x:Key="ExcludeChildDir">제외 하위 폴더</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">제외 하위 폴더에는 기본 폴더 자체를 지정할 수 없습니다</sys:String>
+
+    <sys:String x:Key="IncludeChild">포함</sys:String>
+    <sys:String x:Key="ExcludeChild">미포함</sys:String>
+
+    <sys:String x:Key="Add">추가</sys:String>
+    <sys:String x:Key="Update">수정</sys:String>
+    <sys:String x:Key="Delete">삭제</sys:String>
+    <sys:String x:Key="Clear">모두 지우기</sys:String>
+    <sys:String x:Key="Save">저장</sys:String>
+    <sys:String x:Key="Cancel">취소</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">워터마크 파일을 삭제하고 원래 파일 이름으로 되돌립니다</sys:String>
+    <sys:String x:Key="HandExecute">수동 실행</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">워터마크 작업을 한 번 수동으로 실행합니다</sys:String>
+    <sys:String x:Key="Task_Start">시작</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">워터마크 작업을 시작하고, 미처리 이미지를 자동으로 스캔하여 워터마크를 추가합니다</sys:String>
+    <sys:String x:Key="Task_Stop">중지</sys:String>
+    <sys:String x:Key="Task_Interval">주기(분)</sys:String>
+
+    <sys:String x:Key="Log_Group">로그</sys:String>
+    <sys:String x:Key="Log_Scroll_End">자동 스크롤</sys:String>
+
+    <sys:String x:Key="Log_Clear">로그 지우기</sys:String>
+    <!--#endregion-->
+
+    <!--#region 도움말 페이지 -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">사용 설명</sys:String>
+    <sys:String x:Key="Help_Function">1. 기능:</sys:String>
+    <sys:String x:Key="Function_1">워터마크 효과를 테스트하고, 단일 파일의 처리 결과를 로컬에 저장할 수 있습니다</sys:String>
+    <sys:String x:Key="Function_2">설정한 폴더의 이미지 파일(PDF 포함)에 워터마크를 추가하는 작업입니다.</sys:String>
+    <sys:String x:Key="Function_2_Important">주의: PDF는 그라데이션을 지원하지 않습니다</sys:String>
+    <sys:String x:Key="Help_Manuals">2. 사용 방법:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). 설정 패널에서 워터마크 매개변수를 설정합니다</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">불투명도: 100이 완전 불투명,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">주의: 0이면 완전 투명하여 워터마크가 보이지 않습니다</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">회전 각도: -180~180도, 패널 중심점을 기준으로 회전합니다</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">글꼴: 시스템의 모든 글꼴에서 선택할 수 있습니다,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">주의: 중국어 워터마크는 대부분 영문 글꼴에서 깨집니다</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">글자 크기: 워터마크 글자의 크기(픽셀), 대응 관계는</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">링크 참조</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">글자 색상: 단색 또는 그라데이션으로 지정합니다</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">글자 스타일: 굵게, 기울임꼴, 밑줄, 취소선</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">수평 간격: 워터마크 사이의 수평 거리입니다</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">수직 간격: 워터마크 사이의 수직 거리입니다</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(간격이 작으면 워터마크가 겹칩니다)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). 작업 패널에서 폴더를 설정합니다</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. 워터마크를 추가할 이미지 폴더를 설정합니다</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. 수동 또는 작업 실행 시, 설정한 폴더의 미처리 이미지에 워터마크를 추가합니다. 처리 여부는 같은 폴더에 &quot;_pri.jpg&quot; 파일이 있는지로 판단합니다</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. 로그 패널에 작업 실행 상황이 표시됩니다</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. 소스 코드</sys:String>
+    <sys:String x:Key="Resources_Language">개발 언어: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">개발 도구: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub 주소:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">소스 코드</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. 버그 신고</sys:String>
+    <sys:String x:Key="Bug_Email">1320311706@qq.com으로 메일을 보내 주세요</sys:String>
+    <!--#endregion-->
+
+    <!--#region 메시지 -->
+    <sys:String x:Key="Msgbox_Info">알림</sys:String>
+    <sys:String x:Key="Msgbox_Warn">경고</sys:String>
+    <sys:String x:Key="Msgbox_Error">오류</sys:String>
+    <sys:String x:Key="Exit_Confirm">프로그램을 종료하시겠습니까?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">저장하지 않은 수정이 있습니다. 저장하시겠습니까?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">주의: PDF는 그라데이션을 지원하지 않습니다!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">실행 주기가 변경되었습니다:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">기본값으로 되돌리시겠습니까?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">기본 설정으로 되돌렸습니다!</sys:String>
+    <sys:String x:Key="LogClearSuccess">로그를 지웠습니다!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">수정을 취소했습니다</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">설정을 저장했습니다</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">워터마크를 생성했습니다</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">워터마크를 다시 생성했습니다</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">테스트 워터마크를 지웠습니다</sys:String>
+    <sys:String x:Key="ImageFileFilter">이미지 파일|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">테스트 워터마크.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">워터마크 이미지를 저장했습니다</sys:String>
+    <sys:String x:Key="SaveWatemarkError">워터마크 이미지가 없습니다!</sys:String>
+    <sys:String x:Key="AddPathSuccess">폴더를 추가했습니다</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">폴더 설정을 수정했습니다</sys:String>
+    <sys:String x:Key="DeletePathConfirm">이 폴더 설정을 삭제하시겠습니까?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">삭제했습니다</sys:String>
+    <sys:String x:Key="DeletePathError">삭제할 항목을 먼저 선택하세요!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">모든 폴더 설정을 삭제하시겠습니까?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">모두 지웠습니다</sys:String>
+    <sys:String x:Key="ClearPathError">폴더 설정이 비어 있어 지울 내용이 없습니다!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">폴더가 존재하지 않습니다!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">항목을 먼저 선택하세요!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">폴더 설정이 비어 있습니다. 이미지 폴더를 추가하세요!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">워터마크 작업 타이머를 시작했습니다...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">작업 실행 중</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">워터마크 타이머를 시작했습니다</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">워터마크 작업 타이머를 중지했습니다...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">작업 중지됨</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">워터마크 타이머를 중지했습니다</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">모든 워터마크 파일을 삭제하고 원본 파일 이름을 되돌립니다. 이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?</sys:String>
+    <sys:String x:Key="StartResume">워터마크 파일 복원을 시작합니다!</sys:String>
+    <sys:String x:Key="OverResume">워터마크 파일 복원이 완료되었습니다!</sys:String>
+    <sys:String x:Key="TaskingNextTry">작업 처리 중입니다. 잠시 후 다시 시도하세요!</sys:String>
+    <sys:String x:Key="LogWatermark">워터마크 파일: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” 삭제 완료</sys:String>
+    <sys:String x:Key="PriFile">원본 파일: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” 파일 이름 복원 완료</sys:String>
+    <sys:String x:Key="StartAddWatermark">워터마크 추가를 시작합니다...</sys:String>
+    <sys:String x:Key="OverAddWatermark">워터마크 추가가 완료되었습니다...</sys:String>
+    <sys:String x:Key="UnselectedPath">폴더 목록이 비어 있거나 선택된 폴더가 없습니다...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: 처리 완료, 소요 시간:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">그라데이션 추가</sys:String>
+    <sys:String x:Key="GradientPointLimit">0~1 사이의 값을 입력하세요</sys:String>
+    <sys:String x:Key="GradientCountLimit">그라데이션은 2색 이상이어야 합니다!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">그라데이션은 최소 2색입니다</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">이 그라데이션 색을 삭제합니다</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">그라데이션은 최대 10색입니다</sys:String>
+    <sys:String x:Key="GradientAddTooltip">그라데이션 색을 추가합니다</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">그라데이션 색이 없습니다</sys:String>
+
+    <sys:String x:Key="PathEmpty">이미지 폴더를 입력하세요!</sys:String>
+    <sys:String x:Key="TextEmpty">워터마크 텍스트를 입력하세요!</sys:String>
+    <sys:String x:Key="PathNotExist">설정한 폴더가 존재하지 않습니다. 계속 추가하시겠습니까?</sys:String>
+    <sys:String x:Key="SamePathExist">동일한 폴더가 이미 추가되어 있습니다:</sys:String>
+    <sys:String x:Key="ChildPath">이미 추가된 폴더와 포함 관계가 있습니다:</sys:String>
+    <sys:String x:Key="ChildPathTip">'{0}'은(는) '{1}'을(를) 포함하며 두 설정은 같은 파일을 처리하게 됩니다. 둘 중 하나의 설정을 삭제하거나 '{0}'의 제외 하위 폴더에 '{1}'을(를) 추가하세요.</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">언어 파일을 찾을 수 없습니다:</sys:String>
+</ResourceDictionary>

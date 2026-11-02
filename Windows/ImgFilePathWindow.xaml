@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddWaterMark.Windows"
         mc:Ignorable="d"
-        Title="{DynamicResource ImagePathTitle}" Height="280" MinHeight="280" MaxHeight="280" Width="380" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/logo/img_file_path.ico">
+        Title="{DynamicResource ImagePathTitle}" Height="Auto" Width="380" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/logo/img_file_path.ico">
     <Grid Margin="2">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -20,17 +22,17 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+        <TextBlock Style="{StaticResource Key_Style}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
             <Run Text="{DynamicResource Path}"/>
             <Run Text="*" Foreground="Red"/>
         </TextBlock>
-        <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}"/>
+        <TextBox Style="{StaticResource Value_Style}" Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}"/>
         <Button Style="{StaticResource ButtonPrimary_Style}" Content="..." Grid.Row="0" Grid.Column="2" Click="SelectImgFilePath_Click"/>
-        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+        <TextBlock Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
             <Run Text="{DynamicResource Text}"/>
             <Run Text="*" Foreground="Red"/>
         </TextBlock>
-        <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WaterMark}"/>
+        <TextBox Style="{StaticResource Value_Style}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WaterMark}"/>
         <TextBlock Style="{StaticResource Form_Style}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
             <Run Text="{DynamicResource IsChild}"/>
             <Run Text="*" Foreground="Red"/>
@@ -39,11 +41,33 @@
             <RadioButton Style="{StaticResource Value_Style}" Content="{DynamicResource IncludeChild}" IsChecked="{Binding IsChild, Converter={StaticResource IsChildIncludeConverter}}"/>
             <RadioButton Style="{StaticResource Value_Style}" Content="{DynamicResource ExcludeChild}" IsChecked="{Binding IsChild, Converter={StaticResource IsChildExcludeConverter}}"/>
         </StackPanel>
-        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource IncludeExt}"/>
-        <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding IncludeExt}"/>
-        <TextBlock Style="{StaticResource Form_Style}" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource ExcludeExt}"/>
-        <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ExcludeExt}"/>
-        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="False" Margin="0 0 0 5">
+        <TextBlock Style="{StaticResource Key_Style}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource IncludeExt}"/>
+        <TextBox Style="{StaticResource Value_Style}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding IncludeExt}"/>
+        <TextBlock Style="{StaticResource Key_Style}" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{DynamicResource ExcludeExt}"/>
+        <TextBox Style="{StaticResource Value_Style}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ExcludeExt}"/>
+        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="False">
+            <TextBlock Style="{StaticResource Key_Style}" DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource ExcludeChildDir}"/>
+            <Button Style="{StaticResource ButtonPrimary_Style}" DockPanel.Dock="Right" Content="+" Width="24" Padding="0" Click="AddExcludeChild_Click" IsEnabled="{Binding IsChild, Converter={StaticResource IsChildIncludeConverter}}"/>
+        </DockPanel>
+        <ScrollViewer Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto" IsEnabled="{Binding IsChild, Converter={StaticResource IsChildIncludeConverter}}">
+            <ItemsControl ItemsSource="{Binding ExcludeChildList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 1" Height="36">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource Value_Style}" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Style="{StaticResource ButtonPrimary_Style}" Grid.Column="1" Content="..." Margin="2 0 0 0" Click="SelectExcludeChild_Click"/>
+                            <Button Style="{StaticResource ButtonWarning_Style}" Grid.Column="2" Content="×" Width="24" Padding="0" Margin="2 0 0 0" Click="DeleteExcludeChild_Click"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <DockPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" LastChildFill="False" Margin="0 0 0 5">
             <Button Style="{StaticResource ButtonWarning_Style}" DockPanel.Dock="Right" Content="{DynamicResource Cancel}" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"/>
             <Button Style="{StaticResource ButtonInfo_Style}" DockPanel.Dock="Right" Content="{DynamicResource Save}" Click="SaveImgFilePath_Click"/>
         </DockPanel>

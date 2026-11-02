@@ -32,6 +32,7 @@ namespace AddWaterMark.Config {
         public static double pathsViewColumn3;
         public static double pathsViewColumn4;
         public static double pathsViewColumn5;
+        public static double pathsViewColumn6;
         public static double tab2SplitDistance;
 
         public static bool scrollEnd;

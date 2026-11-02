@@ -55,6 +55,8 @@
     <sys:String x:Key="IsChild">Child Path</sys:String>
     <sys:String x:Key="IncludeExt">Include Ext</sys:String>
     <sys:String x:Key="ExcludeExt">Exclude Ext</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Exclude Child Dir</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">The excluded child directory cannot be the main path itself</sys:String>
 
     <sys:String x:Key="IncludeChild">Include</sys:String>
     <sys:String x:Key="ExcludeChild">Exclude</sys:String>
@@ -184,6 +186,7 @@
     <sys:String x:Key="PathNotExist">Path is not exist at disk, continue add?</sys:String>
     <sys:String x:Key="SamePathExist">Already add a same path:</sys:String>
     <sys:String x:Key="ChildPath">The path is child or parent:</sys:String>
+    <sys:String x:Key="ChildPathTip">"{0}" contains "{1}", and both would process the same files. Delete one of them, or add "{1}" to the exclude-child list of "{0}".</sys:String>
 
     <sys:String x:Key="LangFileUnfind">Unfind Language File:</sys:String>
 </ResourceDictionary>

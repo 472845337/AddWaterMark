@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">ウィンドウを表示</sys:String>
+    <sys:String x:Key="ExitApp">終了</sys:String>
+
+    <sys:String x:Key="MainTitle">ウォーターマーク追加</sys:String>
+    <sys:String x:Key="GradientTitle">グラデーション</sys:String>
+    <sys:String x:Key="ImageTitle">ウォーターマーク画像</sys:String>
+    <sys:String x:Key="ImagePathTitle">画像フォルダー</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">設定</sys:String>
+    <sys:String x:Key="TabHeaderTask">タスク</sys:String>
+    <sys:String x:Key="TabHeaderHelp">ヘルプ</sys:String>
+    <!--#region 設定項目 -->
+    <sys:String x:Key="Set_Text">ウォーターマークテキスト</sys:String>
+    <sys:String x:Key="Set_Opacity">不透明度</sys:String>
+    <sys:String x:Key="Set_Rotate">回転</sys:String>
+    <sys:String x:Key="Set_Font_Family">フォント</sys:String>
+    <sys:String x:Key="Set_Font_Size">フォントサイズ</sys:String>
+    <sys:String x:Key="Set_Font_Color">色</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">グラデーション</sys:String>
+    <sys:String x:Key="Set_Bold">太字</sys:String>
+    <sys:String x:Key="Set_Italic">斜体</sys:String>
+    <sys:String x:Key="Set_Underline">下線</sys:String>
+    <sys:String x:Key="Set_Strikeout">取り消し線</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">水平間隔</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">垂直間隔</sys:String>
+    <sys:String x:Key="Set_Default">デフォルト</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">初期値に戻す</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">現在の変更をキャンセル</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">変更を保存すると、ウォーターマークタスクにも反映されます</sys:String>
+
+    <sys:String x:Key="Test_Refresh">再生成</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">新しい設定の効果を確認するため、テストウォーターマークを再生成します</sys:String>
+    <sys:String x:Key="Test_Img">画像を選択</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">指定した画像でテストウォーターマークを生成します</sys:String>
+    <sys:String x:Key="Test_Clear">クリア</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">生成済みのテストウォーターマークをクリアします</sys:String>
+    <sys:String x:Key="Test_Save_Local">ローカルに保存</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">ウォーターマーク画像をローカルに保存します</sys:String>
+
+    <sys:String x:Key="Test">テストウォーターマーク</sys:String>
+    <sys:String x:Key="Test_Blank_Background">白背景</sys:String>
+    <sys:String x:Key="Test_Img_Background">画像背景</sys:String>
+    <!--#endregion-->
+
+    <!--#region タスクページ -->
+    <sys:String x:Key="Path_Group">フォルダー</sys:String>
+
+    <sys:String x:Key="OpenDic">フォルダーを開く</sys:String>
+
+    <sys:String x:Key="Text">ウォーターマーク</sys:String>
+    <sys:String x:Key="Path">フォルダー</sys:String>
+    <sys:String x:Key="IsChild">サブフォルダー</sys:String>
+    <sys:String x:Key="IncludeExt">含める拡張子</sys:String>
+    <sys:String x:Key="ExcludeExt">除外する拡張子</sys:String>
+    <sys:String x:Key="ExcludeChildDir">除外サブフォルダー</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">除外サブフォルダーにメインフォルダー自体は指定できません</sys:String>
+
+    <sys:String x:Key="IncludeChild">含む</sys:String>
+    <sys:String x:Key="ExcludeChild">含まない</sys:String>
+
+    <sys:String x:Key="Add">追加</sys:String>
+    <sys:String x:Key="Update">編集</sys:String>
+    <sys:String x:Key="Delete">削除</sys:String>
+    <sys:String x:Key="Clear">クリア</sys:String>
+    <sys:String x:Key="Save">保存</sys:String>
+    <sys:String x:Key="Cancel">キャンセル</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">ウォーターマークファイルを削除し、元のファイル名に戻します</sys:String>
+    <sys:String x:Key="HandExecute">手動実行</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">ウォーターマークタスクを一度だけ手動実行します</sys:String>
+    <sys:String x:Key="Task_Start">開始</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">ウォーターマークタスクを開始し、未処理の画像を自動スキャンしてウォーターマークを追加します</sys:String>
+    <sys:String x:Key="Task_Stop">停止</sys:String>
+    <sys:String x:Key="Task_Interval">頻度(分)</sys:String>
+
+    <sys:String x:Key="Log_Group">ログ</sys:String>
+    <sys:String x:Key="Log_Scroll_End">自動スクロール</sys:String>
+
+    <sys:String x:Key="Log_Clear">ログをクリア</sys:String>
+    <!--#endregion-->
+
+    <!--#region ヘルプページ -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">使い方</sys:String>
+    <sys:String x:Key="Help_Function">1.機能：</sys:String>
+    <sys:String x:Key="Function_1">ウォーターマークの表示効果をテストし、単一ファイルの処理結果をローカルに保存できます</sys:String>
+    <sys:String x:Key="Function_2">設定したフォルダー内の画像ファイル（PDFを含む）にウォーターマークを付与するタスクです。</sys:String>
+    <sys:String x:Key="Function_2_Important">注意：PDFはグラデーション非対応です</sys:String>
+    <sys:String x:Key="Help_Manuals">2.使い方：</sys:String>
+    <sys:String x:Key="Manuals_Config">(1).設定パネルでウォーターマークのパラメータを設定します</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">不透明度：100で完全不透明、</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">注意：0で完全透明になり、ウォーターマークが見えません</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">回転角度：-180～180度、パネルの中心を基準に回転します</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">フォント：システム内の全フォントから選択できます、</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">注意：中国語のウォーターマークは英字フォントでは文字化けします</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">フォントサイズ：ウォーターマーク文字のサイズ(ピクセル)、対応関係は</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">リンクを参照</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">文字色：単色またはグラデーションで指定します</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">フォントスタイル：太字・斜体・下線・取り消し線</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">水平間隔：ウォーターマーク間の水平方向の距離です</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">垂直間隔：ウォーターマーク間の垂直方向の距離です</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">（間隔が小さいとウォーターマークが重なります）</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2).タスクパネルでフォルダーを設定します</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a.ウォーターマークを付与する画像フォルダーを設定します</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b.手動またはタスクで、設定フォルダー内の未処理画像にウォーターマークを付与します。付与済みかどうかは、同一フォルダー内に&quot;_pri.jpg&quot;が存在するかで判断します</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c.ログパネルにタスクの実行状況が表示されます</sys:String>
+
+    <sys:String x:Key="Help_Resources">3.ソースコード</sys:String>
+    <sys:String x:Key="Resources_Language">開発言語：C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">開発環境：VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub：</sys:String>
+    <sys:String x:Key="Resources_Git_Link">ソースコード</sys:String>
+
+    <sys:String x:Key="Help_Bug">4.バグ報告</sys:String>
+    <sys:String x:Key="Bug_Email">1320311706@qq.comへメールをお送りください</sys:String>
+    <!--#endregion-->
+
+    <!--#region メッセージ -->
+    <sys:String x:Key="Msgbox_Info">情報</sys:String>
+    <sys:String x:Key="Msgbox_Warn">警告</sys:String>
+    <sys:String x:Key="Msgbox_Error">エラー</sys:String>
+    <sys:String x:Key="Exit_Confirm">プログラムを終了しますか？</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">未保存の変更があります。保存しますか？</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">注意：PDFはグラデーション非対応です！</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">実行頻度を変更：</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">初期値に戻しますか？</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">デフォルト設定に戻しました！</sys:String>
+    <sys:String x:Key="LogClearSuccess">ログをクリアしました！</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">変更をキャンセルしました</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">設定を保存しました</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">ウォーターマークを生成しました</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">ウォーターマークを再生成しました</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">テストウォーターマークをクリアしました</sys:String>
+    <sys:String x:Key="ImageFileFilter">画像ファイル|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">テストウォーターマーク.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">ウォーターマーク画像を保存しました</sys:String>
+    <sys:String x:Key="SaveWatemarkError">ウォーターマーク画像が存在しません！</sys:String>
+    <sys:String x:Key="AddPathSuccess">フォルダーを追加しました</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">フォルダー設定を更新しました</sys:String>
+    <sys:String x:Key="DeletePathConfirm">このフォルダー設定を削除しますか？</sys:String>
+    <sys:String x:Key="DeletePathSuccess">削除しました</sys:String>
+    <sys:String x:Key="DeletePathError">削除する項目を選択してください！</sys:String>
+    <sys:String x:Key="ClearPathConfirm">すべてのフォルダー設定を削除しますか？</sys:String>
+    <sys:String x:Key="ClearPathSuccess">クリアしました</sys:String>
+    <sys:String x:Key="ClearPathError">フォルダー設定が空のため、クリア不要です！</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">フォルダーが存在しません！</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">項目を選択してください！</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">フォルダー設定が空です。画像フォルダーを追加してください！</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">ウォーターマークタスクを開始しました...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">タスク実行中</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">ウォーターマークタイマーを開始しました</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">ウォーターマークタスクを停止しました...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">タスク停止中</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">ウォーターマークタイマーを停止しました</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">すべてのウォーターマークファイルを削除し、元のファイル名に戻します。この操作は取り消せません。実行しますか？</sys:String>
+    <sys:String x:Key="StartResume">ウォーターマークファイルの復元を開始します！</sys:String>
+    <sys:String x:Key="OverResume">ウォーターマークファイルの復元が完了しました！</sys:String>
+    <sys:String x:Key="TaskingNextTry">タスク実行中です。しばらく待ってから再試行してください！</sys:String>
+    <sys:String x:Key="LogWatermark">ウォーターマークファイル：“</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">”を削除しました</sys:String>
+    <sys:String x:Key="PriFile">元ファイル：“</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">”のファイル名を復元しました</sys:String>
+    <sys:String x:Key="StartAddWatermark">ウォーターマーク付与を開始します...</sys:String>
+    <sys:String x:Key="OverAddWatermark">ウォーターマーク付与が完了しました...</sys:String>
+    <sys:String x:Key="UnselectedPath">フォルダー設定が空か、選択されていません...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">：処理完了、所要時間：</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">グラデーション追加</sys:String>
+    <sys:String x:Key="GradientPointLimit">0～1の数値を入力してください</sys:String>
+    <sys:String x:Key="GradientCountLimit">グラデーションは2色以上必要です！</sys:String>
+    <sys:String x:Key="GradientCountTooltip">グラデーションは最小2色です</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">このグラデーションカラーを削除</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">グラデーションは最大10色です</sys:String>
+    <sys:String x:Key="GradientAddTooltip">グラデーションカラーを追加</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">グラデーション色が空です</sys:String>
+
+    <sys:String x:Key="PathEmpty">画像フォルダーを入力してください！</sys:String>
+    <sys:String x:Key="TextEmpty">ウォーターマークテキストを入力してください！</sys:String>
+    <sys:String x:Key="PathNotExist">このフォルダーは存在しません。追加しますか？</sys:String>
+    <sys:String x:Key="SamePathExist">同じフォルダーが既に追加されています：</sys:String>
+    <sys:String x:Key="ChildPath">既に追加したフォルダーと包含関係にあります：</sys:String>
+    <sys:String x:Key="ChildPathTip">「{0}」は「{1}」を含み、両方で同じファイルを処理することになります。どちらかの設定を削除するか、「{0}」の除外サブフォルダーに「{1}」を追加してください。</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">言語ファイルが見つかりません:</sys:String>
+</ResourceDictionary>

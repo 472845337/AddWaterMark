@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">Показать окно</sys:String>
+    <sys:String x:Key="ExitApp">Выход</sys:String>
+
+    <sys:String x:Key="MainTitle">Добавить водяной знак</sys:String>
+    <sys:String x:Key="GradientTitle">Градиент</sys:String>
+    <sys:String x:Key="ImageTitle">Изображение водяного знака</sys:String>
+    <sys:String x:Key="ImagePathTitle">Папка изображений</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">Настройки</sys:String>
+    <sys:String x:Key="TabHeaderTask">Задачи</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Справка</sys:String>
+    <!--#region Настройки -->
+    <sys:String x:Key="Set_Text">Текст водяного знака</sys:String>
+    <sys:String x:Key="Set_Opacity">Непрозрачность</sys:String>
+    <sys:String x:Key="Set_Rotate">Поворот</sys:String>
+    <sys:String x:Key="Set_Font_Family">Шрифт</sys:String>
+    <sys:String x:Key="Set_Font_Size">Размер шрифта</sys:String>
+    <sys:String x:Key="Set_Font_Color">Цвет</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Градиент</sys:String>
+    <sys:String x:Key="Set_Bold">Жирный</sys:String>
+    <sys:String x:Key="Set_Italic">Курсив</sys:String>
+    <sys:String x:Key="Set_Underline">Подчёркнутый</sys:String>
+    <sys:String x:Key="Set_Strikeout">Зачёркнутый</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Горизонтальный шаг</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Вертикальный шаг</sys:String>
+    <sys:String x:Key="Set_Default">По умолчанию</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">Вернуть исходные значения</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">Отменить изменения</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">Сохранить изменения, применяется и к задачам</sys:String>
+
+    <sys:String x:Key="Test_Refresh">Перегенерировать</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">Перегенерировать тестовый знак, чтобы увидеть новый эффект</sys:String>
+    <sys:String x:Key="Test_Img">Выбрать изображение</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">Создать тестовый знак на выбранном изображении</sys:String>
+    <sys:String x:Key="Test_Clear">Очистить</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">Удалить текущий тестовый знак</sys:String>
+    <sys:String x:Key="Test_Save_Local">Сохранить локально</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">Сохранить изображение со знаком в локальную папку</sys:String>
+
+    <sys:String x:Key="Test">Тестовый водяной знак</sys:String>
+    <sys:String x:Key="Test_Blank_Background">Белый фон</sys:String>
+    <sys:String x:Key="Test_Img_Background">Фон-изображение</sys:String>
+    <!--#endregion-->
+
+    <!--#region Страница задач -->
+    <sys:String x:Key="Path_Group">Папки</sys:String>
+
+    <sys:String x:Key="OpenDic">Открыть папку</sys:String>
+
+    <sys:String x:Key="Text">Водяной знак</sys:String>
+    <sys:String x:Key="Path">Папка</sys:String>
+    <sys:String x:Key="IsChild">Подпапки</sys:String>
+    <sys:String x:Key="IncludeExt">Включаемые расширения</sys:String>
+    <sys:String x:Key="ExcludeExt">Исключаемые расширения</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Исключаемые подпапки</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">Основную папку саму по себе исключить нельзя</sys:String>
+
+    <sys:String x:Key="IncludeChild">Включать</sys:String>
+    <sys:String x:Key="ExcludeChild">Не включать</sys:String>
+
+    <sys:String x:Key="Add">Добавить</sys:String>
+    <sys:String x:Key="Update">Изменить</sys:String>
+    <sys:String x:Key="Delete">Удалить</sys:String>
+    <sys:String x:Key="Clear">Очистить</sys:String>
+    <sys:String x:Key="Save">Сохранить</sys:String>
+    <sys:String x:Key="Cancel">Отмена</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">Удаляет файлы со знаком и восстанавливает исходные имена</sys:String>
+    <sys:String x:Key="HandExecute">Ручной запуск</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">Один раз выполнить задачу водяного знака вручную</sys:String>
+    <sys:String x:Key="Task_Start">Пуск</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">Запускает задачу: автоматически находит изображения без знака и добавляет его</sys:String>
+    <sys:String x:Key="Task_Stop">Стоп</sys:String>
+    <sys:String x:Key="Task_Interval">Интервал (мин)</sys:String>
+
+    <sys:String x:Key="Log_Group">Журнал</sys:String>
+    <sys:String x:Key="Log_Scroll_End">Автопрокрутка</sys:String>
+
+    <sys:String x:Key="Log_Clear">Очистить журнал</sys:String>
+    <!--#endregion-->
+
+    <!--#region Страница справки -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Инструкция</sys:String>
+    <sys:String x:Key="Help_Function">1. Функции:</sys:String>
+    <sys:String x:Key="Function_1">Проверить эффект водяного знака и сохранить результат обработки одного файла локально</sys:String>
+    <sys:String x:Key="Function_2">Задача наложения водяных знаков на изображения (включая PDF) в настроенных папках.</sys:String>
+    <sys:String x:Key="Function_2_Important">Примечание: PDF не поддерживает градиент</sys:String>
+    <sys:String x:Key="Help_Manuals">2. Использование:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). Задать параметры знака в панели настроек</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Непрозрачность: 100 — полная,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">Примечание: 0 — полная прозрачность, знак не виден</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Угол: от -180 до 180 градусов, поворот вокруг центра панели</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">Шрифт: доступны все шрифты системы,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">Примечание: китайский знак в большинстве западных шрифтов отображается неверно</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Размер шрифта: размер текста знака (пиксели), см.</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">ссылку соответствия</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Цвет текста: однотонный или градиент</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Стиль: жирный, курсив, подчёркнутый, зачёркнутый</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Горизонтальный шаг: смещение знаков по горизонтали</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Вертикальный шаг: смещение знаков по вертикали</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(маленький шаг — знаки перекрываются)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). Настроить папки в панели задач</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. Настроить папку изображений для знака</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. Вручную или задачей наложить знак на необработанные изображения в настроенных папках. Обработанным считается файл, если рядом есть файл &quot;_pri.jpg&quot;</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. Панель журнала показывает выполнение задач</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. Исходный код</sys:String>
+    <sys:String x:Key="Resources_Language">Язык разработки: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Инструмент: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Исходный код</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. Сообщить об ошибке</sys:String>
+    <sys:String x:Key="Bug_Email">Отправьте письмо на 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region Сообщения -->
+    <sys:String x:Key="Msgbox_Info">Информация</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Предупреждение</sys:String>
+    <sys:String x:Key="Msgbox_Error">Ошибка</sys:String>
+    <sys:String x:Key="Exit_Confirm">Выйти из программы?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Есть несохранённые изменения. Сохранить?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">Внимание: PDF не поддерживает градиент!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Интервал изменён:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">Вернуть исходные значения?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">Настройки по умолчанию восстановлены!</sys:String>
+    <sys:String x:Key="LogClearSuccess">Журнал очищен!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">Изменения отменены</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">Настройки сохранены</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">Водяной знак создан</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">Водяной знак обновлён</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">Тестовый знак удалён</sys:String>
+    <sys:String x:Key="ImageFileFilter">Изображения|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">ТестВодянойЗнак.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">Изображение со знаком сохранено</sys:String>
+    <sys:String x:Key="SaveWatemarkError">Изображение со знаком отсутствует!</sys:String>
+    <sys:String x:Key="AddPathSuccess">Папка добавлена</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">Папка изменена</sys:String>
+    <sys:String x:Key="DeletePathConfirm">Удалить эту папку?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">Удалено</sys:String>
+    <sys:String x:Key="DeletePathError">Сначала выберите элемент!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">Удалить все папки?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">Очищено</sys:String>
+    <sys:String x:Key="ClearPathError">Список папок пуст!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">Папка не существует!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">Сначала выберите элемент!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">Список папок пуст. Добавьте папку изображений!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Задача водяного знака запущена...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Задача выполняется</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Таймер знака запущен</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Задача водяного знака остановлена...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Задача остановлена</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Таймер знака остановлен</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Все файлы со знаком будут удалены, оригиналам вернутся имена. Действие необратимо. Продолжить?</sys:String>
+    <sys:String x:Key="StartResume">Восстановление запущено!</sys:String>
+    <sys:String x:Key="OverResume">Восстановление завершено!</sys:String>
+    <sys:String x:Key="TaskingNextTry">Идёт обработка, попробуйте позже!</sys:String>
+    <sys:String x:Key="LogWatermark">Файл со знаком: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” удалён</sys:String>
+    <sys:String x:Key="PriFile">Оригинальный файл: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” имя восстановлено</sys:String>
+    <sys:String x:Key="StartAddWatermark">Наложение знаков начато...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Наложение знаков завершено...</sys:String>
+    <sys:String x:Key="UnselectedPath">Список папок пуст или ничего не выбрано...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: обработан, время:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Добавить градиент</sys:String>
+    <sys:String x:Key="GradientPointLimit">Введите значение от 0 до 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">Градиент требует минимум 2 цвета!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Минимум 2 цвета</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Удалить этот цвет</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">Максимум 10 цветов</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Добавить цвет</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Цвета градиента не заданы</sys:String>
+
+    <sys:String x:Key="PathEmpty">Укажите папку изображений!</sys:String>
+    <sys:String x:Key="TextEmpty">Укажите текст знака!</sys:String>
+    <sys:String x:Key="PathNotExist">Папка не существует. Продолжить?</sys:String>
+    <sys:String x:Key="SamePathExist">Эта папка уже добавлена:</sys:String>
+    <sys:String x:Key="ChildPath">Отношение вложенности с уже добавленной папкой:</sys:String>
+    <sys:String x:Key="ChildPathTip">«{0}» содержит «{1}» — обе настройки обрабатывали бы одни и те же файлы. Удалите одну из них или добавьте «{1}» в исключаемые подпапки «{0}».</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">Файл языка не найден:</sys:String>
+</ResourceDictionary>

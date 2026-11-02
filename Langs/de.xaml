@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">Fenster anzeigen</sys:String>
+    <sys:String x:Key="ExitApp">Beenden</sys:String>
+
+    <sys:String x:Key="MainTitle">Wasserzeichen hinzufügen</sys:String>
+    <sys:String x:Key="GradientTitle">Farbverlauf</sys:String>
+    <sys:String x:Key="ImageTitle">Wasserzeichen-Bild</sys:String>
+    <sys:String x:Key="ImagePathTitle">Bildordner</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">Konfiguration</sys:String>
+    <sys:String x:Key="TabHeaderTask">Aufgaben</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Hilfe</sys:String>
+    <!--#region Konfiguration -->
+    <sys:String x:Key="Set_Text">Wasserzeichentext</sys:String>
+    <sys:String x:Key="Set_Opacity">Deckkraft</sys:String>
+    <sys:String x:Key="Set_Rotate">Drehung</sys:String>
+    <sys:String x:Key="Set_Font_Family">Schriftart</sys:String>
+    <sys:String x:Key="Set_Font_Size">Schriftgröße</sys:String>
+    <sys:String x:Key="Set_Font_Color">Farbe</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Farbverlauf</sys:String>
+    <sys:String x:Key="Set_Bold">Fett</sys:String>
+    <sys:String x:Key="Set_Italic">Kursiv</sys:String>
+    <sys:String x:Key="Set_Underline">Unterstrichen</sys:String>
+    <sys:String x:Key="Set_Strikeout">Durchgestrichen</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Horizontaler Abstand</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Vertikaler Abstand</sys:String>
+    <sys:String x:Key="Set_Default">Standard</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">Auf Anfangswerte zurücksetzen</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">Änderungen verwerfen</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">Änderungen speichern, gilt auch für Aufgaben</sys:String>
+
+    <sys:String x:Key="Test_Refresh">Neu erzeugen</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">Erzeugt das Test-Wasserzeichen neu, um den neuen Effekt zu sehen</sys:String>
+    <sys:String x:Key="Test_Img">Bild auswählen</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">Erzeugt ein Test-Wasserzeichen auf einem Bild</sys:String>
+    <sys:String x:Key="Test_Clear">Leeren</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">Entfernt das aktuelle Test-Wasserzeichen</sys:String>
+    <sys:String x:Key="Test_Save_Local">Lokal speichern</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">Speichert das Wasserzeichen-Bild in einem lokalen Ordner</sys:String>
+
+    <sys:String x:Key="Test">Test-Wasserzeichen</sys:String>
+    <sys:String x:Key="Test_Blank_Background">Weißer Hintergrund</sys:String>
+    <sys:String x:Key="Test_Img_Background">Bildhintergrund</sys:String>
+    <!--#endregion-->
+
+    <!--#region Aufgabenseite -->
+    <sys:String x:Key="Path_Group">Ordner</sys:String>
+
+    <sys:String x:Key="OpenDic">Ordner öffnen</sys:String>
+
+    <sys:String x:Key="Text">Wasserzeichen</sys:String>
+    <sys:String x:Key="Path">Ordner</sys:String>
+    <sys:String x:Key="IsChild">Unterordner</sys:String>
+    <sys:String x:Key="IncludeExt">Einbezogene Erweiterungen</sys:String>
+    <sys:String x:Key="ExcludeExt">Ausgeschlossene Erweiterungen</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Ausgeschlossene Unterordner</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">Der Hauptordner selbst kann nicht ausgeschlossen werden</sys:String>
+
+    <sys:String x:Key="IncludeChild">Einbeziehen</sys:String>
+    <sys:String x:Key="ExcludeChild">Nicht einbeziehen</sys:String>
+
+    <sys:String x:Key="Add">Hinzufügen</sys:String>
+    <sys:String x:Key="Update">Bearbeiten</sys:String>
+    <sys:String x:Key="Delete">Löschen</sys:String>
+    <sys:String x:Key="Clear">Leeren</sys:String>
+    <sys:String x:Key="Save">Speichern</sys:String>
+    <sys:String x:Key="Cancel">Abbrechen</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">Löscht Wasserzeichen-Dateien und stellt die Originalnamen wieder her</sys:String>
+    <sys:String x:Key="HandExecute">Manuell ausführen</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">Führt die Wasserzeichen-Aufgabe einmal manuell aus</sys:String>
+    <sys:String x:Key="Task_Start">Starten</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">Startet die Aufgabe: scannt Bilder ohne Wasserzeichen und versieht sie automatisch</sys:String>
+    <sys:String x:Key="Task_Stop">Stoppen</sys:String>
+    <sys:String x:Key="Task_Interval">Intervall (Min)</sys:String>
+
+    <sys:String x:Key="Log_Group">Protokoll</sys:String>
+    <sys:String x:Key="Log_Scroll_End">Auto-Scroll</sys:String>
+
+    <sys:String x:Key="Log_Clear">Protokoll löschen</sys:String>
+    <!--#endregion-->
+
+    <!--#region Hilfeseite -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Anleitung</sys:String>
+    <sys:String x:Key="Help_Function">1. Funktionen:</sys:String>
+    <sys:String x:Key="Function_1">Wasserzeichen-Effekt testen und Einzelverarbeitung lokal speichern</sys:String>
+    <sys:String x:Key="Function_2">Wasserzeichen-Aufgabe für Bilddateien (inkl. PDF) in konfigurierten Ordnern.</sys:String>
+    <sys:String x:Key="Function_2_Important">Hinweis: PDF unterstützt keinen Farbverlauf</sys:String>
+    <sys:String x:Key="Help_Manuals">2. Verwendung:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). Wasserzeichen-Parameter im Konfigurationspanel festlegen</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Deckkraft: 100 = voll deckend,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">Hinweis: 0 = voll transparent, Wasserzeichen unsichtbar</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Drehwinkel: -180 bis 180 Grad, Drehung um die Panelmitte</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">Schriftart: alle im System verfügbaren Schriftarten,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">Hinweis: chinesische Wasserzeichen werden mit den meisten westlichen Schriftarten falsch angezeigt</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Schriftgröße: Größe des Wasserzeichentextes (Pixel), siehe</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">Vergleichslink</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Textfarbe: Vollton oder Farbverlauf</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Schriftstil: Fett, Kursiv, Unterstrichen, Durchgestrichen</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Horizontaler Abstand: horizontale Verschiebung zwischen Wasserzeichen</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Vertikaler Abstand: vertikale Verschiebung zwischen Wasserzeichen</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(kleiner Abstand = überlappende Wasserzeichen)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). Ordner im Aufgabenpanel konfigurieren</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. Bildordner für Wasserzeichen festlegen</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. Manuell oder per Aufgabe: unbehandelte Bilder in konfigurierten Ordnern mit Wasserzeichen versehen. Kriterium: eine Datei &quot;_pri.jpg&quot; im selben Ordner</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. Das Protokollpanel zeigt den Aufgabenstatus</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. Quellcode</sys:String>
+    <sys:String x:Key="Resources_Language">Sprache: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Werkzeug: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Quellcode</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. Fehler melden</sys:String>
+    <sys:String x:Key="Bug_Email">E-Mail an 1320311706@qq.com senden</sys:String>
+    <!--#endregion-->
+
+    <!--#region Meldungen -->
+    <sys:String x:Key="Msgbox_Info">Hinweis</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Warnung</sys:String>
+    <sys:String x:Key="Msgbox_Error">Fehler</sys:String>
+    <sys:String x:Key="Exit_Confirm">Programm wirklich beenden?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Es gibt Änderungen. Konfiguration speichern?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">Achtung: PDF unterstützt keinen Farbverlauf!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Intervall geändert:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">Auf Anfangswerte zurücksetzen?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">Standardkonfiguration wiederhergestellt!</sys:String>
+    <sys:String x:Key="LogClearSuccess">Protokoll gelöscht!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">Änderungen verworfen</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">Konfiguration gespeichert</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">Wasserzeichen erzeugt</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">Wasserzeichen neu erzeugt</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">Test-Wasserzeichen entfernt</sys:String>
+    <sys:String x:Key="ImageFileFilter">Bilddateien|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">TestWasserzeichen.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">Wasserzeichen-Bild gespeichert</sys:String>
+    <sys:String x:Key="SaveWatemarkError">Kein Wasserzeichen-Bild vorhanden!</sys:String>
+    <sys:String x:Key="AddPathSuccess">Ordner hinzugefügt</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">Ordner bearbeitet</sys:String>
+    <sys:String x:Key="DeletePathConfirm">Diesen Ordner löschen?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">Gelöscht</sys:String>
+    <sys:String x:Key="DeletePathError">Bitte zuerst einen Eintrag auswählen!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">Alle Ordner löschen?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">Geleert</sys:String>
+    <sys:String x:Key="ClearPathError">Keine Ordner konfiguriert!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">Ordner existiert nicht!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">Bitte zuerst einen Eintrag auswählen!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">Keine Ordner konfiguriert. Bitte Bildordner hinzufügen!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Wasserzeichen-Aufgabe gestartet...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Aufgabe läuft</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Wasserzeichen-Timer gestartet</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Wasserzeichen-Aufgabe gestoppt...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Aufgabe gestoppt</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Wasserzeichen-Timer gestoppt</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Alle Wasserzeichen-Dateien werden gelöscht und die Originalnamen wiederhergestellt. Nicht widerrufbar. Fortfahren?</sys:String>
+    <sys:String x:Key="StartResume">Wiederherstellung gestartet!</sys:String>
+    <sys:String x:Key="OverResume">Wiederherstellung abgeschlossen!</sys:String>
+    <sys:String x:Key="TaskingNextTry">Aufgabe läuft, bitte später erneut versuchen!</sys:String>
+    <sys:String x:Key="LogWatermark">Wasserzeichen-Datei: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” gelöscht</sys:String>
+    <sys:String x:Key="PriFile">Originaldatei: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” Name wiederhergestellt</sys:String>
+    <sys:String x:Key="StartAddWatermark">Wasserzeichen werden hinzugefügt...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Wasserzeichen abgeschlossen...</sys:String>
+    <sys:String x:Key="UnselectedPath">Ordnerliste leer oder nichts ausgewählt...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: abgeschlossen, Dauer:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Farbverlauf hinzufügen</sys:String>
+    <sys:String x:Key="GradientPointLimit">Bitte Wert zwischen 0 und 1 eingeben</sys:String>
+    <sys:String x:Key="GradientCountLimit">Farbverlauf benötigt mindestens 2 Farben!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Mindestens 2 Farben</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Diese Farbe löschen</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">Maximal 10 Farben</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Farbe hinzufügen</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Keine Farbverlaufsfarben</sys:String>
+
+    <sys:String x:Key="PathEmpty">Bildordner darf nicht leer sein!</sys:String>
+    <sys:String x:Key="TextEmpty">Wasserzeichentext darf nicht leer sein!</sys:String>
+    <sys:String x:Key="PathNotExist">Ordner existiert nicht. Trotzdem hinzufügen?</sys:String>
+    <sys:String x:Key="SamePathExist">Dieser Ordner wurde bereits hinzugefügt:</sys:String>
+    <sys:String x:Key="ChildPath">Über-/Unterordner-Beziehung zu vorhandenem Ordner:</sys:String>
+    <sys:String x:Key="ChildPathTip">„{0}“ enthält „{1}“, beide würden dieselben Dateien verarbeiten. Löschen Sie eine der Konfigurationen oder fügen Sie „{1}“ zu den ausgeschlossenen Unterordnern von „{0}“ hinzu.</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">Sprachdatei nicht gefunden:</sys:String>
+</ResourceDictionary>

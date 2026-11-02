@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource Value_Style}" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource Key_Style}" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}"/>
         <ListView Grid.Row="1" HorizontalContentAlignment="Stretch" ItemsSource="{Binding GradientColorList}">
             <ListView.ItemTemplate>
                 <DataTemplate>

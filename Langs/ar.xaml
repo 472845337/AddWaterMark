@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">إظهار النافذة</sys:String>
+    <sys:String x:Key="ExitApp">خروج</sys:String>
+
+    <sys:String x:Key="MainTitle">إضافة علامة مائية</sys:String>
+    <sys:String x:Key="GradientTitle">تدرج لوني</sys:String>
+    <sys:String x:Key="ImageTitle">صورة العلامة المائية</sys:String>
+    <sys:String x:Key="ImagePathTitle">مجلد الصور</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">الإعدادات</sys:String>
+    <sys:String x:Key="TabHeaderTask">المهام</sys:String>
+    <sys:String x:Key="TabHeaderHelp">المساعدة</sys:String>
+    <!--#region الإعدادات -->
+    <sys:String x:Key="Set_Text">نص العلامة المائية</sys:String>
+    <sys:String x:Key="Set_Opacity">التعتيم</sys:String>
+    <sys:String x:Key="Set_Rotate">التدوير</sys:String>
+    <sys:String x:Key="Set_Font_Family">الخط</sys:String>
+    <sys:String x:Key="Set_Font_Size">حجم الخط</sys:String>
+    <sys:String x:Key="Set_Font_Color">اللون</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">تدرج لوني</sys:String>
+    <sys:String x:Key="Set_Bold">عريض</sys:String>
+    <sys:String x:Key="Set_Italic">مائل</sys:String>
+    <sys:String x:Key="Set_Underline">تحته خط</sys:String>
+    <sys:String x:Key="Set_Strikeout">يتوسطه خط</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">التباعد الأفقي</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">التباعد الرأسي</sys:String>
+    <sys:String x:Key="Set_Default">الافتراضي</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">استعادة القيم الأولية</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">إلغاء التعديلات</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">حفظ التعديلات، وتُطبَّق على المهام أيضا</sys:String>
+
+    <sys:String x:Key="Test_Refresh">إعادة التوليد</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">يعيد توليد العلامة التجريبية لمعاينة الإعداد الجديد</sys:String>
+    <sys:String x:Key="Test_Img">اختيار صورة</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">توليد علامة مائية تجريبية على صورة محددة</sys:String>
+    <sys:String x:Key="Test_Clear">مسح</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">مسح العلامة التجريبية الحالية</sys:String>
+    <sys:String x:Key="Test_Save_Local">حفظ محليا</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">حفظ صورة العلامة المائية في مجلد محلي</sys:String>
+
+    <sys:String x:Key="Test">علامة مائية تجريبية</sys:String>
+    <sys:String x:Key="Test_Blank_Background">خلفية بيضاء</sys:String>
+    <sys:String x:Key="Test_Img_Background">خلفية صورة</sys:String>
+    <!--#endregion-->
+
+    <!--#region صفحة المهام -->
+    <sys:String x:Key="Path_Group">المجلدات</sys:String>
+
+    <sys:String x:Key="OpenDic">فتح المجلد</sys:String>
+
+    <sys:String x:Key="Text">العلامة المائية</sys:String>
+    <sys:String x:Key="Path">المجلد</sys:String>
+    <sys:String x:Key="IsChild">المجلدات الفرعية</sys:String>
+    <sys:String x:Key="IncludeExt">الامتدادات المضمّنة</sys:String>
+    <sys:String x:Key="ExcludeExt">الامتدادات المستبعدة</sys:String>
+    <sys:String x:Key="ExcludeChildDir">المجلدات الفرعية المستبعدة</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">لا يمكن استبعاد المجلد الرئيسي نفسه</sys:String>
+
+    <sys:String x:Key="IncludeChild">تضمين</sys:String>
+    <sys:String x:Key="ExcludeChild">عدم التضمين</sys:String>
+
+    <sys:String x:Key="Add">إضافة</sys:String>
+    <sys:String x:Key="Update">تعديل</sys:String>
+    <sys:String x:Key="Delete">حذف</sys:String>
+    <sys:String x:Key="Clear">مسح الكل</sys:String>
+    <sys:String x:Key="Save">حفظ</sys:String>
+    <sys:String x:Key="Cancel">إلغاء</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">حذف ملفات العلامة المائية واستعادة الأسماء الأصلية</sys:String>
+    <sys:String x:Key="HandExecute">تنفيذ يدوي</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">تنفيذ مهمة العلامة المائية مرة واحدة يدويا</sys:String>
+    <sys:String x:Key="Task_Start">تشغيل</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">بدء المهمة: فحص الصور غير المعالَجة وإضافة العلامة تلقائيا</sys:String>
+    <sys:String x:Key="Task_Stop">إيقاف</sys:String>
+    <sys:String x:Key="Task_Interval">التكرار (دقيقة)</sys:String>
+
+    <sys:String x:Key="Log_Group">السجل</sys:String>
+    <sys:String x:Key="Log_Scroll_End">تمرير تلقائي</sys:String>
+
+    <sys:String x:Key="Log_Clear">مسح السجل</sys:String>
+    <!--#endregion-->
+
+    <!--#region صفحة المساعدة -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">تعليمات الاستخدام</sys:String>
+    <sys:String x:Key="Help_Function">1. الوظائف:</sys:String>
+    <sys:String x:Key="Function_1">اختبار تأثير العلامة المائية وحفظ معالجة ملف واحد محليا</sys:String>
+    <sys:String x:Key="Function_2">مهمة إضافة علامة مائية لملفات الصور (بما فيها PDF) في المجلدات المُعدّة.</sys:String>
+    <sys:String x:Key="Function_2_Important">ملاحظة: PDF لا يدعم التدرج اللوني</sys:String>
+    <sys:String x:Key="Help_Manuals">2. طريقة الاستخدام:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). ضبط معاملات العلامة في لوحة الإعدادات</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">التعتيم: 100 تعتيم كامل,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">ملاحظة: 0 شفافية كاملة ولا تظهر العلامة</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">زاوية الدوران: من -180 إلى 180 درجة حول مركز اللوحة</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">الخط: يمكن اختيار أي خط في النظام,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">ملاحظة: العلامة الصينية تظهر مشوهة في معظم الخطوط اللاتينية</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">حجم الخط: حجم نص العلامة (بكسل)، راجع</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">رابط المقارنة</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">لون النص: لون واحد أو تدرج</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">نمط الخط: عريض، مائل، تحته خط، يتوسطه خط</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">التباعد الأفقي: الإزاحة الأفقية بين العلامات</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">التباعد الرأسي: الإزاحة الرأسية بين العلامات</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(التباعد الصغير يجعل العلامات متداخلة)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). إعداد المجلدات في لوحة المهام</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">أ. إعداد مجلد الصور لإضافة العلامة</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">ب- يدويا أو بالمهمة، إضافة العلامة للصور غير المعالَجة في المجلدات المُعدّة. تُعتبر الصورة معالَجة إذا وُجد ملف &quot;_pri.jpg&quot; في نفس المجلد</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">ج- تعرض لوحة السجل حالة تنفيذ المهام</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. الكود المصدري</sys:String>
+    <sys:String x:Key="Resources_Language">لغة التطوير: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">أداة التطوير: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">الكود المصدري</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. الإبلاغ عن خطأ</sys:String>
+    <sys:String x:Key="Bug_Email">أرسل بريدا إلى 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region الرسائل -->
+    <sys:String x:Key="Msgbox_Info">معلومات</sys:String>
+    <sys:String x:Key="Msgbox_Warn">تحذير</sys:String>
+    <sys:String x:Key="Msgbox_Error">خطأ</sys:String>
+    <sys:String x:Key="Exit_Confirm">هل تريد الخروج من البرنامج؟</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">توجد تعديلات غير محفوظة، هل تريد حفظها؟</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">تنبيه: PDF لا يدعم التدرج اللوني!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">تم تعديل التكرار إلى:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">استعادة القيم الأولية؟</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">تمت استعادة الإعدادات الافتراضية!</sys:String>
+    <sys:String x:Key="LogClearSuccess">تم مسح السجل!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">تم إلغاء التعديلات</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">تم حفظ الإعدادات</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">تم توليد العلامة المائية</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">تم تحديث العلامة المائية</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">تم مسح العلامة التجريبية</sys:String>
+    <sys:String x:Key="ImageFileFilter">ملفات الصور|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">TestWatermark.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">تم حفظ صورة العلامة المائية</sys:String>
+    <sys:String x:Key="SaveWatemarkError">لا توجد صورة علامة مائية!</sys:String>
+    <sys:String x:Key="AddPathSuccess">تمت إضافة المجلد</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">تم تعديل المجلد</sys:String>
+    <sys:String x:Key="DeletePathConfirm">حذف هذا المجلد؟</sys:String>
+    <sys:String x:Key="DeletePathSuccess">تم الحذف</sys:String>
+    <sys:String x:Key="DeletePathError">اختر عنصرا أولا!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">حذف جميع المجلدات؟</sys:String>
+    <sys:String x:Key="ClearPathSuccess">تم المسح</sys:String>
+    <sys:String x:Key="ClearPathError">قائمة المجلدات فارغة!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">المجلد غير موجود!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">اختر عنصرا أولا!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">قائمة المجلدات فارغة، أضف مجلد صور!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">بدأت مهمة العلامة المائية...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">المهمة قيد التنفيذ</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">تم تشغيل مؤقت العلامة المائية</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">توقفت مهمة العلامة المائية...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">المهمة متوقفة</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">تم إيقاف مؤقت العلامة المائية</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">سيتم حذف جميع ملفات العلامة المائية واستعادة الأسماء الأصلية. لا يمكن التراجع. متابعة؟</sys:String>
+    <sys:String x:Key="StartResume">بدء الاستعادة!</sys:String>
+    <sys:String x:Key="OverResume">اكتملت الاستعادة!</sys:String>
+    <sys:String x:Key="TaskingNextTry">المهمة قيد المعالجة، حاول لاحقا!</sys:String>
+    <sys:String x:Key="LogWatermark">ملف العلامة: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” تم حذفه</sys:String>
+    <sys:String x:Key="PriFile">الملف الأصلي: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” تم استعادة الاسم</sys:String>
+    <sys:String x:Key="StartAddWatermark">بدء إضافة العلامة المائية...</sys:String>
+    <sys:String x:Key="OverAddWatermark">اكتملت إضافة العلامة المائية...</sys:String>
+    <sys:String x:Key="UnselectedPath">قائمة المجلدات فارغة أو لم يتم تحديد أي مجلد...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: اكتملت، الوقت:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">إضافة تدرج</sys:String>
+    <sys:String x:Key="GradientPointLimit">أدخل قيمة بين 0 و 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">التدرج يحتاج لونين على الأقل!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">لونان على الأقل</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">حذف هذا اللون</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">10 ألوان كحد أقصى</sys:String>
+    <sys:String x:Key="GradientAddTooltip">إضافة لون</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">لا توجد ألوان تدرج</sys:String>
+
+    <sys:String x:Key="PathEmpty">يجب إدخال مجلد الصور!</sys:String>
+    <sys:String x:Key="TextEmpty">يجب إدخال نص العلامة المائية!</sys:String>
+    <sys:String x:Key="PathNotExist">المجلد غير موجود، متابعة الإضافة؟</sys:String>
+    <sys:String x:Key="SamePathExist">تمت إضافة هذا المجلد مسبقا:</sys:String>
+    <sys:String x:Key="ChildPath">توجد علاقة احتواء مع مجلد مضاف مسبقا:</sys:String>
+    <sys:String x:Key="ChildPathTip">«{0}» يحتوي «{1}»، وكلا الإعدادين سيعالج نفس الملفات. احذف أحدهما أو أضف «{1}» إلى المجلدات الفرعية المستبعدة في «{0}».</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">لم يتم العثور على ملف اللغة:</sys:String>
+</ResourceDictionary>

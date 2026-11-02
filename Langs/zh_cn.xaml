@@ -55,6 +55,8 @@
     <sys:String x:Key="IsChild">子目录</sys:String>
     <sys:String x:Key="IncludeExt">包含扩展</sys:String>
     <sys:String x:Key="ExcludeExt">排除扩展</sys:String>
+    <sys:String x:Key="ExcludeChildDir">排除子目录</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">排除的子目录不能是主目录本身</sys:String>
 
     <sys:String x:Key="IncludeChild">包含</sys:String>
     <sys:String x:Key="ExcludeChild">不包含</sys:String>
@@ -137,7 +139,7 @@
     <sys:String x:Key="ClearWatemarkSuccess">清除水印图片成功</sys:String>
     <sys:String x:Key="ImageFileFilter">图片文件|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
     <sys:String x:Key="SaveWatermarkFileName">测试水印.jpg</sys:String>
-    <sys:String x:Key="SaveWatemarkSuccess">清除水印图片成功</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">保存水印图片成功</sys:String>
     <sys:String x:Key="SaveWatemarkError">不存在水印图片！</sys:String>
     <sys:String x:Key="AddPathSuccess">添加目录成功</sys:String>
     <sys:String x:Key="UpdatePathSuccess">修改目录成功</sys:String>
@@ -184,6 +186,7 @@
     <sys:String x:Key="PathNotExist">当前配置目录不存在，确认继续添加吗？</sys:String>
     <sys:String x:Key="SamePathExist">您已添加相同的目录：</sys:String>
     <sys:String x:Key="ChildPath">您已添加目录存在包含关系：</sys:String>
+    <sys:String x:Key="ChildPathTip">「{0}」包含「{1}」，两者会处理同一批文件。请删除其中一条目录配置，或在「{0}」的排除子目录中加入「{1}」。</sys:String>
 
     <sys:String x:Key="LangFileUnfind">未找到语言配置文件:</sys:String>
 </ResourceDictionary>

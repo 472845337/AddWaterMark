@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="ShowWindow">Mostra finestra</sys:String>
+    <sys:String x:Key="ExitApp">Esci</sys:String>
+
+    <sys:String x:Key="MainTitle">Aggiungi filigrana</sys:String>
+    <sys:String x:Key="GradientTitle">Gradiente</sys:String>
+    <sys:String x:Key="ImageTitle">Immagine filigrana</sys:String>
+    <sys:String x:Key="ImagePathTitle">Cartella immagini</sys:String>
+
+    <sys:String x:Key="TabHeaderConfig">Configurazione</sys:String>
+    <sys:String x:Key="TabHeaderTask">Attività</sys:String>
+    <sys:String x:Key="TabHeaderHelp">Aiuto</sys:String>
+    <!--#region Configurazione -->
+    <sys:String x:Key="Set_Text">Testo filigrana</sys:String>
+    <sys:String x:Key="Set_Opacity">Opacità</sys:String>
+    <sys:String x:Key="Set_Rotate">Rotazione</sys:String>
+    <sys:String x:Key="Set_Font_Family">Carattere</sys:String>
+    <sys:String x:Key="Set_Font_Size">Dimensione carattere</sys:String>
+    <sys:String x:Key="Set_Font_Color">Colore</sys:String>
+    <sys:String x:Key="Set_Is_Gradient_Color">Gradiente</sys:String>
+    <sys:String x:Key="Set_Bold">Grassetto</sys:String>
+    <sys:String x:Key="Set_Italic">Corsivo</sys:String>
+    <sys:String x:Key="Set_Underline">Sottolineato</sys:String>
+    <sys:String x:Key="Set_Strikeout">Barrato</sys:String>
+    <sys:String x:Key="Set_Horizental_Dis">Distanza orizzontale</sys:String>
+    <sys:String x:Key="Set_Vertical_Dis">Distanza verticale</sys:String>
+    <sys:String x:Key="Set_Default">Predefinito</sys:String>
+    <sys:String x:Key="Set_Default_ToolTip">Ripristina valori iniziali</sys:String>
+    <sys:String x:Key="Set_Cancel_ToolTip">Annulla modifiche</sys:String>
+    <sys:String x:Key="Set_Save_ToolTip">Salva modifiche, applicato anche alle attività</sys:String>
+
+    <sys:String x:Key="Test_Refresh">Rigenera</sys:String>
+    <sys:String x:Key="Test_Refresh_ToolTip">Rigenera la filigrana di prova per vedere il nuovo effetto</sys:String>
+    <sys:String x:Key="Test_Img">Scegli immagine</sys:String>
+    <sys:String x:Key="Test_Img_ToolTip">Genera una filigrana di prova su un'immagine</sys:String>
+    <sys:String x:Key="Test_Clear">Pulisci</sys:String>
+    <sys:String x:Key="Test_Clear_ToolTip">Rimuove la filigrana di prova attuale</sys:String>
+    <sys:String x:Key="Test_Save_Local">Salva in locale</sys:String>
+    <sys:String x:Key="Test_Save_Local_ToolTip">Salva l'immagine con filigrana in una cartella locale</sys:String>
+
+    <sys:String x:Key="Test">Filigrana di prova</sys:String>
+    <sys:String x:Key="Test_Blank_Background">Sfondo bianco</sys:String>
+    <sys:String x:Key="Test_Img_Background">Sfondo immagine</sys:String>
+    <!--#endregion-->
+
+    <!--#region Pagina attività -->
+    <sys:String x:Key="Path_Group">Cartelle</sys:String>
+
+    <sys:String x:Key="OpenDic">Apri cartella</sys:String>
+
+    <sys:String x:Key="Text">Filigrana</sys:String>
+    <sys:String x:Key="Path">Cartella</sys:String>
+    <sys:String x:Key="IsChild">Sottocartelle</sys:String>
+    <sys:String x:Key="IncludeExt">Estensioni incluse</sys:String>
+    <sys:String x:Key="ExcludeExt">Estensioni escluse</sys:String>
+    <sys:String x:Key="ExcludeChildDir">Sottocartelle escluse</sys:String>
+    <sys:String x:Key="ExcludeChildPickRootError">La cartella principale stessa non può essere esclusa</sys:String>
+
+    <sys:String x:Key="IncludeChild">Includi</sys:String>
+    <sys:String x:Key="ExcludeChild">Non includere</sys:String>
+
+    <sys:String x:Key="Add">Aggiungi</sys:String>
+    <sys:String x:Key="Update">Modifica</sys:String>
+    <sys:String x:Key="Delete">Elimina</sys:String>
+    <sys:String x:Key="Clear">Svuota</sys:String>
+    <sys:String x:Key="Save">Salva</sys:String>
+    <sys:String x:Key="Cancel">Annulla</sys:String>
+
+    <sys:String x:Key="Resume_ToolTip">Elimina i file con filigrana e ripristina i nomi originali</sys:String>
+    <sys:String x:Key="HandExecute">Esecuzione manuale</sys:String>
+    <sys:String x:Key="HandExecute_ToolTip">Esegue una volta l'attività di filigrana</sys:String>
+    <sys:String x:Key="Task_Start">Avvia</sys:String>
+    <sys:String x:Key="Task_Start_ToolTip">Avvia l'attività: cerca immagini senza filigrana e la applica automaticamente</sys:String>
+    <sys:String x:Key="Task_Stop">Ferma</sys:String>
+    <sys:String x:Key="Task_Interval">Frequenza (min)</sys:String>
+
+    <sys:String x:Key="Log_Group">Registro</sys:String>
+    <sys:String x:Key="Log_Scroll_End">Scorrimento automatico</sys:String>
+
+    <sys:String x:Key="Log_Clear">Svuota registro</sys:String>
+    <!--#endregion-->
+
+    <!--#region Pagina di aiuto -->
+    <sys:String x:Key="Indentation">&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation1">&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Indentation2">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</sys:String>
+    <sys:String x:Key="Help_Title">Istruzioni</sys:String>
+    <sys:String x:Key="Help_Function">1. Funzioni:</sys:String>
+    <sys:String x:Key="Function_1">Testare l'effetto della filigrana e salvare in locale l'elaborazione di un file</sys:String>
+    <sys:String x:Key="Function_2">Attività di filigrana sulle immagini (PDF incluso) nelle cartelle configurate.</sys:String>
+    <sys:String x:Key="Function_2_Important">Nota: il PDF non supporta il gradiente</sys:String>
+    <sys:String x:Key="Help_Manuals">2. Utilizzo:</sys:String>
+    <sys:String x:Key="Manuals_Config">(1). Impostare i parametri nel pannello di configurazione</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity">Opacità: 100 = completamente opaco,</sys:String>
+    <sys:String x:Key="Manuals_Config_Opacity_Important">Nota: 0 = completamente trasparente, filigrana invisibile</sys:String>
+    <sys:String x:Key="Manuals_Config_Rotate">Angolo: da -180 a 180 gradi, rotazione attorno al centro del pannello</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily">Carattere: tutti i caratteri di sistema,</sys:String>
+    <sys:String x:Key="Manuals_Config_FontFamily_Important">Nota: le filigrane cinesi risultano errate con la maggior parte dei caratteri occidentali</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize">Dimensione: dimensione del testo (pixel), vedere</sys:String>
+    <sys:String x:Key="Manuals_Config_FontSize_Link">il link di corrispondenza</sys:String>
+    <sys:String x:Key="Manuals_Config_FontColor">Colore testo: tinta unita o gradiente</sys:String>
+    <sys:String x:Key="Manuals_Config_FontStyle">Stile: grassetto, corsivo, sottolineato, barrato</sys:String>
+    <sys:String x:Key="Manuals_Config_Horizontal_Dis">Distanza orizzontale: spostamento orizzontale tra filigrane</sys:String>
+    <sys:String x:Key="Manuals_Config_Vetical_Dis">Distanza verticale: spostamento verticale tra filigrane</sys:String>
+    <sys:String x:Key="Manuals_Config_Dis_Important">(distanze piccole = filigrane sovrapposte)</sys:String>
+
+    <sys:String x:Key="Manuals_Task">(2). Configurare le cartelle nel pannello attività</sys:String>
+    <sys:String x:Key="Manuals_Task_Path">a. Configurare la cartella immagini</sys:String>
+    <sys:String x:Key="Manuals_Task_Execute">b. Manualmente o tramite attività, applicare la filigrana alle immagini non elaborate nelle cartelle configurate. Un'immagine è elaborata se esiste un file &quot;_pri.jpg&quot; nella stessa cartella</sys:String>
+    <sys:String x:Key="Manuals_Task_Log">c. Il pannello registro mostra l'esecuzione delle attività</sys:String>
+
+    <sys:String x:Key="Help_Resources">3. Codice sorgente</sys:String>
+    <sys:String x:Key="Resources_Language">Linguaggio: C# WPF .NET Framework 4.5</sys:String>
+    <sys:String x:Key="Resources_Tool">Strumento: VS2019</sys:String>
+    <sys:String x:Key="Resources_Git">GitHub:</sys:String>
+    <sys:String x:Key="Resources_Git_Link">Codice sorgente</sys:String>
+
+    <sys:String x:Key="Help_Bug">4. Segnala un bug</sys:String>
+    <sys:String x:Key="Bug_Email">Invia un'email a 1320311706@qq.com</sys:String>
+    <!--#endregion-->
+
+    <!--#region Messaggi -->
+    <sys:String x:Key="Msgbox_Info">Informazione</sys:String>
+    <sys:String x:Key="Msgbox_Warn">Avviso</sys:String>
+    <sys:String x:Key="Msgbox_Error">Errore</sys:String>
+    <sys:String x:Key="Exit_Confirm">Uscire dal programma?</sys:String>
+    <sys:String x:Key="Exit_Save_Confirm">Ci sono modifiche, salvare la configurazione?</sys:String>
+    <sys:String x:Key="GradientColorUnsupportPdf">Nota: il PDF non supporta il gradiente!</sys:String>
+    <sys:String x:Key="ChangeTaskInterval">Frequenza modificata:</sys:String>
+    <sys:String x:Key="ConfigResumeDefault">Ripristinare i valori iniziali?</sys:String>
+    <sys:String x:Key="ConfigResumeDefaultSuccess">Configurazione predefinita ripristinata!</sys:String>
+    <sys:String x:Key="LogClearSuccess">Registro svuotato!</sys:String>
+    <sys:String x:Key="CancelUpdateSuccess">Modifiche annullate</sys:String>
+    <sys:String x:Key="SaveSettingsSuccess">Configurazione salvata</sys:String>
+    <sys:String x:Key="CreateWatemarkSuccess">Filigrana generata</sys:String>
+    <sys:String x:Key="RefreshWatemarkSuccess">Filigrana rigenerata</sys:String>
+    <sys:String x:Key="ClearWatemarkSuccess">Filigrana di prova rimossa</sys:String>
+    <sys:String x:Key="ImageFileFilter">Immagini|*.jpg;*.jpeg;*.bmp;*.png</sys:String>
+    <sys:String x:Key="SaveWatermarkFileName">TestFiligrana.jpg</sys:String>
+    <sys:String x:Key="SaveWatemarkSuccess">Immagine con filigrana salvata</sys:String>
+    <sys:String x:Key="SaveWatemarkError">Nessuna immagine con filigrana!</sys:String>
+    <sys:String x:Key="AddPathSuccess">Cartella aggiunta</sys:String>
+    <sys:String x:Key="UpdatePathSuccess">Cartella modificata</sys:String>
+    <sys:String x:Key="DeletePathConfirm">Eliminare questa cartella?</sys:String>
+    <sys:String x:Key="DeletePathSuccess">Eliminata</sys:String>
+    <sys:String x:Key="DeletePathError">Selezionare prima un elemento!</sys:String>
+    <sys:String x:Key="ClearPathConfirm">Eliminare tutte le cartelle?</sys:String>
+    <sys:String x:Key="ClearPathSuccess">Svuotato</sys:String>
+    <sys:String x:Key="ClearPathError">Nessuna cartella configurata!</sys:String>
+    <sys:String x:Key="OpenPathUnexistError">La cartella non esiste!</sys:String>
+    <sys:String x:Key="OpenPathUnselectError">Selezionare prima un elemento!</sys:String>
+    <sys:String x:Key="WatermarkExecuteNoPath">Nessuna cartella configurata. Aggiungere una cartella immagini!</sys:String>
+    <sys:String x:Key="WatermarkTaskStarted">Attività filigrana avviata...</sys:String>
+    <sys:String x:Key="WatermarkTaskRunning">Attività in esecuzione</sys:String>
+    <sys:String x:Key="WatermarkTaskStartedMsg">Timer filigrana avviato</sys:String>
+    <sys:String x:Key="WatermarkTaskStoped">Attività filigrana fermata...</sys:String>
+    <sys:String x:Key="WatermarkTaskUnrun">Attività ferma</sys:String>
+    <sys:String x:Key="WatermarkTaskStopedMsg">Timer filigrana fermato</sys:String>
+    <sys:String x:Key="WatermarkFilesResume">Tutti i file con filigrana saranno eliminati e gli originali ripristinati. Operazione irreversibile. Continuare?</sys:String>
+    <sys:String x:Key="StartResume">Ripristino avviato!</sys:String>
+    <sys:String x:Key="OverResume">Ripristino completato!</sys:String>
+    <sys:String x:Key="TaskingNextTry">Attività in corso, riprovare più tardi!</sys:String>
+    <sys:String x:Key="LogWatermark">File con filigrana: “</sys:String>
+    <sys:String x:Key="LogWatermarkDelSuccess">” eliminato</sys:String>
+    <sys:String x:Key="PriFile">File originale: “</sys:String>
+    <sys:String x:Key="ResumeNameSuccess">” nome ripristinato</sys:String>
+    <sys:String x:Key="StartAddWatermark">Applicazione filigrane avviata...</sys:String>
+    <sys:String x:Key="OverAddWatermark">Applicazione filigrane completata...</sys:String>
+    <sys:String x:Key="UnselectedPath">Elenco cartelle vuoto o nessuna selezione...</sys:String>
+    <sys:String x:Key="WatermarkSpendTime">: completato, tempo:</sys:String>
+    <!--#endregion-->
+
+    <sys:String x:Key="AddGradientPoint">Aggiungi gradiente</sys:String>
+    <sys:String x:Key="GradientPointLimit">Inserire un valore tra 0 e 1</sys:String>
+    <sys:String x:Key="GradientCountLimit">Il gradiente richiede almeno 2 colori!</sys:String>
+    <sys:String x:Key="GradientCountTooltip">Minimo 2 colori</sys:String>
+    <sys:String x:Key="GradientDeleteTooltip">Elimina questo colore</sys:String>
+    <sys:String x:Key="GradientCountMaxTooltip">Massimo 10 colori</sys:String>
+    <sys:String x:Key="GradientAddTooltip">Aggiungi colore</sys:String>
+    <sys:String x:Key="GradientEmptyTooltip">Nessun colore gradiente</sys:String>
+
+    <sys:String x:Key="PathEmpty">La cartella immagini è obbligatoria!</sys:String>
+    <sys:String x:Key="TextEmpty">Il testo filigrana è obbligatorio!</sys:String>
+    <sys:String x:Key="PathNotExist">La cartella non esiste, continuare?</sys:String>
+    <sys:String x:Key="SamePathExist">Cartella già aggiunta:</sys:String>
+    <sys:String x:Key="ChildPath">Relazione di inclusione con una cartella già aggiunta:</sys:String>
+    <sys:String x:Key="ChildPathTip">«{0}» contiene «{1}»: entrambe le configurazioni elaborerebbero gli stessi file. Eliminarne una o aggiungere «{1}» alle sottocartelle escluse di «{0}».</sys:String>
+
+    <sys:String x:Key="LangFileUnfind">File lingua non trovato:</sys:String>
+</ResourceDictionary>

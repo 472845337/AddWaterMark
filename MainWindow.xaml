@@ -42,10 +42,10 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Text}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBox_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
-                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Opacity}"/>
-                    <Grid Grid.Row="0" Grid.Column="3" Style="{StaticResource Value_Style}">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Key_Style}" Text="{DynamicResource Set_Text}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Value_Style}" Text="{Binding WaterMarkText, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource Key_Style}" Text="{DynamicResource Set_Opacity}"/>
+                    <Grid Grid.Row="0" Grid.Column="3" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="35"/>
@@ -54,8 +54,8 @@
                         <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="100" Minimum="0" TickFrequency="5" Value="{Binding WaterMarkOpacity}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkOpacity}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Content="{DynamicResource Set_Rotate}"/>
-                    <Grid Grid.Row="0" Grid.Column="5" Style="{StaticResource Value_Style}">
+                    <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource Key_Style}" Text="{DynamicResource Set_Rotate}"/>
+                    <Grid Grid.Row="0" Grid.Column="5" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="35"/>
@@ -63,7 +63,7 @@
                         <Slider Style="{StaticResource Slider_Style}" Grid.Column="0" Maximum="180" Minimum="-180" TickFrequency="5" Value="{Binding WaterMarkRotate}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkRotate}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" Content="{DynamicResource Set_Font_Family}"/>
+                    <TextBlock Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="0" Text="{DynamicResource Set_Font_Family}"/>
                     <ComboBox Style="{StaticResource Value_Style}" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" IsReadOnly="True" ItemsSource="{Binding SystemFonts}" SelectedValue="{Binding WaterMarkFontFamily}" SelectionChanged="Configs_Changed">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -71,8 +71,8 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="2" Content="{DynamicResource Set_Font_Size}"/>
-                    <Grid Style="{StaticResource Value_Style}" Grid.Row="1" Grid.Column="3">
+                    <TextBlock Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="2" Text="{DynamicResource Set_Font_Size}"/>
+                    <Grid Grid.Row="1" Grid.Column="3" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="35"/>
@@ -80,36 +80,36 @@
                         <Slider Grid.Column="0" Style="{StaticResource Slider_Style}" Maximum="80" Minimum="4" TickFrequency="2" Value="{Binding WaterMarkFontSize}" Thumb.DragCompleted="Configs_Changed"/>
                         <Label Grid.Column="1" VerticalContentAlignment="Center" Content="{Binding WaterMarkFontSize}" HorizontalContentAlignment="Right"/>
                     </Grid>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Content="{DynamicResource Set_Font_Color}"/>
-                    <Grid Grid.Row="1" Grid.Column="5">
+                    <TextBlock Style="{StaticResource Key_Style}" Grid.Row="1" Grid.Column="4" Text="{DynamicResource Set_Font_Color}"/>
+                    <Grid Grid.Row="1" Grid.Column="5" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{StaticResource Value_Style}" Background="{Binding WaterMarkFontColor}" MouseLeftButtonUp="FontColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2CollapsedConverter}}"/>
-                        <Border Style="{StaticResource Value_Style}" BorderBrush="Gray" BorderThickness="1">
+                        <TextBlock Grid.Column="0" Style="{StaticResource Form_Style}" Background="{Binding WaterMarkFontColor}" MouseLeftButtonUp="FontColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2CollapsedConverter}}"/>
+                        <Border BorderBrush="Gray" BorderThickness="1" Style="{StaticResource Form_Style}">
                             <TextBlock Grid.Column="0" Background="{Binding WaterMarkFontGradientColor,Converter={StaticResource GradientColorConverter}}" MouseLeftButtonUp="FontGradientColor_MouseLeftButtonUp" Visibility="{Binding WaterMarkFontIsGradient, Converter={StaticResource Boolean2VisibleConverter}}"/>
                         </Border>
-                        <CheckBox Grid.Column="1" Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Is_Gradient_Color}" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Grid.Column="1" Style="{StaticResource Value_Style}" Content="{DynamicResource Set_Is_Gradient_Color}" IsChecked="{Binding WaterMarkFontIsGradient}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
                     </Grid>
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Bold}" FontWeight="Bold" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" Content="{DynamicResource Set_Italic}" FontStyle="Italic" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed">
+                        <CheckBox Style="{StaticResource Value_Style}" Content="{DynamicResource Set_Bold}" FontWeight="Bold" IsChecked="{Binding WaterMarkFontBold}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource Value_Style}" Content="{DynamicResource Set_Italic}" FontStyle="Italic" IsChecked="{Binding WaterMarkFontItalic}" Checked="Configs_Changed" Unchecked="Configs_Changed"/>
+                        <CheckBox Style="{StaticResource Value_Style}" IsChecked="{Binding WaterMarkFontUnderline}" Checked="Configs_Changed" Unchecked="Configs_Changed">
                             <CheckBox.Content>
                                 <TextBlock Text="{DynamicResource Set_Underline}" TextDecorations="Underline"/>
                             </CheckBox.Content>
                         </CheckBox>
-                        <CheckBox Style="{StaticResource CheckBox_Style}" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed">
+                        <CheckBox Style="{StaticResource Value_Style}" IsChecked="{Binding WaterMarkFontStrikeout}" Checked="Configs_Changed" Unchecked="Configs_Changed">
                             <CheckBox.Content>
                                 <TextBlock Text="{DynamicResource Set_Strikeout}" TextDecorations="Strikethrough"/>
                             </CheckBox.Content>
                         </CheckBox>
                     </StackPanel>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Content="{DynamicResource Set_Horizental_Dis}"/>
-                    <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
-                    <Label Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Content="{DynamicResource Set_Vertical_Dis}"/>
-                    <TextBox Style="{StaticResource TextBox_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
+                    <TextBlock Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="2" Text="{DynamicResource Set_Horizental_Dis}"/>
+                    <TextBox Style="{StaticResource Value_Style}" Grid.Row="2" Grid.Column="3" Text="{Binding WaterMarkHorizontalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
+                    <TextBlock Style="{StaticResource Key_Style}" Grid.Row="2" Grid.Column="4" Text="{DynamicResource Set_Vertical_Dis}"/>
+                    <TextBox Style="{StaticResource Value_Style}" Grid.Row="2" Grid.Column="5" Text="{Binding WaterMarkVerticalDis, UpdateSourceTrigger=PropertyChanged}" TextChanged="Configs_Changed"/>
                     <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Style="{StaticResource ButtonPurple_Style}" Content="{DynamicResource Set_Default}" ToolTip="{DynamicResource Set_Default_ToolTip}" Command="{Binding DefaultConfigCommand}"/>
                         <Button Style="{StaticResource ButtonSuccess_Style}" Content="{DynamicResource Save}" ToolTip="{DynamicResource Set_Save_ToolTip}" Command="{Binding SaveConfigCommand}"/>
@@ -194,6 +194,7 @@
                                         <GridViewColumn Header="{DynamicResource IsChild}" Width="{Binding PathsViewColumn3, Mode=TwoWay}" DisplayMemberBinding="{Binding IsChildShow}"/>
                                         <GridViewColumn Header="{DynamicResource IncludeExt}" Width="{Binding PathsViewColumn4, Mode=TwoWay}" DisplayMemberBinding="{Binding IncludeExt}"/>
                                         <GridViewColumn Header="{DynamicResource ExcludeExt}" Width="{Binding PathsViewColumn5, Mode=TwoWay}" DisplayMemberBinding="{Binding ExcludeExt}"/>
+                                        <GridViewColumn Header="{DynamicResource ExcludeChildDir}" Width="{Binding PathsViewColumn6, Mode=TwoWay}" DisplayMemberBinding="{Binding ExcludeChild}"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

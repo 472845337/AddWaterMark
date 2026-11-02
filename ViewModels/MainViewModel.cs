@@ -125,6 +125,7 @@ namespace AddWaterMark.ViewModels {
         public double PathsViewColumn3 { get; set; }
         public double PathsViewColumn4 { get; set; }
         public double PathsViewColumn5 { get; set; }
+        public double PathsViewColumn6 { get; set; }
 
         public bool AllSelect { get; set; }
         public ObservableCollection<ImgFilePath> ImgFilePaths { get; set; }// 自动添加水印目录数据集合
@@ -694,7 +695,8 @@ namespace AddWaterMark.ViewModels {
                     WaterMark = imgFilePathWindow.vm.WaterMark,
                     IsChild = imgFilePathWindow.vm.IsChild,
                     IncludeExt = imgFilePathWindow.vm.IncludeExt,
-                    ExcludeExt = imgFilePathWindow.vm.ExcludeExt
+                    ExcludeExt = imgFilePathWindow.vm.ExcludeExt,
+                    ExcludeChild = imgFilePathWindow.vm.ExcludeChild
                 };
                 ServiceFactory.GetImgFilePathService().Insert(imgFilePath);
                 ImgFilePaths.Add(imgFilePath);
@@ -717,6 +719,7 @@ namespace AddWaterMark.ViewModels {
                     imgFilePath.IsChild = imgFilePathWindow.vm.IsChild;
                     imgFilePath.IncludeExt = imgFilePathWindow.vm.IncludeExt;
                     imgFilePath.ExcludeExt = imgFilePathWindow.vm.ExcludeExt;
+                    imgFilePath.ExcludeChild = imgFilePathWindow.vm.ExcludeChild;
                     ServiceFactory.GetImgFilePathService().Update(imgFilePath);
                     SetOperateMsg(Lang.Find("UpdatePathSuccess"));
                 }
@@ -910,7 +913,8 @@ namespace AddWaterMark.ViewModels {
             } else {
                 // 获取目录下所有图片文件
                 foreach (ImgFilePath imgFilePath in ImgFilePaths.Where(a => a.IsSelect).ToList()) {
-                    AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark, imgFilePath.IsChild, imgFilePath.IncludeExt, imgFilePath.ExcludeExt);
+                    AddImgFileList(imgFilePath.FilePath, imgFilePath.WaterMark, imgFilePath.IsChild, imgFilePath.IncludeExt, imgFilePath.ExcludeExt
+                        , ImgFilePath.GetExcludeChildList(imgFilePath.ExcludeChild), imgFilePath.FilePath);
                 }
                 if (fileListDic.Count > 0) {
                     Dictionary<string, List<string>> processListDic = new Dictionary<string, List<string>>();
@@ -994,7 +998,9 @@ namespace AddWaterMark.ViewModels {
         /// </summary>
         /// <param name="filepath">目录</param>
         /// <param name="waterMark">水印文本</param>
-        private void AddImgFileList(string filepath, string waterMark, bool? isChild, string includeExt, string excludeExt) {
+        /// <param name="excludeChildList">排除子目录名单</param>
+        /// <param name="rootPath">本次任务的主目录，用于计算子目录的相对路径</param>
+        private void AddImgFileList(string filepath, string waterMark, bool? isChild, string includeExt, string excludeExt, List<string> excludeChildList, string rootPath) {
             bool hasList = fileListDic.TryGetValue(waterMark, out List<string> list);
             if (!hasList) {
                 list = new List<string>();
@@ -1021,7 +1027,10 @@ namespace AddWaterMark.ViewModels {
                 if (null == isChild || true == isChild) {
                     // 递归列出所有子文件夹
                     foreach (string directory in Directory.GetDirectories(filepath)) {
-                        AddImgFileList(directory, waterMark, isChild, includeExt, excludeExt);
+                        if (ImgFilePath.IsExcludedChild(directory, rootPath, excludeChildList)) {
+                            continue;
+                        }
+                        AddImgFileList(directory, waterMark, isChild, includeExt, excludeExt, excludeChildList, rootPath);
                     }
                 }
             }

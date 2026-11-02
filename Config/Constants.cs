@@ -36,6 +36,7 @@
         public const string INI_KEY_PATHS_VIEW_COLUMN_3 = "Column3";
         public const string INI_KEY_PATHS_VIEW_COLUMN_4 = "Column4";
         public const string INI_KEY_PATHS_VIEW_COLUMN_5 = "Column5";
+        public const string INI_KEY_PATHS_VIEW_COLUMN_6 = "Column6";
         public const string INI_KEY_TAB2_SPLIT_DISTANCE = "SplitDistance";
 
         public const string INI_KEY_SCROLL_END = "ScrollEnd";
