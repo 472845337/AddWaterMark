@@ -1,6 +1,8 @@
 ﻿namespace AddWaterMark.Config {
     class Constants {
         public const string SET_FILE = "Set.ini";
+        public const string DbName = "watermark.db";// 数据库名
+        public const string DbPassword = "r4PdXkFrCvPyMCk4KNG3";// 数据库密码
 
         public const string INI_SECTION_WINDOW = "Window";
         public const string INI_SECTION_WATER_MARK = "WaterMark";

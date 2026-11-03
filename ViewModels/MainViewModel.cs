@@ -1,8 +1,7 @@
 ﻿using AddWaterMark.Beans;
 using AddWaterMark.Commands;
 using AddWaterMark.Config;
-using AddWaterMark.DataBase.Beans;
-using AddWaterMark.DataBase.Services;
+using AddWaterMark.Services;
 using AddWaterMark.Utils;
 using AddWaterMark.Windows;
 using iTextSharp.text.pdf;
@@ -698,7 +697,7 @@ namespace AddWaterMark.ViewModels {
                     ExcludeExt = imgFilePathWindow.vm.ExcludeExt,
                     ExcludeChild = imgFilePathWindow.vm.ExcludeChild
                 };
-                ServiceFactory.GetImgFilePathService().Insert(imgFilePath);
+                ImgFilePathService.Instance.Insert(imgFilePath);
                 ImgFilePaths.Add(imgFilePath);
                 SetOperateMsg(Lang.Find("AddPathSuccess"));
                 ImgFilePathsChanged();
@@ -720,7 +719,7 @@ namespace AddWaterMark.ViewModels {
                     imgFilePath.IncludeExt = imgFilePathWindow.vm.IncludeExt;
                     imgFilePath.ExcludeExt = imgFilePathWindow.vm.ExcludeExt;
                     imgFilePath.ExcludeChild = imgFilePathWindow.vm.ExcludeChild;
-                    ServiceFactory.GetImgFilePathService().Update(imgFilePath);
+                    ImgFilePathService.Instance.Update(imgFilePath);
                     SetOperateMsg(Lang.Find("UpdatePathSuccess"));
                 }
             }
@@ -736,7 +735,7 @@ namespace AddWaterMark.ViewModels {
             if (ImgFilePath_ListView.SelectedIndex > -1) {
                 if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("DeletePathConfirm"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
                     ImgFilePath selected = (ImgFilePath)ImgFilePath_ListView.SelectedItem;
-                    ServiceFactory.GetImgFilePathService().Delete(selected.Id);
+                    ImgFilePathService.Instance.Delete(selected.Id.ToString());
                     ImgFilePaths.Remove(selected);
                     SetOperateMsg(Lang.Find("DeletePathSuccess"));
                     ImgFilePathsChanged();
@@ -749,7 +748,7 @@ namespace AddWaterMark.ViewModels {
         private void ClearImgFilePath(object _) {
             if (ImgFilePaths.Count > 0) {
                 if (MessageBoxResult.OK == MessageBox.Show(Lang.Find("ClearPathConfirm"), Lang.Find("Msgbox_Warn"), MessageBoxButton.OKCancel)) {
-                    ServiceFactory.GetImgFilePathService().Clear();
+                    ImgFilePathService.Instance.Clear();
                     ImgFilePaths.Clear();
                     SetOperateMsg(Lang.Find("ClearPathSuccess"));
                     ImgFilePathsChanged();

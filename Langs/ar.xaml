@@ -112,8 +112,8 @@
     <sys:String x:Key="Manuals_Task_Log">ج- تعرض لوحة السجل حالة تنفيذ المهام</sys:String>
 
     <sys:String x:Key="Help_Resources">3. الكود المصدري</sys:String>
-    <sys:String x:Key="Resources_Language">لغة التطوير: C# WPF .NET Framework 4.5</sys:String>
-    <sys:String x:Key="Resources_Tool">أداة التطوير: VS2019</sys:String>
+    <sys:String x:Key="Resources_Language">لغة التطوير: C# WPF .Net Framework4.8</sys:String>
+    <sys:String x:Key="Resources_Tool">أداة التطوير: VS2022</sys:String>
     <sys:String x:Key="Resources_Git">GitHub:</sys:String>
     <sys:String x:Key="Resources_Git_Link">الكود المصدري</sys:String>
 

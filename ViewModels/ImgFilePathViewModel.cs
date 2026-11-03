@@ -1,4 +1,4 @@
-﻿using AddWaterMark.DataBase.Beans;
+﻿using AddWaterMark.Beans;
 using PropertyChanged;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

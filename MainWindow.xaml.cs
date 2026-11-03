@@ -1,7 +1,6 @@
 ﻿using AddWaterMark.Beans;
 using AddWaterMark.Config;
-using AddWaterMark.DataBase.Beans;
-using AddWaterMark.DataBase.Services;
+using AddWaterMark.Services;
 using AddWaterMark.Utils;
 using AddWaterMark.ViewModels;
 using AddWaterMark.Windows;
@@ -45,6 +44,7 @@ namespace AddWaterMark {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e) {
+            SqliteUtils.SqliteConfig.Init(Constants.DbName, Constants.DbPassword);
             var iniData = IniParserUtils.GetIniData(Constants.SET_FILE);
             #region 窗口尺寸位置和语言项
             string mainLeftStr = iniData[Constants.INI_SECTION_WINDOW][Constants.INI_KEY_LEFT];
@@ -138,7 +138,7 @@ namespace AddWaterMark {
             vm.Tab2SplitDistance = Configs.tab2SplitDistance;
             ImgFilePaths_Row.Height = new GridLength(Configs.tab2SplitDistance, GridUnitType.Pixel);
             // 图片水印目录数据
-            List<ImgFilePath> imgFilePathList = ServiceFactory.GetImgFilePathService().SelectList(null);
+            List<ImgFilePath> imgFilePathList = ImgFilePathService.Instance.SelectList(null);
             vm.ImgFilePaths = new System.Collections.ObjectModel.ObservableCollection<ImgFilePath>(imgFilePathList);
             vm.AllSelect = vm.ImgFilePaths.Where(a => !a.IsSelect).ToList().Count == 0;
             // 配置目录列表的GridView栏目宽度

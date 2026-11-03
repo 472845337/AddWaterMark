@@ -1,13 +1,18 @@
 ﻿
 using AddWaterMark.Beans;
 using PropertyChanged;
+using SqliteUtils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace AddWaterMark.DataBase.Beans {
+namespace AddWaterMark.Beans {
+    [AddINotifyPropertyChangedInterface]
     [Table("t_img_file_path")]
-    public class ImgFilePath : TableData {
+    public class ImgFilePath : SqliteTableData {
+
+        [TableParam(true, "id", "INTEGER", true)]
+        public long? Id { get; set; }
         // 路径
         [TableParam("file_path", "VARCHAR")]
         public string FilePath { get; set; }
@@ -58,6 +63,33 @@ namespace AddWaterMark.DataBase.Beans {
                 }
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 归一化排除子目录项：主目录下的绝对路径转相对路径，主目录外的绝对路径只保留目录名，主目录本身返回空。
+        /// 兼容手输、粘贴（含资源管理器“复制文件地址”的引号形式），选择目录与保存共用
+        /// </summary>
+        public static string NormalizeExcludeChild(string value, string rootPath) {
+            if (string.IsNullOrWhiteSpace(value)) {
+                return string.Empty;
+            }
+            string item = value.Trim().Trim('"').Replace('/', '\\').Trim().TrimEnd('\\');
+            string root = string.IsNullOrWhiteSpace(rootPath) ? string.Empty : rootPath.Trim().Replace('/', '\\').TrimEnd('\\');
+            if (item.Length == 0) {
+                return string.Empty;
+            }
+            if (root.Length > 0) {
+                if (item.Equals(root, StringComparison.OrdinalIgnoreCase)) {
+                    return string.Empty;// 主目录本身不能作为排除项
+                }
+                if (item.StartsWith(root + "\\", StringComparison.OrdinalIgnoreCase)) {
+                    return item.Substring(root.Length + 1);// 主目录之下：转相对路径
+                }
+            }
+            if (Path.IsPathRooted(item)) {
+                return Path.GetFileName(item);// 主目录之外的绝对路径：只保留目录名（任意层级同名生效）
+            }
+            return item;// 已是相对路径或纯目录名
         }
 
         /// <summary>

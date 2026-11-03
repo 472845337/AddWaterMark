@@ -41,10 +41,27 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\logo\picture.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
@@ -92,17 +109,8 @@
     <Compile Include="Converters\IsChildExcludeConverter.cs" />
     <Compile Include="Converters\IsChildIncludeConverter.cs" />
     <Compile Include="Converters\PointConverter.cs" />
-    <Compile Include="DataBase\Beans\ImgFilePath.cs" />
-    <Compile Include="DataBase\Services\ImgFilePathService.cs" />
-    <Compile Include="DataBase\Table.cs" />
-    <Compile Include="DataBase\TableData.cs" />
-    <Compile Include="DataBase\TableParam.cs" />
-    <Compile Include="DataBase\ClsLock.cs" />
-    <Compile Include="DataBase\DBConstants.cs" />
-    <Compile Include="DataBase\SQLiteFactory.cs" />
-    <Compile Include="DataBase\SQLiteHelper.cs" />
-    <Compile Include="DataBase\ServiceFactory.cs" />
-    <Compile Include="DataBase\TableService.cs" />
+    <Compile Include="Beans\ImgFilePath.cs" />
+    <Compile Include="Services\ImgFilePathService.cs" />
     <Compile Include="Utils\DllUtils.cs" />
     <Compile Include="Utils\FontsUtils.cs" />
     <Compile Include="Utils\GifEncoder.cs" />
@@ -269,6 +277,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo\rainbow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SQLiteUtils\SqliteUtils.csproj">
+      <Project>{9bbec340-2652-4190-b094-fa6e7f40713d}</Project>
+      <Name>SqliteUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.6.4\build\Fody.targets" Condition="Exists('packages\Fody.6.6.4\build\Fody.targets')" />

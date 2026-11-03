@@ -112,8 +112,8 @@
     <sys:String x:Key="Manuals_Task_Log">c. El panel de registro muestra la ejecución de las tareas</sys:String>
 
     <sys:String x:Key="Help_Resources">3. Código fuente</sys:String>
-    <sys:String x:Key="Resources_Language">Lenguaje: C# WPF .NET Framework 4.5</sys:String>
-    <sys:String x:Key="Resources_Tool">Herramienta: VS2019</sys:String>
+    <sys:String x:Key="Resources_Language">Lenguaje: C# WPF .Net Framework4.8</sys:String>
+    <sys:String x:Key="Resources_Tool">Herramienta: VS2022</sys:String>
     <sys:String x:Key="Resources_Git">GitHub:</sys:String>
     <sys:String x:Key="Resources_Git_Link">Código fuente</sys:String>
 

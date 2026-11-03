@@ -112,8 +112,8 @@
     <sys:String x:Key="Manuals_Task_Log">c. 로그 패널에 작업 실행 상황이 표시됩니다</sys:String>
 
     <sys:String x:Key="Help_Resources">3. 소스 코드</sys:String>
-    <sys:String x:Key="Resources_Language">개발 언어: C# WPF .NET Framework 4.5</sys:String>
-    <sys:String x:Key="Resources_Tool">개발 도구: VS2019</sys:String>
+    <sys:String x:Key="Resources_Language">개발 언어: C# WPF .Net Framework4.8</sys:String>
+    <sys:String x:Key="Resources_Tool">개발 도구: VS2022</sys:String>
     <sys:String x:Key="Resources_Git">GitHub 주소:</sys:String>
     <sys:String x:Key="Resources_Git_Link">소스 코드</sys:String>
 

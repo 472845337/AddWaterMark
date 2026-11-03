@@ -112,8 +112,8 @@
     <sys:String x:Key="Manuals_Task_Log">c.ログパネルにタスクの実行状況が表示されます</sys:String>
 
     <sys:String x:Key="Help_Resources">3.ソースコード</sys:String>
-    <sys:String x:Key="Resources_Language">開発言語：C# WPF .NET Framework 4.5</sys:String>
-    <sys:String x:Key="Resources_Tool">開発環境：VS2019</sys:String>
+    <sys:String x:Key="Resources_Language">開発言語：C# WPF .Net Framework4.8</sys:String>
+    <sys:String x:Key="Resources_Tool">開発環境：VS2022</sys:String>
     <sys:String x:Key="Resources_Git">GitHub：</sys:String>
     <sys:String x:Key="Resources_Git_Link">ソースコード</sys:String>
 

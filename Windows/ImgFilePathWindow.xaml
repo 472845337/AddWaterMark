@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddWaterMark.Windows"
         mc:Ignorable="d"
-        Title="{DynamicResource ImagePathTitle}" Height="Auto" Width="380" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/logo/img_file_path.ico">
+        Title="{DynamicResource ImagePathTitle}" SizeToContent="Height" Width="380" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/logo/img_file_path.ico">
     <Grid Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="36"/>

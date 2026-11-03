@@ -112,8 +112,8 @@
     <sys:String x:Key="Manuals_Task_Log">c. Le journal affiche l'état d'exécution des tâches</sys:String>
 
     <sys:String x:Key="Help_Resources">3. Code source</sys:String>
-    <sys:String x:Key="Resources_Language">Langage : C# WPF .NET Framework 4.5</sys:String>
-    <sys:String x:Key="Resources_Tool">Outil : VS2019</sys:String>
+    <sys:String x:Key="Resources_Language">Langage : C# WPF .Net Framework4.8</sys:String>
+    <sys:String x:Key="Resources_Tool">Outil : VS2022</sys:String>
     <sys:String x:Key="Resources_Git">GitHub :</sys:String>
     <sys:String x:Key="Resources_Git_Link">Code source</sys:String>
 

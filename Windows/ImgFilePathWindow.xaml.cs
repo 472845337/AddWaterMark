@@ -1,5 +1,4 @@
 ﻿using AddWaterMark.Beans;
-using AddWaterMark.DataBase.Beans;
 using AddWaterMark.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ namespace AddWaterMark.Windows {
         public ImgFilePathViewModel vm = new ImgFilePathViewModel();
         public ImgFilePathWindow(ImgFilePath imgFilePath, ObservableCollection<ImgFilePath> imgFilePaths) {
             InitializeComponent();
+            SourceInitialized += Window_SourceInitialized;
             if (null != imgFilePath) {
                 vm.Id = imgFilePath.Id;
                 vm.FilePath = imgFilePath.FilePath;
@@ -40,6 +40,34 @@ namespace AddWaterMark.Windows {
         private void Window_Loaded(object sender, RoutedEventArgs e) {
             DataContext = vm;
         }
+
+        #region 窗口尺寸：自适应内容高度，用户手动调整后切换为普通窗口，由列表区域吸收多出的空间
+        private const int WM_SIZING = 0x0214;// 用户拖动边框改变大小
+        private const int WM_SIZE = 0x0005;
+        private const int SIZE_MAXIMIZED = 2;
+        private bool manualSize = false;
+
+        private void Window_SourceInitialized(object sender, EventArgs e) {
+            IntPtr handle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+            System.Windows.Interop.HwndSource.FromHwnd(handle).AddHook(WndProc);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
+            // 用户拖动边框或最大化时，放弃高度自适应，转成普通窗口（否则内容不会跟随拉伸，底部留白）
+            if (!manualSize && (msg == WM_SIZING || (msg == WM_SIZE && (int)wParam == SIZE_MAXIMIZED))) {
+                manualSize = true;
+                SizeToContent = SizeToContent.Manual;
+                // 以自适应完成时的紧凑尺寸作为最小尺寸
+                if (MinHeight < ActualHeight) {
+                    MinHeight = ActualHeight;
+                }
+                if (MinWidth < ActualWidth) {
+                    MinWidth = ActualWidth;
+                }
+            }
+            return IntPtr.Zero;
+        }
+        #endregion
         private void Window_Closing(object sender, EventArgs e) {
             DataContext = null;
         }
@@ -64,8 +92,8 @@ namespace AddWaterMark.Windows {
                     return;
                 }
             }
-            // 排除子目录多行拼接成存储形式（重复校验需要用到，先拼接）
-            vm.ExcludeChild = ImgFilePath.JoinExcludeChildList(vm.ExcludeChildList.Select(item => item.Value).ToList());
+            // 排除子目录多行归一化后拼接成存储形式（重复校验需要用到，先拼接）
+            vm.ExcludeChild = ImgFilePath.JoinExcludeChildList(vm.ExcludeChildList.Select(item => ImgFilePath.NormalizeExcludeChild(item.Value, vm.FilePath)).ToList());
             bool isRepeatPath = GetRepeatPath(vm.Id, vm.FilePath, out string repeatPath, out string childPath, out string rootPath);
             if (isRepeatPath) {
                 if (!string.IsNullOrEmpty(repeatPath)) {
@@ -109,17 +137,12 @@ namespace AddWaterMark.Windows {
             }
             System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             if (System.Windows.Forms.DialogResult.OK == folderBrowserDialog.ShowDialog()) {
-                string picked = folderBrowserDialog.SelectedPath.TrimEnd('\\', '/');
-                string root = null == vm.FilePath ? string.Empty : vm.FilePath.TrimEnd('\\', '/');
-                if (!string.IsNullOrEmpty(root) && string.Equals(picked, root, StringComparison.OrdinalIgnoreCase)) {
+                string normalized = ImgFilePath.NormalizeExcludeChild(folderBrowserDialog.SelectedPath, vm.FilePath);
+                if (string.IsNullOrEmpty(normalized)) {
                     MessageBox.Show(Lang.Find("ExcludeChildPickRootError"), Lang.Find("Msgbox_Error"));
                     return;
                 }
-                if (!string.IsNullOrEmpty(root) && picked.StartsWith(root + "\\", StringComparison.OrdinalIgnoreCase)) {
-                    item.Value = picked.Substring(root.Length + 1);
-                } else {
-                    item.Value = Path.GetFileName(picked);
-                }
+                item.Value = normalized;
             }
         }
         #endregion
